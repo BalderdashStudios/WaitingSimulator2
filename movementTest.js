@@ -1,3 +1,6 @@
+let frameBuffer;
+let fbCam;
+
 //Modeling DEBUG
 let xInt = 0;
 let yInt = 0;
@@ -60,7 +63,7 @@ function preload() {
     deskTex = loadImage('Textures/BakeTabel.png');
     cabTex = loadImage('Textures/FilingCabnets1K.png');
     reflection1 = loadImage('Textures/Reflections/HDRI1.jpg');
-  debug = loadImage('Textures/Wall.png')
+    debug = loadImage('Textures/Wall.png')
     //doorTex = loadImage('Textures/DoorBake.png');
 
     //Load Reflection 360s
@@ -85,7 +88,9 @@ function preload() {
 function setup() {
     
   createCanvas(window.innerWidth, window.innerHeight, WEBGL);
-      cam = createCamera();
+      frameBuffer = createFramebuffer();
+      cam = frameBuffer.createCamera();
+      fbCam = createCamera();
       cam.perspective(PI / 3.0, width / height, 0.01, 10000);
       fullscreen();
       let millisecond = millis();
@@ -110,7 +115,7 @@ function setup() {
       zIntField.size(100)
   
   //Load Colliders
-  collider1 = new collider(xInt, yInt, 137, 'blue', 100, 200, 100, false);
+  collider1 = new collider(xInt, yInt, 137, 'blue', 100, 200, 100, false, true);
 
   //collider1.display();
 
@@ -123,10 +128,14 @@ function setup() {
 
 // Draw function: Main animation loop, runs every frame
 function draw() {
+    frameBuffer.begin();
     let xInt = xIntField.value();
     let yInt = yIntField.value();
     let zInt = zIntField.value();
-    
+
+  // Set the camera for the framebuffer.
+  setCamera(cam);
+  
     // Set the target frame rate
     frameRate(250);
 
@@ -135,74 +144,76 @@ function draw() {
     panorama(reflection1);
 
     // Disable outlines on shapes
-    noStroke();
 
     // Enable smooth rendering
     smooth();
   
-
+    //Collision Code
     for (let i = 0; i < colliders.length; i = i + 1) {
-      //colliders[i].display();
+      colliders[i].display();
       print("Displaying Colliders" + colliders.length)
-      if (!playerController.isColliding(colliders[i])) {
+      if (!playerController.isColliding(colliders[i], false)) {
 
         print('NOT Colliding!!!!!');
+          if (!playerController.isColliding(colliders[i], true) && colliders[i].bounds == true) 
+          {
+             print('NOT Colliding WITH BOUNDS!!!!!');
+            playerController.setlocation();
+          }
+        
         //playerClass.move(0,-1,0);
       }
       else {
         print('Colliding!!!!!');
-        if (playerController.isColliding(colliders[i]) && colliders[i].item == true) {
+        if (playerController.isColliding(colliders[i], false) && colliders[i].item == true) {
           items = items + 1;
           print('Collided with item');
-          //colliders[i].setZ();
-
         }
-        playerController.setlocation();
+        if (playerController.isColliding(colliders[i], false) && colliders[i].bounds == false) 
+        {
+          playerController.setlocation();
+          print("Not bounds");
+        }
       }
 
 
     }
-
-    //DEBUG COLLIDERS
-    push();
-    collider1.translate(xInt, yInt, 133);
-    pop();
   
     // Update and apply player camera
       playerController.handleMouseMovement(mx, my);
       playerController.updateCamera();
       mx = 0;
       my = 0;
-      // Check for collisions and handle movement
-        if (keys[87]) {
-          let collideup = checkCollision();
-          if (collideup == false) {
-            playerController.handleMovement();
-          }
-        }
 
-       if (keys[83]) {
-          let collidedown = checkCollision();
-          if (collidedown == false) {
-            playerController.handleMovement();
-          }
-        }
+  // 1. Collect input
+  let moveX = 0;
+  let moveZ = 0;
 
-       if (keys[65]) {
-          let collidedown = checkCollision();
-          if (collidedown == false) {
-            playerController.handleMovement();
-          }
-        }
+      if (keys[87]) { // W
+        moveX += 1;
+      }
+      if (keys[83]) { // S
+        moveZ -= 1;
+      }
+      if (keys[65]) { // A
+        moveX -= 2;
+      }
+      if (keys[68]) { // D
+        moveZ += 2;
+      }
+
+    // 2. Only move if there's input
+    if (moveX !== 0 || moveZ !== 0) {
+      // Optionally, check collision here for the intended direction
+      if (!checkCollision()) {
+        playerController.handleMovement(deltaTime);
+      }
+    }
+  //DEBUG COLLIDERS
+  push();
+  collider1.translate(xInt, yInt, zInt);
+  pop();
   
-        if (keys[68]) {
-          let collidedown = checkCollision();
-          if (collidedown == false) {
-            playerController.handleMovement();
-          }
-        }
-    
-
     // Rotate the view to match 3D world orientation
     rotateX(ang(90));
 
@@ -217,6 +228,7 @@ function draw() {
     //ambientLight(80);
    
     //translate(0, -1, -11);
+  noStroke();
   texture(floorTexture);
    model(floor);
   textureWrap(REPEAT);
@@ -272,6 +284,14 @@ function draw() {
     //rotateZ(ang(270));
     //texture(doorTex);
     //model(doors);
+
+    
+   frameBuffer.end();
+  setCamera(fbCam);
+  // Reset all transformations.
+  resetMatrix();
+  image(frameBuffer, -width / 2, -height / 2);
+  frameBuffer.pixelDensity(0.6);
 
     // Decrement timer every second (60 frames = 1 second)
     if (frameCount % 60 == 0 && timer > 0) {

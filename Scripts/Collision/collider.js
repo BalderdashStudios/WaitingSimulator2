@@ -1,6 +1,6 @@
 class collider 
 {
-  constructor(x, y, z, clr, sizeX, sizeY, sizeZ, isItem) {
+  constructor(x, y, z, clr, sizeX, sizeY, sizeZ, isItem, isBounds) {
     this.x = x;
     this.y = y;
     this.z = z;
@@ -9,11 +9,19 @@ class collider
     this.sizeY = sizeY;
     this.sizeZ = sizeZ;
     this.item = isItem;
+    this.bounds = isBounds;
   }
 
   display() {
     push();
-    fill(this.clr);
+    if(this.bounds == false) 
+    {
+      fill(this.clr);
+    }
+    else
+    {
+       stroke(255);
+    }
     translate(this.x, this.y, this.z);
     box(this.sizeX, this.sizeY, this.sizeZ);
     pop();
@@ -25,6 +33,16 @@ class collider
 
   getItem() {
     return this.item;
+  }
+
+  getBounds() 
+  {
+    return this.bounds;
+  }
+
+  setBounds(isBounds) 
+  {
+    this.bounds = isBounds;
   }
 
   getX()

@@ -97,13 +97,12 @@ class PlayerController {
   }
 
   move() {
-
-    this.lastx = this.x -1;
+    this.lastx = this.x;
     this.lasty = this.y;
-    this.lastz = this.z -1;
+    this.lastz = this.z;
   }
 
-  isColliding(collider, isBounds) {
+  isColliding(collider) {
     let obX = collider.getX();
     let obY = collider.getY();
     let obZ = collider.getZ();
@@ -113,14 +112,7 @@ class PlayerController {
     let obSizeZ = collider.getSizeZ();
 
     let colX = (this.x + this.size / 2 < obX - obSizeX / 2 || this.x - this.size / 2 > obX + obSizeX / 2 || this.y + this.size / 2 < obY - obSizeY / 2 || this.y - this.size / 2 > obY + obSizeY / 2 || this.z - this.size / 2 > obZ + obSizeZ / 2 || this.z + this.sizeZ / 2 < obZ - obSizeZ / 2);
-    
-    if (isBounds == false) 
-    {
-      return !(colX);
-    }
-    else 
-    {
-      return colX;
-    }
+
+    return !(colX);
   }
 }
