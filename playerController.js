@@ -90,20 +90,24 @@ class PlayerController {
 
   }
 
-  setlocation() {
+  resetLocation() {
     this.x = this.lastx;
     this.y = this.lasty;
     this.z = this.lastz;
   }
 
-  move() {
+  // move(dx, dy, dz) {
 
-    this.lastx = this.x -1;
-    this.lasty = this.y;
-    this.lastz = this.z -1;
-  }
+  //   this.lastx = this.x;
+  //   this.lasty = this.y;
+  //   this.lastz = this.z;
+    
+  //   this.x += dx;
+  //   this.y += dy;
+  //   this.z += dz;
+  // }
 
-  isColliding(collider, isBounds) {
+  isColliding(collider) {
     let obX = collider.getX();
     let obY = collider.getY();
     let obZ = collider.getZ();
@@ -112,15 +116,16 @@ class PlayerController {
     let obSizeY = collider.getSizeY();
     let obSizeZ = collider.getSizeZ();
 
-    let colX = (this.x + this.size / 2 < obX - obSizeX / 2 || this.x - this.size / 2 > obX + obSizeX / 2 || this.y + this.size / 2 < obY - obSizeY / 2 || this.y - this.size / 2 > obY + obSizeY / 2 || this.z - this.size / 2 > obZ + obSizeZ / 2 || this.z + this.sizeZ / 2 < obZ - obSizeZ / 2);
+    let colX = (
+      this.x + this.size / 2 < obX - obSizeX / 2 
+      || this.x - this.size / 2 > obX + obSizeX / 2 
+      
+      || this.y + this.size / 2 < obY - obSizeY / 2 
+      || this.y - this.size / 2 > obY + obSizeY / 2 
+      
+      || this.z - this.size / 2 > obZ + obSizeZ / 2 
+      || this.z + this.size / 2 < obZ - obSizeZ / 2);
     
-    if (isBounds == false) 
-    {
       return !(colX);
-    }
-    else 
-    {
-      return colX;
-    }
   }
 }

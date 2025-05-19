@@ -14,14 +14,7 @@ class collider
 
   display() {
     push();
-    if(this.bounds == false) 
-    {
-      fill(this.clr);
-    }
-    else
-    {
-       stroke(255);
-    }
+    fill(this.clr);
     translate(this.x, this.y, this.z);
     box(this.sizeX, this.sizeY, this.sizeZ);
     pop();
@@ -33,16 +26,6 @@ class collider
 
   getItem() {
     return this.item;
-  }
-
-  getBounds() 
-  {
-    return this.bounds;
-  }
-
-  setBounds(isBounds) 
-  {
-    this.bounds = isBounds;
   }
 
   getX()

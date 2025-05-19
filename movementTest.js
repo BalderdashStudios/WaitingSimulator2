@@ -115,7 +115,7 @@ function setup() {
       zIntField.size(100)
   
   //Load Colliders
-  collider1 = new collider(xInt, yInt, 137, 'blue', 100, 200, 100, false, true);
+  collider1 = new collider(xInt, yInt, 137, 'blue', 100, 200, 260, false);
 
   //collider1.display();
 
@@ -133,8 +133,8 @@ function draw() {
     let yInt = yIntField.value();
     let zInt = zIntField.value();
 
-  // Set the camera for the framebuffer.
-  setCamera(cam);
+    // Set the camera for the framebuffer.
+    setCamera(cam);
   
     // Set the target frame rate
     frameRate(250);
@@ -147,37 +147,6 @@ function draw() {
 
     // Enable smooth rendering
     smooth();
-  
-    //Collision Code
-    for (let i = 0; i < colliders.length; i = i + 1) {
-      colliders[i].display();
-      print("Displaying Colliders" + colliders.length)
-      if (!playerController.isColliding(colliders[i], false)) {
-
-        print('NOT Colliding!!!!!');
-          if (!playerController.isColliding(colliders[i], true) && colliders[i].bounds == true) 
-          {
-             print('NOT Colliding WITH BOUNDS!!!!!');
-            playerController.setlocation();
-          }
-        
-        //playerClass.move(0,-1,0);
-      }
-      else {
-        print('Colliding!!!!!');
-        if (playerController.isColliding(colliders[i], false) && colliders[i].item == true) {
-          items = items + 1;
-          print('Collided with item');
-        }
-        if (playerController.isColliding(colliders[i], false) && colliders[i].bounds == false) 
-        {
-          playerController.setlocation();
-          print("Not bounds");
-        }
-      }
-
-
-    }
   
     // Update and apply player camera
       playerController.handleMouseMovement(mx, my);
@@ -205,9 +174,10 @@ function draw() {
     // 2. Only move if there's input
     if (moveX !== 0 || moveZ !== 0) {
       // Optionally, check collision here for the intended direction
-      if (!checkCollision()) {
+      //if (!checkCollision()) {
         playerController.handleMovement(deltaTime);
-      }
+        checkCollision();
+      //}
     }
   //DEBUG COLLIDERS
   push();
@@ -320,10 +290,36 @@ function mouseClicked() {
 }
 
 function checkCollision() {
+  //Loop through colliders
   for (let i = 0; i < colliders.length; i = i + 1) {
+    colliders[i].display();
+    //Check if player is colliding
     if (playerController.isColliding(colliders[i])) {
+      playerController.resetLocation();
       return true;
     }
+    else
+    {
+        return false
+    }
   }
-  return false;
 }
+
+  //  for (let i = 0; i < colliders.length; i = i + 1) {
+  //     //colliders[i].display();
+  //     print("Displaying Colliders" + colliders.length)
+  //     if (!playerController.isColliding(colliders[i])) {
+
+  //       print('NOT Colliding!!!!!');
+  //       //playerController.move(0,-1,0);
+  //     }
+  //     else {
+  //       print('Colliding!!!!!');
+  //       if (playerController.isColliding(colliders[i]) && colliders[i].item == true) {
+  //         items = items + 1;
+  //         print('Collided with item');
+  //       }
+  //       playerController.resetLocation();
+  //     }
+
+  //   }
