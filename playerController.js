@@ -80,13 +80,13 @@ class PlayerController {
       this.x += sin(ang(this.r + 90)) * this.deltaSpeed;
     }
     if (this.keys[16]) { // Shift (crouch/sprint)
-      this.y = -10;
-      this.deltaSpeed = 0.3;
+      this.y = -3;
+      this.deltaSpeed * .5;
     } else {
       this.y = 0;
-      this.deltaSpeed = 0.5;
+      this.deltaSpeed = this.playerSpeed * deltaFTime;
     }
-    print(deltaFTime);
+    //print(deltaFTime);
 
   }
 
@@ -128,4 +128,5 @@ class PlayerController {
     
       return !(colX);
   }
+
 }

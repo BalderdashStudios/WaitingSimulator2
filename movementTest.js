@@ -17,17 +17,18 @@ let fontNormal; // Font for text rendering
 
 let narrator; // Audio object for background sound
 
+// Variables for 3D models (room parts)
+let walls;
+let floor;
+let roof;
+let desks;
+let cabnets;
+let doors;
+
 //Colliders
 let collider1;
 
-//Colliders Array
 let colliders;
-
-//Bounds
-let bounds1;
-
-//Bounds Array
-let bounds;
 
 // Helper function: jQuery-like shorthand for document.querySelector
 var $ = function(prop) {
@@ -41,9 +42,6 @@ var ang = function(a) {
 
 // Texture variables
 var floorTexture, wallTexture, roofTex, deskTex, cabTex, reflection1, debug;
-
-// Texture variables
-var walls, floor, roof, desks, cabnets, doors;
 
 var mx = 0, my = 0; // Mouse movement deltas
 // Listen for mouse movement to update mx and my (mouse deltas)
@@ -117,16 +115,11 @@ function setup() {
       zIntField.size(100)
   
   //Load Colliders
-  collider1 = new collider(xInt, yInt, 137, 'blue', 100, 200, 260, false);
-
-  //Load Colliders
-  bounds1 = new collider(0, 200, 0, 'red', 100, 200, 100, false);
+  collider1 = new collider(xInt, yInt, 137, 'blue', 100, 1, 200, false);
 
   //collider1.display();
 
   colliders = [collider1];
-
-  bounds = [bounds1];
   
       // Initialize the player controller and assign the camera
       playerController = new PlayerController(0,0,200);
@@ -149,6 +142,11 @@ function draw() {
     // Clear the canvas with a white background
     //background(255);
     panorama(reflection1);
+
+    // Disable outlines on shapes
+
+    // Enable smooth rendering
+    smooth();
   
     // Update and apply player camera
       playerController.handleMouseMovement(mx, my);
@@ -178,13 +176,12 @@ function draw() {
       // Optionally, check collision here for the intended direction
       //if (!checkCollision()) {
         playerController.handleMovement(deltaTime);
-        checkBounds();
         checkCollision();
       //}
     }
   //DEBUG COLLIDERS
   push();
-  //bounds1.translate(0, 0, 200);
+  collider1.translate(xInt, yInt, zInt);
   pop();
   
     // Rotate the view to match 3D world orientation
@@ -258,12 +255,6 @@ function draw() {
     //texture(doorTex);
     //model(doors);
 
-    for (let i = 0; i < bounds.length; i++) {
-    bounds[i].display();
-    }
-
-    // Enable smooth rendering
-    smooth();
     
    frameBuffer.end();
   setCamera(fbCam);
@@ -300,8 +291,8 @@ function mouseClicked() {
 
 function checkCollision() {
   //Loop through colliders
-  for (let i = 0; i < colliders.length; i++) {
-    //colliders[i].display();
+  for (let i = 0; i < colliders.length; i = i + 1) {
+    colliders[i].display();
     //Check if player is colliding
     if (playerController.isColliding(colliders[i])) {
       playerController.resetLocation();
@@ -310,23 +301,6 @@ function checkCollision() {
     else
     {
         return false
-    }
-  }
-}
-
-function checkBounds() 
-{
-    //Loop through bounds
-  for (let i = 0; i < bounds.length; i++) {
-    //bounds[i].display();
-    //Check if player is colliding
-    if (playerController.isColliding(bounds[i])) {
-      return true;
-    }
-    else
-    {   
-      playerController.resetLocation();
-      return false
     }
   }
 }
