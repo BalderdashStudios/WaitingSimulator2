@@ -26,7 +26,12 @@ let cabnets;
 let doors;
 
 //Colliders
-let collider1;
+var collider1, collider2;
+
+//Bounds
+var bound1;
+
+let bounds;
 
 let colliders;
 
@@ -115,11 +120,15 @@ function setup() {
       zIntField.size(100)
   
   //Load Colliders
-  collider1 = new collider(xInt, yInt, 137, 'blue', 100, 1, 200, false);
+  collider1 = new collider(0, 0, 137, 'blue', 10, 100, 10, false);
+  bounds1 = new collider(0, 0, 100, 'red', 100, 100, 200, false);
+  let collider3 = new collider(0, 0, 400, 'green', 10, 100, 200, false);
 
   //collider1.display();
 
-  colliders = [collider1];
+  colliders = [collider1, collider3];
+
+  bounds = [bounds1];
   
       // Initialize the player controller and assign the camera
       playerController = new PlayerController(0,0,200);
@@ -177,12 +186,16 @@ function draw() {
       //if (!checkCollision()) {
         playerController.handleMovement(deltaTime);
         checkCollision();
+        checkBoundingCollision();
       //}
     }
   //DEBUG COLLIDERS
-  push();
-  collider1.translate(xInt, yInt, zInt);
-  pop();
+  //push();
+  //collider1.translate(xInt, yInt, zInt);
+  //pop();
+      //for (let i = 0; i < colliders.length; i++) {
+    //colliders[i].display();
+    //}
   
     // Rotate the view to match 3D world orientation
     rotateX(ang(90));
@@ -291,35 +304,42 @@ function mouseClicked() {
 
 function checkCollision() {
   //Loop through colliders
-  for (let i = 0; i < colliders.length; i = i + 1) {
+  let isColliding = false;
+  for (let i = 0; i < colliders.length; i++) {
     colliders[i].display();
     //Check if player is colliding
     if (playerController.isColliding(colliders[i])) {
+      isColliding = true;
+    }
+  }
+  if(isColliding) 
+    {
       playerController.resetLocation();
       return true;
     }
-    else
-    {
-        return false
-    }
+  else 
+  {
+    return false;
   }
 }
 
-  //  for (let i = 0; i < colliders.length; i = i + 1) {
-  //     //colliders[i].display();
-  //     print("Displaying Colliders" + colliders.length)
-  //     if (!playerController.isColliding(colliders[i])) {
-
-  //       print('NOT Colliding!!!!!');
-  //       //playerController.move(0,-1,0);
-  //     }
-  //     else {
-  //       print('Colliding!!!!!');
-  //       if (playerController.isColliding(colliders[i]) && colliders[i].item == true) {
-  //         items = items + 1;
-  //         print('Collided with item');
-  //       }
-  //       playerController.resetLocation();
-  //     }
-
-  //   }
+function checkBoundingCollision() {
+  //Loop through colliders
+  let isColliding = true;
+  for (let i = 0; i < bounds.length; i++) {
+    bounds[i].display();
+    //Check if player is colliding
+    if (!playerController.isColliding(bounds[i])) {
+      isColliding = false;
+    }
+  }
+  if(!isColliding) 
+    {
+      playerController.resetLocation();
+      return true;
+    }
+  else 
+  {
+    return false;
+  }
+}
