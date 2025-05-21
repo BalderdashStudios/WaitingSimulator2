@@ -100,27 +100,27 @@ function setup() {
       fullscreen();
       let millisecond = millis();
       userStartAudio();
-      narrator.play();
+      //narrator.play();
 
   //Create Input for modeling Debug
   //X
-  xIntField = createInput('')
-    xIntField.attribute('placeholder', 'X Int')
-    xIntField.position(100, 100)
-    xIntField.size(100)
+  xIntField = createInput('');
+    xIntField.attribute('placeholder', 'X Int');
+    xIntField.position(100, 100);
+    xIntField.size(100);
 
-  yIntField = createInput('')
-      yIntField.attribute('placeholder', 'Y Int')
-      yIntField.position(100, 200)
-      yIntField.size(100)
+  yIntField = createInput('');
+      yIntField.attribute('placeholder', 'Y Int');
+      yIntField.position(100, 200);
+      yIntField.size(100);
 
-  zIntField = createInput('')
-      zIntField.attribute('placeholder', 'Z Int')
-      zIntField.position(100, 300)
-      zIntField.size(100)
+  zIntField = createInput('');
+      zIntField.attribute('placeholder', 'Z Int');
+      zIntField.position(100, 300);
+      zIntField.size(100);
   
   //Load Colliders
-  collider1 = new collider(0, 0, 137, 'blue', 10, 100, 10, false);
+  collider1 = new collider(0, 0, 137, 'blue', 10, 100, 10, false, true, true);
   bounds1 = new collider(0, 0, 100, 'red', 100, 100, 200, false);
   let collider3 = new collider(0, 0, 400, 'green', 10, 100, 200, false);
 
@@ -305,17 +305,29 @@ function mouseClicked() {
 function checkCollision() {
   //Loop through colliders
   let isColliding = false;
+  let lastCollided = -1;
   for (let i = 0; i < colliders.length; i++) {
     colliders[i].display();
     //Check if player is colliding
     if (playerController.isColliding(colliders[i])) {
       isColliding = true;
+      lastCollided = i;
     }
   }
   if(isColliding) 
     {
-      playerController.resetLocation();
-      return true;
+      if(colliders[0].getAudioTrigger()) 
+        {
+          colliders[0].playAudio(narrator);
+          colliders[0].setActive(false);
+          print("Collided with audio trigger")
+          return true;
+        }
+      else
+      {
+         playerController.resetLocation();
+         return true;
+      }
     }
   else 
   {

@@ -1,6 +1,6 @@
 class collider 
 {
-  constructor(x, y, z, clr, sizeX, sizeY, sizeZ, isItem, isBounds) {
+  constructor(x, y, z, clr, sizeX, sizeY, sizeZ, isItem, isAudioTrigger, isActive) {
     this.x = x;
     this.y = y;
     this.z = z;
@@ -9,8 +9,34 @@ class collider
     this.sizeY = sizeY;
     this.sizeZ = sizeZ;
     this.item = isItem;
-    this.bounds = isBounds;
+    this.active = isActive;
+    this.isAudioTrigger = isAudioTrigger;
   }
+
+  //Audio System
+
+  setActive(isActive) 
+  {
+    this.active = isActive;
+  }
+
+  //Checks if it should play audio
+  getAudioTrigger() 
+  {
+    return this.isAudioTrigger;
+  }
+
+  //Requires sound for param
+  playAudio(audio) 
+  {
+    if (this.active) 
+      {
+        audio.play();
+      }
+  }
+
+
+
 
   display() {
     push();
