@@ -1,11 +1,11 @@
 class PlayerController {
-  constructor(XPos, YPos, ZPos) {
+  constructor(XPos, YPos, ZPos, Size) {
     
     // Player movement and camera control variables
     this.x = XPos;
     this.y = YPos;
     this.z = ZPos; //SET TO 200
-    this.size = 10;
+    this.size = Size;
 
     this.lastx = XPos;
     this.lasty = YPos;
