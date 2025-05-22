@@ -67,7 +67,7 @@ function preload() {
 
   // Load image textures for 3D models
   floorTexture = loadImage('Textures/New/FloorBake.png');
-  wallTexture = loadImage('Textures/WallBake.png');
+  wallTexture = loadImage('Textures/New/WallBake2.png');
   roofTex = loadImage('Textures/RoofBake.png');
   deskTex = loadImage('Textures/BakeTabel.png');
   cabTex = loadImage('Textures/FilingCabnets1K.png');
@@ -79,7 +79,7 @@ function preload() {
 
 
   // Load 3D models (.obj files)
-  walls = loadModel('Models/New/Walls.obj');
+  walls = loadModel('Models/New/Walls1.obj');
   floor = loadModel('Models/New/Floor.obj');
   roof = loadModel('Models/Roof.obj', true);
   desks = loadModel('Models/Desk.obj', true);
@@ -232,7 +232,7 @@ function draw() {
   let c = color(100, 100, 100);
   directionalLight(c, 0, 20, 30);
   ambientLight(80);
-  texture(debug);
+  texture(wallTexture);
   model(walls);
 
   pop();
