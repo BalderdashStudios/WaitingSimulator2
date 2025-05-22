@@ -1,4 +1,4 @@
-let DEBUG = true;
+let DEBUG = false;
 
 let frameBuffer;
 let fbCam;
@@ -17,7 +17,7 @@ let timer = 172800; // Timer variable, in seconds (172800 sec = 48 hours)
 
 let fontNormal; // Font for text rendering
 
-let narrator; // Audio object for background sound
+var aud0Narrator, aud1Unfinished, aud2BGMusic; // Audio object for background sound
 
 // Variables for 3D models (room parts)
 let walls;
@@ -61,7 +61,9 @@ document.body.addEventListener("mousemove", function(e) {
 function preload() {
   // Load sound files (mp3, ogg)
   soundFormats('mp3', 'ogg');
-  narrator = loadSound('Audio/WaitingSimAudio.mp3');
+  aud0Narrator = loadSound('Audio/WaitingSimAudio.mp3');
+  aud1Unfinished = loadSound('Audio/AudUnfinished.mp3');
+  aud2BGMusic = loadSound('Audio/IntroducingStanly.mp3');
 
   // Load image textures for 3D models
   floorTexture = loadImage('Textures/New/FloorBake.png');
@@ -102,27 +104,29 @@ function setup() {
   fullscreen();
   let millisecond = millis();
   userStartAudio();
-  //narrator.play();
 
   //Create Input for modeling Debug
   //X
-  xIntField = createInput('');
-  xIntField.attribute('placeholder', 'X Int');
-  xIntField.position(100, 100);
-  xIntField.size(100);
+  if (debug) 
+    {
+        xIntField = createInput('');
+        xIntField.attribute('placeholder', 'X Int');
+        xIntField.position(100, 100);
+        xIntField.size(100);
 
-  yIntField = createInput('');
-  yIntField.attribute('placeholder', 'Y Int');
-  yIntField.position(100, 200);
-  yIntField.size(100);
+        yIntField = createInput('');
+        yIntField.attribute('placeholder', 'Y Int');
+        yIntField.position(100, 200);
+        yIntField.size(100);
 
-  zIntField = createInput('');
-  zIntField.attribute('placeholder', 'Z Int');
-  zIntField.position(100, 300);
-  zIntField.size(100);
+        zIntField = createInput('');
+        zIntField.attribute('placeholder', 'Z Int');
+        zIntField.position(100, 300);
+        zIntField.size(100);
+    }
 
   //Load Colliders
-  collider1 = new collider(50, 0, 200, 'blue', 10, 20, 10, false, true, true);
+  collider1 = new collider(50, 0, 200, 'blue', 10, 20, 10, false, true, false, aud0Narrator);
   collider2 = new collider(20, 0, 210, 'blue', 20, 20, 3, false, false, false);
   //LENGTH HEIGHT WIDTH
   collider3 = new collider(90, 0, 210, 'blue', 80, 20, 3, false, false, false);
@@ -131,20 +135,25 @@ function setup() {
 
   collider5 = new collider(0, 0, 190, 'green', 100, 20, 3, false, false, false);
 
+  audioUnfinishedTrig = new collider(140, 0, 230, 'green', 20, 20, 10, false, true, true, aud1Unfinished);
+
   //200, 100,19
   bounds1 = new collider(100, 0, 200, 'red', 200, 100, 100, false);
+  
   //bounds2 = new collider(0, 0, 300, 'red', 10, 100, 19, false);
   //let collider3 = new collider(0, 0, 400, 'green', 10, 100, 200, false);
 
   //collider1.display();
 
-  colliders = [collider1, collider2, collider3, collider4, collider5];
+  colliders = [collider1, collider2, collider3, collider4, collider5, audioUnfinishedTrig];
 
   bounds = [bounds1];
 
   // Initialize the player controller and assign the camera
   playerController = new PlayerController(0, 0, 200, 1);
   playerController.cam = cam;
+
+   aud2BGMusic.play();
 }
 
 // Draw function: Main animation loop, runs every frame
@@ -289,7 +298,7 @@ function checkCollision() {
   }
   if (isColliding) {
     if (colliders[lastCollided].getAudioTrigger()) {
-      colliders[lastCollided].playAudio(narrator);
+      colliders[lastCollided].playAudio();
       colliders[lastCollided].setActive(false);
       print("Collided with audio trigger")
       return true;
