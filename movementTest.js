@@ -79,7 +79,7 @@ function preload() {
 
 
   // Load 3D models (.obj files)
-  walls = loadModel('Models/New/Walls1.obj');
+  walls = loadModel('Models/New/Wall1.obj');
   floor = loadModel('Models/New/Floor.obj');
   roof = loadModel('Models/Roof.obj', true);
   desks = loadModel('Models/Desk.obj', true);
