@@ -3,6 +3,8 @@ let DEBUG = false;
 let frameBuffer;
 let fbCam;
 
+let introVid;
+
 //Modeling DEBUG
 let xInt = 0;
 let yInt = 0;
@@ -153,11 +155,17 @@ function setup() {
   playerController = new PlayerController(0, 0, 200, 1);
   playerController.cam = cam;
 
-   aud2BGMusic.play();
+    introVid = createVideo("Videos/Intro.mp4");
+  introVid.size(windowWidth, windowHeight);
+  introVid.volume(1);
+  introVid.hide();
+  introVid.play();
+   //aud2BGMusic.play();
 }
 
 // Draw function: Main animation loop, runs every frame
 function draw() {
+  let introVidTex = introVid.get();
   frameBuffer.begin();
   let xInt = xIntField.value();
   let yInt = yIntField.value();
@@ -165,6 +173,7 @@ function draw() {
 
   // Set the camera for the framebuffer.
   setCamera(cam);
+
 
   // Set the target frame rate
   frameRate(250);
@@ -256,8 +265,15 @@ function draw() {
   setCamera(fbCam);
   // Reset all transformations.
   resetMatrix();
-  image(frameBuffer, -width / 2, -height / 2);
-  frameBuffer.pixelDensity(0.6);
+
+  if(introVidTex.onended()) 
+    {
+      image(frameBuffer, -width / 2, -height / 2);
+     frameBuffer.pixelDensity(0.6);
+    }
+
+    //TODO RENDER IMAGE CORRECTLY
+  image(introVidTex, -width / 2,-height / 2);
 
   // Decrement timer every second (60 frames = 1 second)
   if (frameCount % 60 == 0 && timer > 0) {
