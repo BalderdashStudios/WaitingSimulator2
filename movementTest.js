@@ -68,7 +68,7 @@ function preload() {
   // Load image textures for 3D models
   floorTexture = loadImage('Textures/New/FloorBake.png');
   wallTexture = loadImage('Textures/New/WallBake2.png');
-  roofTex = loadImage('Textures/RoofBake.png');
+  roofTex = loadImage('Textures/New/CeilingBake.png');
   deskTex = loadImage('Textures/BakeTabel.png');
   cabTex = loadImage('Textures/FilingCabnets1K.png');
   reflection1 = loadImage('Textures/Reflections/HDRI1.jpg');
@@ -81,7 +81,7 @@ function preload() {
   // Load 3D models (.obj files)
   walls = loadModel('Models/New/Wall1.obj');
   floor = loadModel('Models/New/Floor.obj');
-  roof = loadModel('Models/Roof.obj', true);
+  roof = loadModel('Models/New/Ceiling.obj');
   desks = loadModel('Models/Desk.obj', true);
   cabnets = loadModel('Models/Cabnets.obj', true);
   doors = loadModel('Models/Doors.obj', true);
@@ -170,8 +170,8 @@ function draw() {
   frameRate(250);
 
   // Clear the canvas with a white background
-  //background(255);
-  panorama(reflection1);
+  background(255);
+  //panorama(reflection1);
 
   // Disable outlines on shapes
 
@@ -228,12 +228,15 @@ function draw() {
   noStroke();
   texture(floorTexture);
   model(floor);
-  textureWrap(REPEAT);
-  let c = color(100, 100, 100);
-  directionalLight(c, 0, 20, 30);
-  ambientLight(80);
+  //textureWrap(REPEAT);
+  //let c = color(100, 100, 100);
+  //directionalLight(c, 0, 20, 30);
+  //ambientLight(80);
   texture(wallTexture);
   model(walls);
+
+  texture(roofTex);
+  model(roof);
 
   pop();
 
