@@ -4,6 +4,7 @@ let frameBuffer;
 let fbCam;
 
 let introVid;
+let isDone = false;
 
 //Modeling DEBUG
 let xInt = 0;
@@ -158,10 +159,24 @@ function setup() {
     introVid = createVideo("Videos/Intro.mp4");
   introVid.size(windowWidth, windowHeight);
   introVid.volume(1);
-  introVid.hide();
+   introVid.showControls();
+  // introVid.hide();
   introVid.play();
    //aud2BGMusic.play();
+   introVid.onended = function() {
+   
+    handelEnd();
+  };
+//    let vid = document.getElementById("myVideo");
+// vid.onended = function() {
+//   alert("The video has ended");
+// };
 }
+
+function playIntoVid() 
+{
+  introVid.play();
+   }
 
 // Draw function: Main animation loop, runs every frame
 function draw() {
@@ -226,54 +241,65 @@ function draw() {
   //for (let i = 0; i < colliders.length; i++) {
   //colliders[i].display();
   //}
-
+  if(isDone) {
   // Rotate the view to match 3D world orientation
-  rotateX(ang(90));
+     print("Creating Level");
+    rotateX(ang(90));
 
-  push();
-  translate(30, 230, -11);
-  scale(8, -8, 8)
+    push();
+    translate(30, 230, -11);
+    scale(8, -8, 8)
 
-  noStroke();
-  texture(floorTexture);
-  model(floor);
-  //textureWrap(REPEAT);
-  //let c = color(100, 100, 100);
-  //directionalLight(c, 0, 20, 30);
-  //ambientLight(80);
-  texture(wallTexture);
-  model(walls);
+    noStroke();
+    texture(floorTexture);
+    model(floor);
+    //textureWrap(REPEAT);
+    //let c = color(100, 100, 100);
+    //directionalLight(c, 0, 20, 30);
+    //ambientLight(80);
+    texture(wallTexture);
+    model(walls);
 
-  texture(roofTex);
-  model(roof);
+    texture(roofTex);
+    model(roof);
 
-  pop();
+    pop();
 
-  push();
+    push();
 
-  imageLight(reflection1);
-  translate(-80, -1, 7);
-  scale(0.16);
-  specularMaterial(100);
-  shininess(100);
-  metalness(100);
-  texture(cabTex);
-  model(cabnets);
-  pop();
+    imageLight(reflection1);
+    translate(-80, -1, 7);
+    scale(0.16);
+    specularMaterial(100);
+    shininess(100);
+    metalness(100);
+    texture(cabTex);
+    model(cabnets);
+    pop();
+  } 
 
   frameBuffer.end();
   setCamera(fbCam);
   // Reset all transformations.
   resetMatrix();
 
-  if(introVidTex.onended()) 
+      //TODO RENDER IMAGE CORRECTLY
+  //image(introVidTex, -width / 2,-height / 2);
+  if(isDone) 
     {
+      print("Loaded map");
       image(frameBuffer, -width / 2, -height / 2);
-     frameBuffer.pixelDensity(0.6);
+      frameBuffer.pixelDensity(0.6);
     }
-
-    //TODO RENDER IMAGE CORRECTLY
-  image(introVidTex, -width / 2,-height / 2);
+  else 
+    {
+      print("Displaying Video")
+        image(introVidTex, -width / 2,-height / 2);
+    }
+    print(isDone);
+  playIntoVid();
+  //image(frameBuffer, -width / 2, -height / 2);
+  //TODO RENDER IMAGE CORRECTLY
 
   // Decrement timer every second (60 frames = 1 second)
   if (frameCount % 60 == 0 && timer > 0) {
@@ -351,4 +377,9 @@ function checkBoundingCollision() {
   else {
     return false;
   }
+}
+
+function handelEnd() {
+  isDone = true;
+  print("IS DONE");
 }
