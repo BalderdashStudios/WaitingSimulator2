@@ -109,42 +109,49 @@ function setup() {
   //X
 
   //Load Colliders
-  collider1 = new collider(50, 0, 200, 'blue', 10, 20, 10, false, true, false, aud0Narrator);
-  collider2 = new collider(20, 0, 210, 'green', 25, 20, 3, false, false, false);//small, first on the right
+    colliders = [
+
+  new collider(50, 0, 200, 'blue', 10, 20, 10, false, true, false, aud0Narrator),
+  new collider(20, 0, 210, 'green', 25, 20, 3, false, false, false),//small, first on the right
   //LENGTH HEIGHT WIDTH
-  collider3 = new collider(86, 0, 210, 'green', 86, 20, 3, false, false, false);//big second on the right
+   new collider(86, 0, 210, 'green', 86, 20, 3, false, false, false),//big second on the right
 
-  collider4 = new collider(90, 0, 150, 'green', 80, 20, 3, false, false, false);
+new collider(90, 0, 150, 'green', 80, 20, 3, false, false, false),
+ new collider(0, 0, 190, 'green', 100, 20, 3, false, false, false),
+new collider(3, 0, 217, 'green', 20, 20, 3, false, false, false),//first room right
 
-  collider5 = new collider(0, 0, 190, 'green', 100, 20, 3, false, false, false);
+new collider(10, 0, 211, 'green', 1, 20, 11, false, false, false),//first doorway
+new collider(50, 0, 166, 'green', 1, 20, 44, false, false, false),
+new collider(108, 0, 164, 'green', 1, 20, 60, false, false, false),
 
-  collider6 = new collider(3, 0, 217, 'green', 20, 20, 3, false, false, false);//first room right
+new collider(130, 0, 190, 'green', 40, 20, 1, false, false, false),
+new collider(148, 0, 210, 'green', 1, 20, 40, false, false, false),
 
-  collider7 = new collider(10, 0, 211, 'green', 1, 20, 11, false, false, false);//first doorway
+new collider(164, 0, 229, 'green', 45, 20, 1, false, false, false),
 
-  collider8 = new collider(50, 0, 166, 'green', 1, 20, 44, false, false, false);
-
-  collider9 = new collider(108, 0, 164, 'green', 1, 20, 60, false, false, false);
-
-  collider10 = new collider(130, 0, 190, 'green', 40, 20, 1, false, false, false);
-
-  collider11 = new collider(148, 0, 210, 'green', 1, 20, 40, false, false, false);
-
-  collider12 = new collider(162, 0, 230, 'purple', 45, 20, 1, false, false, false);
+new collider(108, 0, 210, 'green', 1, 20, 10, false, false, false),
+new collider(127, 0, 237, 'green', 1, 20, 50, false, false, false),
+new collider(122, 0, 229, 'green', 20, 20, 1, false, false, false),
+new collider(187, 0, 245, 'green', 1, 20, 66, false, false, false),
+new collider(127, 0, 311, 'green', 1, 20, 80, false, false, false),
+new collider(187, 0, 298, 'green', 1, 20, 19, false, false, false),
+new collider(127, 0, 308, 'green', 10, 20, 1, false, false, false),
+new collider(157, 0, 308, 'green', 28, 20, 1, false, false, false),
+new collider(148, 0, 312, 'green', 1, 20, 5, false, false, false),
+new collider(148, 0, 336, 'purple', 1, 20, 25, false, false, false)
+    ];
 
   //audioUnfinishedTrig = new collider(140, 0, 230, 'blue', 20, 20, 10, false, true, true, aud1Unfinished);
 
   //200, 100,19
-  bounds1 = new collider(100, 0, 200, 'red', 200, 100, 100, false);
+  bounds1 = new collider(100, 0, 200, 'red', 200, 100, 300, false);
   
   //bounds2 = new collider(0, 0, 300, 'red', 10, 100, 19, false);
   //let collider3 = new collider(0, 0, 400, 'green', 10, 100, 200, false);
 
   //collider1.display();
 
-  colliders = [collider1, collider2, collider3, collider4, collider5, collider6, collider7, collider8, collider9, collider10, collider11, 
-    collider12];
-
+ 
   bounds = [bounds1];
 
   // Initialize the player controller and assign the camera
