@@ -133,18 +133,33 @@ new collider(108, 0, 210, 'green', 1, 20, 10, false, false, false),
 new collider(127, 0, 237, 'green', 1, 20, 50, false, false, false),
 new collider(122, 0, 229, 'green', 20, 20, 1, false, false, false),
 new collider(187, 0, 245, 'green', 1, 20, 66, false, false, false),
-new collider(127, 0, 311, 'green', 1, 20, 80, false, false, false),
+new collider(127, 0, 320, 'green', 1, 20, 98, false, false, false),//big one on the left in the second room
 new collider(187, 0, 298, 'green', 1, 20, 19, false, false, false),
 new collider(127, 0, 308, 'green', 10, 20, 1, false, false, false),
 new collider(157, 0, 308, 'green', 28, 20, 1, false, false, false),
 new collider(148, 0, 312, 'green', 1, 20, 5, false, false, false),
-new collider(148, 0, 336, 'purple', 1, 20, 25, false, false, false)
+new collider(148, 0, 336, 'green', 1, 20, 25, false, false, false),
+new collider(73, 0, 186, 'green', 8, 20, 1, false, false, false),
+new collider(58, 0, 166, 'green', 11, 20, 1, false, false, false),
+new collider(100, 0, 180, 'green', 11, 20, 1, false, false, false),
+new collider(83, 0, 158, 'green', 1, 20, 12, false, false, false),
+new collider(117, 0, 299, 'green', 18, 20, 1, false, false, false),
+new collider(106, 0, 286, 'green', 1, 20, 28, false, false, false),
+new collider(117, 0, 261, 'green', 18, 20, 1, false, false, false),
+new collider(168, 0, 329, 'green', 1, 20, 38, false, false, false),
+new collider(157, 0, 349, 'green', 28, 20, 1, false, false, false),
+new collider(129, 0, 349, 'green', 5, 20, 1, false, false, false),
+new collider(197, 0, 308, 'green', 29.6, 20, 1, false, false, false),
+new collider(134, 0, 369, 'green', 15, 20, 1, false, false, false),
+new collider(176, 0, 369, 'green', 47, 20, 1, false, false, false),
+new collider(203, 0, 349, 'green', 43, 20, 1, false, false, false),
+new collider(218, 0, 369, 'purple', 15, 20, 1, false, false, false)
     ];
 
   //audioUnfinishedTrig = new collider(140, 0, 230, 'blue', 20, 20, 10, false, true, true, aud1Unfinished);
 
   //200, 100,19
-  bounds1 = new collider(100, 0, 200, 'red', 200, 100, 300, false);
+  bounds1 = new collider(100, 0, 300, 'red', 300, 100, 300, false);
   
   //bounds2 = new collider(0, 0, 300, 'red', 10, 100, 19, false);
   //let collider3 = new collider(0, 0, 400, 'green', 10, 100, 200, false);
