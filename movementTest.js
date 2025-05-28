@@ -157,26 +157,19 @@ function setup() {
   playerController.cam = cam;
 
     introVid = createVideo("Videos/Intro.mp4");
-  introVid.size(windowWidth, windowHeight);
-  introVid.volume(1);
-   introVid.showControls();
-  // introVid.hide();
-  introVid.play();
+    introVid.id('introVid');
+    introVid.size(windowWidth, windowHeight);
+    introVid.volume(1);
+   //introVid.showControls();
+    introVid.hide();
+    introVid.time(95);
+    introVid.play();
    //aud2BGMusic.play();
-   introVid.onended = function() {
-   
-    handelEnd();
-  };
-//    let vid = document.getElementById("myVideo");
-// vid.onended = function() {
-//   alert("The video has ended");
-// };
+    let vid = document.getElementById('introVid');
+    vid.onended = function() {
+      handleEnd();
+     }
 }
-
-function playIntoVid() 
-{
-  introVid.play();
-   }
 
 // Draw function: Main animation loop, runs every frame
 function draw() {
@@ -283,8 +276,11 @@ function draw() {
   // Reset all transformations.
   resetMatrix();
 
-      //TODO RENDER IMAGE CORRECTLY
-  //image(introVidTex, -width / 2,-height / 2);
+  // for(i = 0; i > 1; i++) {
+  //   playIntroVid();
+  //    print('Playing vid');
+  //  }
+
   if(isDone) 
     {
       print("Loaded map");
@@ -297,7 +293,7 @@ function draw() {
         image(introVidTex, -width / 2,-height / 2);
     }
     print(isDone);
-  playIntoVid();
+ // introVid.play();
   //image(frameBuffer, -width / 2, -height / 2);
   //TODO RENDER IMAGE CORRECTLY
 
@@ -379,7 +375,12 @@ function checkBoundingCollision() {
   }
 }
 
-function handelEnd() {
+function handleEnd() {
   isDone = true;
   print("IS DONE");
+}
+
+function playIntroVid() 
+{
+  introVid.play();
 }
