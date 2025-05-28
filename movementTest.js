@@ -4,6 +4,7 @@ let frameBuffer;
 let fbCam;
 
 let introVid;
+let introVidTex;
 let isDone = false;
 
 //Modeling DEBUG
@@ -162,7 +163,7 @@ function setup() {
     introVid.volume(1);
    //introVid.showControls();
     introVid.hide();
-    introVid.time(95);
+    introVid.time(60);
     introVid.play();
    //aud2BGMusic.play();
     let vid = document.getElementById('introVid');
@@ -173,7 +174,10 @@ function setup() {
 
 // Draw function: Main animation loop, runs every frame
 function draw() {
-  let introVidTex = introVid.get();
+  if (!isDone) 
+    {
+        introVidTex = introVid.get();
+    }
   frameBuffer.begin();
   let xInt = xIntField.value();
   let yInt = yIntField.value();
