@@ -3,9 +3,9 @@ let DEBUG = false;
 let frameBuffer;
 let fbCam;
 
-let introVid;
-let introVidTex;
-let isDone = false;
+//let introVid;
+//let introVidTex;
+//let isDone = false;
 
 //Modeling DEBUG
 let xInt = 0;
@@ -56,10 +56,7 @@ var floorTexture, wallTexture, roofTex, deskTex, cabTex, reflection1, debug;
 
 var mx = 0, my = 0; // Mouse movement deltas
 // Listen for mouse movement to update mx and my (mouse deltas)
-document.body.addEventListener("mousemove", function(e) {
-  mx = e.movementX;
-  my = e.movementY;
-});
+
 
 // Preload function: Loads all assets before setup()
 function preload() {
@@ -98,9 +95,16 @@ function preload() {
 }
 
 // Setup function: Runs once at the start
+let theCanvas;
+
 function setup() {
 
-  createCanvas(window.innerWidth, window.innerHeight, WEBGL);
+  document.body.addEventListener("mousemove", function(e) {
+    mx = e.movementX;
+    my = e.movementY;
+  });
+  theCanvas = createCanvas(window.innerWidth, window.innerHeight, WEBGL);
+  theCanvas.hide();
   frameBuffer = createFramebuffer();
   cam = frameBuffer.createCamera();
   fbCam = createCamera();
@@ -157,27 +161,23 @@ function setup() {
   playerController = new PlayerController(0, 0, 200, 1);
   playerController.cam = cam;
 
-    introVid = createVideo("Videos/Intro.mp4");
-    introVid.id('introVid');
-    introVid.size(windowWidth, windowHeight);
-    introVid.volume(1);
-   //introVid.showControls();
-    introVid.hide();
-    introVid.time(60);
-    introVid.play();
-   //aud2BGMusic.play();
-    let vid = document.getElementById('introVid');
-    vid.onended = function() {
-      handleEnd();
-     }
+  //   introVid = createVideo("Videos/Intro.mp4");
+  //   introVid.id('introVid');
+  //   introVid.size(windowWidth, windowHeight);
+  //   introVid.volume(1);
+  //  //introVid.showControls();
+  //   introVid.hide();
+  //   introVid.time(60);
+  //   introVid.play();
+  //  //aud2BGMusic.play();
+  //   let vid = document.getElementById('introVid');
+  //   vid.onended = function() {
+  //     handleEnd();
+  //    }
 }
 
 // Draw function: Main animation loop, runs every frame
 function draw() {
-  if (!isDone) 
-    {
-        introVidTex = introVid.get();
-    }
   frameBuffer.begin();
   let xInt = xIntField.value();
   let yInt = yIntField.value();
@@ -238,9 +238,8 @@ function draw() {
   //for (let i = 0; i < colliders.length; i++) {
   //colliders[i].display();
   //}
-  if(isDone) {
   // Rotate the view to match 3D world orientation
-     print("Creating Level");
+    //print("Creating Level");
     rotateX(ang(90));
 
     push();
@@ -273,7 +272,7 @@ function draw() {
     texture(cabTex);
     model(cabnets);
     pop();
-  } 
+  
 
   frameBuffer.end();
   setCamera(fbCam);
@@ -284,19 +283,11 @@ function draw() {
   //   playIntroVid();
   //    print('Playing vid');
   //  }
-
-  if(isDone) 
-    {
-      print("Loaded map");
+      //print("Loaded map");
       image(frameBuffer, -width / 2, -height / 2);
       frameBuffer.pixelDensity(0.6);
-    }
-  else 
-    {
-      print("Displaying Video")
-        image(introVidTex, -width / 2,-height / 2);
-    }
-    print(isDone);
+//image(introVidTex, -width / 2,-height / 2);
+
  // introVid.play();
   //image(frameBuffer, -width / 2, -height / 2);
   //TODO RENDER IMAGE CORRECTLY
