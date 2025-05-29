@@ -1,4 +1,4 @@
-let DEBUG = true;
+let DEBUG = false;
 
 let frameBuffer;
 let fbCam;
@@ -153,7 +153,15 @@ new collider(197, 0, 308, 'green', 29.6, 20, 1, false, false, false),
 new collider(134, 0, 369, 'green', 15, 20, 1, false, false, false),
 new collider(176, 0, 369, 'green', 47, 20, 1, false, false, false),
 new collider(203, 0, 349, 'green', 43, 20, 1, false, false, false),
-new collider(218, 0, 369, 'purple', 15, 20, 1, false, false, false)
+new collider(218, 0, 369, 'green', 15, 20, 1, false, false, false),
+new collider(225, 0, 367, 'green', 1, 20, 5, false, false, false),
+new collider(225, 0, 351, 'green', 1, 20, 5, false, false, false),
+new collider(195, 0, 230, 'green', 13, 20, 1, false, false, false),
+new collider(229, 0, 230, 'green', 34, 20, 1, false, false, false),
+new collider(246, 0, 237, 'green', 1, 20, 14, false, false, false),
+new collider(246, 0, 281, 'green', 1, 20, 52, false, false, false),
+new collider(234, 0, 308, 'green', 24, 20, 1, false, false, false),
+new collider(226, 0, 328, 'purple', 1, 20, 36, false, false, false)
     ];
 
   //audioUnfinishedTrig = new collider(140, 0, 230, 'blue', 20, 20, 10, false, true, true, aud1Unfinished);
@@ -197,13 +205,13 @@ let playerLoc;
 function draw() {
   frameBuffer.begin();
 
-          print("DebugTest1");
-        xIntField = createInput('');
-        xIntField.attribute('placeholder', playerLoc);
-        xIntField.position(100, 100);
-        xIntField.size(300);
+        //   print("DebugTest1");
+        // xIntField = createInput('');
+        // xIntField.attribute('placeholder', playerLoc);
+        // xIntField.position(100, 100);
+        // xIntField.size(300);
 
-  let xInt = xIntField.value();
+  //let xInt = xIntField.value();
   let yInt = yIntField.value();
   let zInt = zIntField.value();
 
