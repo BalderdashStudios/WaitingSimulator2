@@ -90,6 +90,13 @@ class PlayerController {
 
   }
 
+  printLoc() 
+  {
+    //print("X = [" + this.x + "] Y = [0] Z = [" + this.z + "]");
+    let output = "X = [" + this.x + "] Y = [0] Z = [" + this.z + "]";
+    return output;
+  }
+
   resetLocation() {
     this.x = this.lastx;
     this.y = this.lasty;

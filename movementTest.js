@@ -3,10 +3,6 @@ let DEBUG = false;
 let frameBuffer;
 let fbCam;
 
-//let introVid;
-//let introVidTex;
-//let isDone = false;
-
 //Modeling DEBUG
 let xInt = 0;
 let yInt = 0;
@@ -115,12 +111,84 @@ function setup() {
 
   //Create Input for modeling Debug
   //X
-  if (debug) 
+
+colliders = [
+
+  new collider(50, 0, 200, 'blue', 10, 20, 10, false, true, false, aud0Narrator),
+  new collider(20, 0, 210, 'green', 25, 20, 3, false, false, false),//small, first on the right
+  //LENGTH HEIGHT WIDTH
+   new collider(86, 0, 210, 'green', 86, 20, 3, false, false, false),//big second on the right
+
+new collider(90, 0, 150, 'green', 80, 20, 3, false, false, false),
+ new collider(0, 0, 190, 'green', 100, 20, 3, false, false, false),
+new collider(3, 0, 217, 'green', 20, 20, 3, false, false, false),//first room right
+
+new collider(10, 0, 211, 'green', 1, 20, 11, false, false, false),//first doorway
+new collider(50, 0, 166, 'green', 1, 20, 44, false, false, false),
+new collider(108, 0, 164, 'green', 1, 20, 60, false, false, false),
+
+new collider(130, 0, 190, 'green', 40, 20, 1, false, false, false),
+new collider(148, 0, 210, 'green', 1, 20, 40, false, false, false),
+
+new collider(164, 0, 229, 'green', 45, 20, 1, false, false, false),
+
+new collider(108, 0, 210, 'green', 1, 20, 10, false, false, false),
+new collider(127, 0, 237, 'green', 1, 20, 50, false, false, false),
+new collider(122, 0, 229, 'green', 20, 20, 1, false, false, false),
+new collider(187, 0, 245, 'green', 1, 20, 66, false, false, false),
+new collider(127, 0, 320, 'green', 1, 20, 98, false, false, false),//big one on the left in the second room
+new collider(187, 0, 298, 'green', 1, 20, 19, false, false, false),
+new collider(127, 0, 308, 'green', 10, 20, 1, false, false, false),
+new collider(157, 0, 308, 'green', 28, 20, 1, false, false, false),
+new collider(148, 0, 312, 'green', 1, 20, 5, false, false, false),
+new collider(148, 0, 336, 'green', 1, 20, 25, false, false, false),
+new collider(73, 0, 186, 'green', 8, 20, 1, false, false, false),
+new collider(58, 0, 166, 'green', 11, 20, 1, false, false, false),
+new collider(100, 0, 180, 'green', 11, 20, 1, false, false, false),
+new collider(83, 0, 158, 'green', 1, 20, 12, false, false, false),
+new collider(117, 0, 299, 'green', 18, 20, 1, false, false, false),
+new collider(106, 0, 286, 'green', 1, 20, 28, false, false, false),
+new collider(117, 0, 261, 'green', 18, 20, 1, false, false, false),
+new collider(168, 0, 329, 'green', 1, 20, 38, false, false, false),
+new collider(157, 0, 349, 'green', 28, 20, 1, false, false, false),
+new collider(129, 0, 349, 'green', 5, 20, 1, false, false, false),
+new collider(197, 0, 308, 'green', 29.6, 20, 1, false, false, false),
+new collider(134, 0, 369, 'green', 15, 20, 1, false, false, false),
+new collider(176, 0, 369, 'green', 47, 20, 1, false, false, false),
+new collider(203, 0, 349, 'green', 43, 20, 1, false, false, false),
+new collider(218, 0, 369, 'green', 15, 20, 1, false, false, false),
+new collider(225, 0, 367, 'green', 1, 20, 5, false, false, false),
+new collider(225, 0, 351, 'green', 1, 20, 5, false, false, false),
+new collider(195, 0, 230, 'green', 13, 20, 1, false, false, false),
+new collider(229, 0, 230, 'green', 34, 20, 1, false, false, false),
+new collider(246, 0, 237, 'green', 1, 20, 14, false, false, false),
+new collider(246, 0, 281, 'green', 1, 20, 52, false, false, false),
+new collider(234, 0, 308, 'green', 24, 20, 1, false, false, false),
+new collider(226, 0, 328, 'purple', 1, 20, 36, false, false, false)
+    ];
+
+  //audioUnfinishedTrig = new collider(140, 0, 230, 'blue', 20, 20, 10, false, true, true, aud1Unfinished);
+
+  //200, 100,19
+  bounds1 = new collider(100, 0, 300, 'red', 300, 100, 300, false);
+  
+  //bounds2 = new collider(0, 0, 300, 'red', 10, 100, 19, false);
+  //let collider3 = new collider(0, 0, 400, 'green', 10, 100, 200, false);
+
+  //collider1.display();
+
+ 
+  bounds = [bounds1];
+
+  // Initialize the player controller and assign the camera
+  playerController = new PlayerController(0, 0, 200, 1);
+  playerController.cam = cam;
+
+   aud2BGMusic.play();
+
+     if (debug) 
     {
-        xIntField = createInput('');
-        xIntField.attribute('placeholder', 'X Int');
-        xIntField.position(100, 100);
-        xIntField.size(100);
+
 
         yIntField = createInput('');
         yIntField.attribute('placeholder', 'Y Int');
@@ -132,54 +200,21 @@ function setup() {
         zIntField.position(100, 300);
         zIntField.size(100);
     }
-
-  //Load Colliders
-  collider1 = new collider(50, 0, 200, 'blue', 10, 20, 10, false, true, false, aud0Narrator);
-  collider2 = new collider(20, 0, 210, 'blue', 20, 20, 3, false, false, false);
-  //LENGTH HEIGHT WIDTH
-  collider3 = new collider(90, 0, 210, 'blue', 80, 20, 3, false, false, false);
-
-  collider4 = new collider(90, 0, 150, 'green', 80, 20, 3, false, false, false);
-
-  collider5 = new collider(0, 0, 190, 'green', 100, 20, 3, false, false, false);
-
-  audioUnfinishedTrig = new collider(140, 0, 230, 'green', 20, 20, 10, false, true, true, aud1Unfinished);
-
-  //200, 100,19
-  bounds1 = new collider(100, 0, 200, 'red', 200, 100, 100, false);
-  
-  //bounds2 = new collider(0, 0, 300, 'red', 10, 100, 19, false);
-  //let collider3 = new collider(0, 0, 400, 'green', 10, 100, 200, false);
-
-  //collider1.display();
-
-  colliders = [collider1, collider2, collider3, collider4, collider5, audioUnfinishedTrig];
-
-  bounds = [bounds1];
-
-  // Initialize the player controller and assign the camera
-  playerController = new PlayerController(0, 0, 200, 1);
-  playerController.cam = cam;
-
-  //   introVid = createVideo("Videos/Intro.mp4");
-  //   introVid.id('introVid');
-  //   introVid.size(windowWidth, windowHeight);
-  //   introVid.volume(1);
-  //  //introVid.showControls();
-  //   introVid.hide();
-  //   introVid.time(60);
-  //   introVid.play();
-  //  //aud2BGMusic.play();
-  //   let vid = document.getElementById('introVid');
-  //   vid.onended = function() {
-  //     handleEnd();
-  //    }
 }
+
+let playerLoc;
 
 // Draw function: Main animation loop, runs every frame
 function draw() {
   frameBuffer.begin();
-  let xInt = xIntField.value();
+
+        //   print("DebugTest1");
+        // xIntField = createInput('');
+        // xIntField.attribute('placeholder', playerLoc);
+        // xIntField.position(100, 100);
+        // xIntField.size(300);
+
+  //let xInt = xIntField.value();
   let yInt = yIntField.value();
   let zInt = zIntField.value();
 
@@ -229,6 +264,10 @@ function draw() {
     playerController.handleMovement(deltaTime);
     checkCollision();
     checkBoundingCollision();
+    playerLoc = playerController.printLoc();
+    //textSize(22);
+    //fill('yellow');
+    //text("TEST", 6, 20);
     //}
   }
   //DEBUG COLLIDERS
