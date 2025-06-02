@@ -21,6 +21,11 @@ class collider
     this.active = isActive;
   }
 
+  getActive() 
+  {
+    return this.active;
+  }
+
   //Checks if it should play audio
   getAudioTrigger() 
   {
@@ -34,6 +39,11 @@ class collider
       {
         this.audio.play();
       }
+  }
+
+  returnAudio() 
+  {
+    return this.audio;
   }
 
 

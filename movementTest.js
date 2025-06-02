@@ -1,4 +1,5 @@
 let DEBUG = false;
+let gameManagerMain;
 
 let frameBuffer;
 let fbCam;
@@ -56,6 +57,7 @@ var mx = 0, my = 0; // Mouse movement deltas
 
 // Preload function: Loads all assets before setup()
 function preload() {
+  gameManagerMain = new gameManager;
   // Load sound files (mp3, ogg)
   soundFormats('mp3', 'ogg');
   aud0Narrator = loadSound('Audio/WaitingSimAudio.mp3');
@@ -114,7 +116,7 @@ function setup() {
 
 colliders = [
 
-  new collider(50, 0, 200, 'blue', 10, 20, 10, false, true, false),
+  new collider(50, 0, 200, 'blue', 10, 20, 10, false, true, true, aud1Unfinished),
   new collider(20, 0, 210, 'green', 25, 20, 3, false, false, false),//small, first on the right
   //LENGTH HEIGHT WIDTH
    new collider(86, 0, 210, 'green', 86, 20, 3, false, false, false),//big second on the right
@@ -333,6 +335,15 @@ function draw() {
  // introVid.play();
   //image(frameBuffer, -width / 2, -height / 2);
   //TODO RENDER IMAGE CORRECTLY
+  if (gameManagerMain.getList().length == 1) 
+    {
+      aud0Narrator.play();
+    }
+  else 
+  {
+    print("Less than 1 audio compleated");
+    print(gameManagerMain.getList().length);
+  }
 
   // Decrement timer every second (60 frames = 1 second)
   if (frameCount % 60 == 0 && timer > 0) {
@@ -376,10 +387,21 @@ function checkCollision() {
   }
   if (isColliding) {
     if (colliders[lastCollided].getAudioTrigger()) {
-      colliders[lastCollided].playAudio();
-      colliders[lastCollided].setActive(false);
-      print("Collided with audio trigger")
-      return true;
+      if(colliders[lastCollided].getActive()) 
+      {
+        colliders[lastCollided].playAudio();
+        colliders[lastCollided].setActive(false);
+        print("Collided with audio trigger")
+
+        gameManagerMain.update(colliders[lastCollided].returnAudio());
+        gameManagerMain.printList();
+        return true;
+      }
+      else 
+      {
+        print("Audio Trigger no longer active");
+        return false;
+      }
     }
     else {
       playerController.resetLocation();
