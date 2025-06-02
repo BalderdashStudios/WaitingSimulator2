@@ -114,7 +114,7 @@ function setup() {
 
 colliders = [
 
-  new collider(50, 0, 200, 'blue', 10, 20, 10, false, true, false, aud0Narrator),
+  new collider(50, 0, 200, 'blue', 10, 20, 10, false, true, false),
   new collider(20, 0, 210, 'green', 25, 20, 3, false, false, false),//small, first on the right
   //LENGTH HEIGHT WIDTH
    new collider(86, 0, 210, 'green', 86, 20, 3, false, false, false),//big second on the right
@@ -184,25 +184,28 @@ new collider(226, 0, 328, 'purple', 1, 20, 36, false, false, false)
   playerController = new PlayerController(0, 0, 200, 1);
   playerController.cam = cam;
 
-   aud2BGMusic.play();
-
-     if (debug) 
-    {
+    //  if (debug) 
+    // {
 
 
-        yIntField = createInput('');
-        yIntField.attribute('placeholder', 'Y Int');
-        yIntField.position(100, 200);
-        yIntField.size(100);
+    //     yIntField = createInput('');
+    //     yIntField.attribute('placeholder', 'Y Int');
+    //     yIntField.position(100, 200);
+    //     yIntField.size(100);
 
-        zIntField = createInput('');
-        zIntField.attribute('placeholder', 'Z Int');
-        zIntField.position(100, 300);
-        zIntField.size(100);
-    }
+    //     zIntField = createInput('');
+    //     zIntField.attribute('placeholder', 'Z Int');
+    //     zIntField.position(100, 300);
+    //     zIntField.size(100);
+    // }
 }
 
 let playerLoc;
+
+function startSim() 
+{
+  aud2BGMusic.play();
+}
 
 // Draw function: Main animation loop, runs every frame
 function draw() {
@@ -215,8 +218,8 @@ function draw() {
         // xIntField.size(300);
 
   //let xInt = xIntField.value();
-  let yInt = yIntField.value();
-  let zInt = zIntField.value();
+  //let yInt = yIntField.value();
+  //let zInt = zIntField.value();
 
   // Set the camera for the framebuffer.
   setCamera(cam);

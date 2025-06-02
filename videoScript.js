@@ -30,6 +30,7 @@ introVid.onended = function() {
   theCanvas.show();
   loop();
   introVid.remove();
+  startSim();
   //introVid.style.visibility = "hidden";
 };
 
