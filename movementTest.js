@@ -1,4 +1,4 @@
-let DEBUG = false;
+let DEBUG = true;
 
 let frameBuffer;
 let fbCam;
@@ -17,7 +17,7 @@ let timer = 172800; // Timer variable, in seconds (172800 sec = 48 hours)
 
 let fontNormal; // Font for text rendering
 
-var aud0Narrator, aud1Unfinished, aud2BGMusic; // Audio object for background sound
+var aud0Narrator, aud1Unfinished, aud2BGMusic, tempVL; // Audio object for background sound
 
 // Variables for 3D models (room parts)
 let walls;
@@ -61,6 +61,7 @@ function preload() {
   aud0Narrator = loadSound('Audio/WaitingSimAudio.mp3');
   aud1Unfinished = loadSound('Audio/AudUnfinished.mp3');
   aud2BGMusic = loadSound('Audio/IntroducingStanly.mp3');
+  tempVL = loadSound('Audio/TempVL.mp3');
 
   // Load image textures for 3D models
   floorTexture = loadImage('Textures/New/FloorBake.png');
@@ -114,7 +115,7 @@ function setup() {
 
 colliders = [
 
-  new collider(50, 0, 200, 'blue', 10, 20, 10, false, true, false),
+  new collider(50, 0, 200, 'blue', 10, 20, 10, false, true, true, tempVL),
   new collider(20, 0, 210, 'green', 25, 20, 3, false, false, false),//small, first on the right
   //LENGTH HEIGHT WIDTH
    new collider(86, 0, 210, 'green', 86, 20, 3, false, false, false),//big second on the right
@@ -164,7 +165,15 @@ new collider(229, 0, 230, 'green', 34, 20, 1, false, false, false),
 new collider(246, 0, 237, 'green', 1, 20, 14, false, false, false),
 new collider(246, 0, 281, 'green', 1, 20, 52, false, false, false),
 new collider(234, 0, 308, 'green', 24, 20, 1, false, false, false),
-new collider(226, 0, 328, 'purple', 1, 20, 36, false, false, false)
+new collider(226, 0, 328, 'purple', 1, 20, 36, false, false, false),
+new collider(107, 0, 200, 'blue', 10, 20, 10, false, true, true, tempVL),
+new collider(138, 0, 228, 'blue', 10, 20, 10, false, true, true, tempVL),
+new collider(187, 0, 283, 'blue', 10, 20, 10, false, true, true, tempVL),
+new collider(126, 0, 267, 'blue', 10, 20, 10, false, true, true, tempVL),
+new collider(105, 0, 267, 'blue', 10, 20, 10, false, true, true, tempVL),
+new collider(137, 0, 308, 'blue', 10, 20, 10, false, true, true, tempVL),
+new collider(127, 0, 358, 'blue', 10, 20, 10, false, true, true, tempVL),
+new collider(224, 0, 359, 'blue', 10, 20, 10, false, true, true, tempVL)
     ];
 
   //audioUnfinishedTrig = new collider(140, 0, 230, 'blue', 20, 20, 10, false, true, true, aud1Unfinished);
@@ -184,20 +193,20 @@ new collider(226, 0, 328, 'purple', 1, 20, 36, false, false, false)
   playerController = new PlayerController(0, 0, 200, 1);
   playerController.cam = cam;
 
-    //  if (debug) 
-    // {
+      if (debug) 
+     {
 
 
-    //     yIntField = createInput('');
-    //     yIntField.attribute('placeholder', 'Y Int');
-    //     yIntField.position(100, 200);
-    //     yIntField.size(100);
+        yIntField = createInput('');
+        yIntField.attribute('placeholder', 'Y Int');
+        yIntField.position(100, 200);
+         yIntField.size(100);
 
-    //     zIntField = createInput('');
-    //     zIntField.attribute('placeholder', 'Z Int');
-    //     zIntField.position(100, 300);
-    //     zIntField.size(100);
-    // }
+        zIntField = createInput('');
+        zIntField.attribute('placeholder', 'Z Int');
+        zIntField.position(100, 300);
+        zIntField.size(100);
+    }
 }
 
 let playerLoc;
@@ -211,11 +220,11 @@ function startSim()
 function draw() {
   frameBuffer.begin();
 
-        //   print("DebugTest1");
-        // xIntField = createInput('');
-        // xIntField.attribute('placeholder', playerLoc);
-        // xIntField.position(100, 100);
-        // xIntField.size(300);
+          print("DebugTest1");
+         xIntField = createInput('');
+         xIntField.attribute('placeholder', playerLoc);
+         xIntField.position(100, 100);
+         xIntField.size(300);
 
   //let xInt = xIntField.value();
   //let yInt = yIntField.value();
