@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', e => {
 
 
   introVid.addEventListener('loadedmetadata', function() { 
-   this.currentTime = 70;
+   this.currentTime = 79;
  }, false);
 
 
