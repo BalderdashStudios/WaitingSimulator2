@@ -1,4 +1,4 @@
-let DEBUG = true;
+let DEBUG = false;
 let gameManagerMain;
 
 let frameBuffer;
@@ -18,7 +18,7 @@ let timer = 172800; // Timer variable, in seconds (172800 sec = 48 hours)
 
 let fontNormal; // Font for text rendering
 
-var aud0Narrator, aud1Unfinished, aud2BGMusic, tempVL; // Audio object for background sound
+var aud0Narrator, aud1Unfinished, aud2BGMusic, tempVL, aud1; // Audio object for background sound
 
 // Variables for 3D models (room parts)
 let walls;
@@ -67,6 +67,7 @@ function preload() {
   aud1Unfinished = loadSound('Audio/AudUnfinished.mp3');
   aud2BGMusic = loadSound('Audio/IntroducingStanly.mp3');
   tempVL = loadSound('Audio/TempVL.mp3');
+  aud1 = loadSound('Audio/Aud1.mp3');
 
   // Load image textures for 3D models
   floorTexture = loadImage('Textures/New/FloorBake.png');
@@ -126,7 +127,7 @@ function setup() {
 
 colliders = [
 
-  new collider(50, 0, 200, 'blue', 10, 20, 10, false, true, true, tempVL),
+  new collider(50, 0, 200, 'blue', 10, 20, 10, false, true, true, aud1),
   new collider(20, 0, 210, 'green', 25, 20, 3, false, false, false),//small, first on the right
   //LENGTH HEIGHT WIDTH
    new collider(86, 0, 210, 'green', 86, 20, 3, false, false, false),//big second on the right
@@ -231,11 +232,14 @@ function startSim()
 function draw() {
   frameBuffer.begin();
 
-          print("DebugTest1");
+  if(debug == true) 
+    {
+        print("DebugTest1");
          xIntField = createInput('');
          xIntField.attribute('placeholder', playerLoc);
          xIntField.position(100, 100);
          xIntField.size(300);
+    }
 
   //let xInt = xIntField.value();
   //let yInt = yIntField.value();
@@ -417,7 +421,7 @@ function checkCollision() {
     if (colliders[lastCollided].getAudioTrigger()) {
       if(colliders[lastCollided].getActive()) 
       {
-        colliders[lastCollided].playAudio();
+        colliders[lastCollided].playAudio(deltaTime);
         colliders[lastCollided].setActive(false);
         print("Collided with audio trigger")
 

@@ -41,6 +41,35 @@ class collider
       }
   }
 
+  audioOnEnded(deltaT) 
+  {
+    //let totalTime = this.audio.duration();
+    //let startTime = (new Date()).valueOf();
+    //let currentTime = startTime();
+    print(deltaT);
+    let i = this.audio.duration() * 60;
+    print(i);
+    for(i; i < 0; i - deltaT) 
+      {
+        print(i);
+      }
+    
+  }
+
+//   getHMS(m /* milliseconds */) {
+//   return [1000, 1000 * 60, 1000 * 60 * 60]
+//   	.reduce((hms, scl) => {
+//       let gimmeTime = Math.floor((m / scl) % 60);
+//       hms.push(gimmeTime);
+//       return hms;
+//     }, []);
+// }
+
+  // timer(deltaTime)
+  // {
+
+  // }
+
   returnAudio() 
   {
     return this.audio;
