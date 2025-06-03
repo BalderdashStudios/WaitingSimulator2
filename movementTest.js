@@ -27,6 +27,9 @@ let roof;
 let desks;
 let cabnets;
 let doors;
+let trim;
+let wall2;
+let cubicle;
 
 //Colliders
 var collider1, collider2;
@@ -49,7 +52,7 @@ var ang = function(a) {
 };
 
 // Texture variables
-var floorTexture, wallTexture, roofTex, deskTex, cabTex, reflection1, debug;
+var floorTexture, wallTexture, roofTex, deskTex, cabTex, reflection1, debug, wall2Tex, cubicleTex;
 
 var mx = 0, my = 0; // Mouse movement deltas
 // Listen for mouse movement to update mx and my (mouse deltas)
@@ -71,7 +74,10 @@ function preload() {
   deskTex = loadImage('Textures/BakeTabel.png');
   cabTex = loadImage('Textures/FilingCabnets1K.png');
   reflection1 = loadImage('Textures/Reflections/HDRI1.jpg');
-  debug = loadImage('Textures/Wall.png')
+  debug = loadImage('Textures/Wall.png');
+  trimTex = loadImage('Textures/New/TrimBake.png');
+  wall2Tex = loadImage('Textures/New/Wall2Bake.png');
+  cubicleTex = loadImage('Textures/New/CubicleBake.png');
   //doorTex = loadImage('Textures/DoorBake.png');
 
   //Load Reflection 360s
@@ -79,11 +85,14 @@ function preload() {
 
   // Load 3D models (.obj files)
   walls = loadModel('Models/New/Wall1.obj');
+  trim = loadModel('Models/New/Trim.obj')
   floor = loadModel('Models/New/Floor.obj');
   roof = loadModel('Models/New/Ceiling.obj');
   desks = loadModel('Models/Desk.obj', true);
   cabnets = loadModel('Models/Cabnets.obj', true);
   doors = loadModel('Models/Doors.obj', true);
+  wall2 = loadModel('Models/New/Wall2.obj');
+  cubicle = loadModel('Models/New/Cubicle.obj');
 
 
   // Load font for text rendering
@@ -300,6 +309,15 @@ function draw() {
     texture(wallTexture);
     model(walls);
 
+    texture(wall2Tex);
+    model(wall2);
+
+    texture(trimTex);
+    model(trim);
+    
+    texture(cubicleTex);
+    model(cubicle);
+
     texture(roofTex);
     model(roof);
 
@@ -335,15 +353,16 @@ function draw() {
  // introVid.play();
   //image(frameBuffer, -width / 2, -height / 2);
   //TODO RENDER IMAGE CORRECTLY
-  if (gameManagerMain.getList().length == 1) 
-    {
-      aud0Narrator.play();
-    }
-  else 
-  {
-    print("Less than 1 audio compleated");
-    print(gameManagerMain.getList().length);
-  }
+  
+  // if (gameManagerMain.getList().length == 1) 
+  //   {
+  //     aud0Narrator.play();
+  //   }
+  // else 
+  // {
+  //   print("Less than 1 audio compleated");
+  //   print(gameManagerMain.getList().length);
+  // }
 
   // Decrement timer every second (60 frames = 1 second)
   if (frameCount % 60 == 0 && timer > 0) {
