@@ -92,7 +92,7 @@ function preload() {
   trim = loadModel('Models/New/Trim.obj')
   floor = loadModel('Models/New/Floor.obj');
   roof = loadModel('Models/New/Ceiling.obj');
-  desks = loadModel('Models/Desk.obj', true);
+  desks = loadModel('Models/New/Desks.obj');
   cabnets = loadModel('Models/Cabnets.obj', true);
   doors = loadModel('Models/Doors.obj', true);
   wall2 = loadModel('Models/New/Wall2.obj');
@@ -339,6 +339,9 @@ function draw() {
 
     texture(yellowDividerTex);
     model(yellowDivider);
+
+    
+    model(desks);
 
 
     pop();
