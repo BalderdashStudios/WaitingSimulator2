@@ -1,6 +1,8 @@
 let DEBUG = true;
 let gameManagerMain;
 
+let ending;
+
 let frameBuffer;
 let fbCam;
 
@@ -82,10 +84,8 @@ function preload() {
   wall2Tex = loadImage('Textures/New/Wall2Bake.png');
   cubicleTex = loadImage('Textures/New/CubicleBake.png');
   yellowDividerTex = loadImage('Textures/New/YellowDividerBake.png');
-  //doorTex = loadImage('Textures/DoorBake.png');
 
   //Load Reflection 360s
-
 
   // Load 3D models (.obj files)
   walls = loadModel('Models/New/Wall1.obj');
@@ -99,11 +99,8 @@ function preload() {
   cubicle = loadModel('Models/New/Cubicle.obj');
   yellowDivider = loadModel('Models/New/YellowTrim.obj');
 
-
   // Load font for text rendering
   fontNormal = loadFont('Fonts/JMH Typewriter-Bold.ttf');
-
-  //playerController = new playerController.js;
 }
 
 // Setup function: Runs once at the start
@@ -115,21 +112,24 @@ function setup() {
     mx = e.movementX;
     my = e.movementY;
   });
+  
   theCanvas = createCanvas(window.innerWidth, window.innerHeight, WEBGL);
   theCanvas.hide();
+  
   frameBuffer = createFramebuffer();
+  
   cam = frameBuffer.createCamera();
   fbCam = createCamera();
+  
   cam.perspective(PI / 3.0, width / height, 0.01, 10000);
+  
   fullscreen();
-  let millisecond = millis();
+  
   userStartAudio();
-
-  //Create Input for modeling Debug
-  //X
 
 colliders = [
 
+  //LENGTH HEIGHT WIDTH
   new collider(50, 0, 200, 'blue', 10, 20, 10, false, true, true, aud1),
   new collider(20, 0, 210, 'green', 25, 20, 3, false, false, false),//small, first on the right
   //LENGTH HEIGHT WIDTH
@@ -221,10 +221,11 @@ new collider(-2, 5, 194, 'orange', 10, 10, 3, false, false, false)
   //bounds2 = new collider(0, 0, 300, 'red', 10, 100, 19, false);
   //let collider3 = new collider(0, 0, 400, 'green', 10, 100, 200, false);
 
-  //collider1.display();
 
- 
+  bounds1 = new collider(100, 0, 300, 'red', 300, 100, 300, false);
   bounds = [bounds1];
+
+  ending = [aud1, tempVL, tempVL];
 
   // Initialize the player controller and assign the camera
   playerController = new PlayerController(0, 0, 200, 1);
@@ -273,7 +274,6 @@ function draw() {
   // Set the camera for the framebuffer.
   setCamera(cam);
 
-
   // Set the target frame rate
   frameRate(250);
 
@@ -317,15 +317,10 @@ function draw() {
   // 2. Only move if there's input
   if (moveX !== 0 || moveZ !== 0) {
     // Optionally, check collision here for the intended direction
-    //if (!checkCollision()) {
     playerController.handleMovement(deltaTime);
     checkCollision();
     checkBoundingCollision();
     playerLoc = playerController.printLoc();
-    //textSize(22);
-    //fill('yellow');
-    //text("TEST", 6, 20);
-    //}
   }
   //DEBUG COLLIDERS
   //push();
@@ -341,14 +336,11 @@ function draw() {
     push();
     translate(30, 230, -11);
     scale(8, -8, 8)
-
+    
     noStroke();
     texture(floorTexture);
     model(floor);
-    //textureWrap(REPEAT);
-    //let c = color(100, 100, 100);
-    //directionalLight(c, 0, 20, 30);
-    //ambientLight(80);
+
     texture(wallTexture);
     model(walls);
 
@@ -367,9 +359,9 @@ function draw() {
     texture(yellowDividerTex);
     model(yellowDivider);
 
-    let c = color(100, 100, 100);
-    directionalLight(c, 0, 20, 30);
-    ambientLight(80);
+    //let c = color(100, 100, 100);
+    //directionalLight(c, 0, 20, 30);
+    //ambientLight(80);
     textureWrap(REPEAT);
     texture(debugTex);
     model(desks);
@@ -392,41 +384,9 @@ function draw() {
   setCamera(fbCam);
   // Reset all transformations.
   resetMatrix();
-
-  // for(i = 0; i > 1; i++) {
-  //   playIntroVid();
-  //    print('Playing vid');
-  //  }
-      //print("Loaded map");
       image(frameBuffer, -width / 2, -height / 2);
       frameBuffer.pixelDensity(0.6);
-//image(introVidTex, -width / 2,-height / 2);
-
- // introVid.play();
-  //image(frameBuffer, -width / 2, -height / 2);
-  //TODO RENDER IMAGE CORRECTLY
-  
-  // if (gameManagerMain.getList().length == 1) 
-  //   {
-  //     aud0Narrator.play();
-  //   }
-  // else 
-  // {
-  //   print("Less than 1 audio compleated");
-  //   print(gameManagerMain.getList().length);
-  // }
-
-  // Decrement timer every second (60 frames = 1 second)
-  if (frameCount % 60 == 0 && timer > 0) {
-    timer--;
-  }
-
-  // Display "You Lose!" when timer reaches 0
-  if (timer == 0) {
-    text("You Lose!", 1000, -600, 0);
-  }
 }
-
 // Track key presses (set key state to true)
 function keyPressed() {
   keys[keyCode] = true;
@@ -466,6 +426,9 @@ function checkCollision() {
 
         gameManagerMain.update(colliders[lastCollided].returnAudio());
         gameManagerMain.printList();
+        print(ending);
+        gameManagerMain.checkEnding(ending); 
+        
         return true;
       }
       else 
@@ -513,4 +476,16 @@ function handleEnd() {
 function playIntroVid() 
 {
   introVid.play();
+}
+
+//Materials
+function glassMaterial() 
+{
+    let d = color(255,255,255);
+    d.setAlpha(100);
+    imageLight(reflection1);
+    specularMaterial(100);
+    shininess(100);
+    metalness(100);
+    fill(d);
 }

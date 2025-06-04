@@ -1,16 +1,6 @@
 document.addEventListener('DOMContentLoaded', e => { 
   let introVid =  document.getElementById("introVid")
 
-  // introVid.addEventListener('ended', function(e) { 
-//introVid.pause();
-  //       introVid.removeAttribute('src'); // empty source
-  //       introVid.load();
-  //       var level = document.createElement('script');
-  //       level.src = "movementTest.js";
-  //       document.body.appendChild(level);
-  //       console.log("Video Ended");
-  // })
-
   introVid.addEventListener("click", function() {
     introVid.muted = false;
     introVid.play();
@@ -31,6 +21,5 @@ introVid.onended = function() {
   loop();
   introVid.remove();
   startSim();
-  //introVid.style.visibility = "hidden";
 };
 

@@ -18,6 +18,22 @@ class gameManager
     {
         return this.compleatedList;
     }
+
+    checkEnding(ending) 
+    {
+        let gameList = gameManagerMain.getList();
+        let i;
+        for(i=0; i < ending.length; i++) 
+            {
+            if (gameList[i] !== ending[i]) 
+                {
+                print("Requirements not met for ending");
+                return false;
+                }
+            }
+        print("Ending requirements met")
+        return true;
+    }
 }
 
 //Track what voice lines player has heard
