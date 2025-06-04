@@ -307,7 +307,7 @@ function draw() {
     push();
     translate(30, 230, -11);
     scale(8, -8, 8)
-
+    
     noStroke();
     texture(floorTexture);
     model(floor);
@@ -330,9 +330,9 @@ function draw() {
     texture(yellowDividerTex);
     model(yellowDivider);
 
-    let c = color(100, 100, 100);
-    directionalLight(c, 0, 20, 30);
-    ambientLight(80);
+    //let c = color(100, 100, 100);
+    //directionalLight(c, 0, 20, 30);
+    //ambientLight(80);
     textureWrap(REPEAT);
     texture(debugTex);
     model(desks);
@@ -449,4 +449,16 @@ function handleEnd() {
 function playIntroVid() 
 {
   introVid.play();
+}
+
+//Materials
+function glassMaterial() 
+{
+    let d = color(255,255,255);
+    d.setAlpha(100);
+    imageLight(reflection1);
+    specularMaterial(100);
+    shininess(100);
+    metalness(100);
+    fill(d);
 }
