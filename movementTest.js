@@ -77,7 +77,7 @@ function preload() {
   deskTex = loadImage('Textures/BakeTabel.png');
   cabTex = loadImage('Textures/FilingCabnets1K.png');
   reflection1 = loadImage('Textures/Reflections/HDRI1.jpg');
-  debug = loadImage('Textures/Wall.png');
+  debugTex = loadImage('Textures/Wall.png');
   trimTex = loadImage('Textures/New/TrimBake.png');
   wall2Tex = loadImage('Textures/New/Wall2Bake.png');
   cubicleTex = loadImage('Textures/New/CubicleBake.png');
@@ -355,7 +355,11 @@ function draw() {
     texture(yellowDividerTex);
     model(yellowDivider);
 
-    
+    let c = color(100, 100, 100);
+    directionalLight(c, 0, 20, 30);
+    ambientLight(80);
+    textureWrap(REPEAT);
+    texture(debugTex);
     model(desks);
 
 
@@ -363,15 +367,15 @@ function draw() {
 
     push();
 
-    imageLight(reflection1);
-    translate(-80, -1, 7);
-    scale(0.16);
-    specularMaterial(100);
-    shininess(100);
-    metalness(100);
-    texture(cabTex);
-    model(cabnets);
-    pop();
+    // imageLight(reflection1);
+    // translate(-80, -1, 7);
+    // scale(0.16);
+    // specularMaterial(100);
+    // shininess(100);
+    // metalness(100);
+    // texture(cabTex);
+    // model(cabnets);
+    // pop();
   
 
   frameBuffer.end();
