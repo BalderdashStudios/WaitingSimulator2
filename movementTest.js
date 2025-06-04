@@ -30,6 +30,7 @@ let doors;
 let trim;
 let wall2;
 let cubicle;
+let yellowDivider;
 
 //Colliders
 var collider1, collider2;
@@ -52,7 +53,7 @@ var ang = function(a) {
 };
 
 // Texture variables
-var floorTexture, wallTexture, roofTex, deskTex, cabTex, reflection1, debug, wall2Tex, cubicleTex;
+var floorTexture, wallTexture, roofTex, deskTex, cabTex, reflection1, debug, wall2Tex, cubicleTex, yellowDividerTex;
 
 var mx = 0, my = 0; // Mouse movement deltas
 // Listen for mouse movement to update mx and my (mouse deltas)
@@ -80,6 +81,7 @@ function preload() {
   trimTex = loadImage('Textures/New/TrimBake.png');
   wall2Tex = loadImage('Textures/New/Wall2Bake.png');
   cubicleTex = loadImage('Textures/New/CubicleBake.png');
+  yellowDividerTex = loadImage('Textures/New/YellowDividerBake.png');
   //doorTex = loadImage('Textures/DoorBake.png');
 
   //Load Reflection 360s
@@ -95,6 +97,7 @@ function preload() {
   doors = loadModel('Models/Doors.obj', true);
   wall2 = loadModel('Models/New/Wall2.obj');
   cubicle = loadModel('Models/New/Cubicle.obj');
+  yellowDivider = loadModel('Models/New/YellowTrim.obj');
 
 
   // Load font for text rendering
@@ -333,6 +336,10 @@ function draw() {
 
     texture(roofTex);
     model(roof);
+
+    texture(yellowDividerTex);
+    model(yellowDivider);
+
 
     pop();
 
