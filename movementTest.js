@@ -1,4 +1,4 @@
-let DEBUG = false;
+let DEBUG = true;
 let gameManagerMain;
 
 let ending;
@@ -132,73 +132,95 @@ colliders = [
   //LENGTH HEIGHT WIDTH
   new collider(50, 0, 200, 'blue', 10, 20, 10, false, true, true, aud1),
   new collider(20, 0, 210, 'green', 25, 20, 3, false, false, false),//small, first on the right
-  new collider(86, 0, 210, 'green', 86, 20, 3, false, false, false),//big second on the right
-  new collider(90, 0, 150, 'green', 80, 20, 3, false, false, false),
-  new collider(0, 0, 190, 'green', 100, 20, 3, false, false, false),
-  new collider(3, 0, 217, 'green', 20, 20, 3, false, false, false),//first room right
-  new collider(10, 0, 211, 'green', 1, 20, 11, false, false, false),//first doorway
-  new collider(50, 0, 166, 'green', 1, 20, 44, false, false, false),
-  new collider(108, 0, 164, 'green', 1, 20, 60, false, false, false),
-  new collider(130, 0, 190, 'green', 40, 20, 1, false, false, false),
-  new collider(148, 0, 210, 'green', 1, 20, 40, false, false, false),
-  new collider(164, 0, 229, 'green', 45, 20, 1, false, false, false),
-  new collider(108, 0, 210, 'green', 1, 20, 10, false, false, false),
-  new collider(127, 0, 237, 'green', 1, 20, 50, false, false, false),
-  new collider(122, 0, 229, 'green', 20, 20, 1, false, false, false),
-  new collider(187, 0, 245, 'green', 1, 20, 66, false, false, false),
-  new collider(127, 0, 320, 'green', 1, 20, 98, false, false, false),//big one on the left in the second room
-  new collider(187, 0, 298, 'green', 1, 20, 19, false, false, false),
-  new collider(127, 0, 308, 'green', 10, 20, 1, false, false, false),
-  new collider(157, 0, 308, 'green', 28, 20, 1, false, false, false),
-  new collider(148, 0, 312, 'green', 1, 20, 5, false, false, false),
-  new collider(148, 0, 336, 'green', 1, 20, 25, false, false, false),
-  new collider(73, 0, 186, 'green', 8, 20, 1, false, false, false),//dividers
-  new collider(58, 0, 166, 'green', 11, 20, 7, false, false, false),
-  new collider(100, 0, 180, 'green', 11, 20, 7, false, false, false),
-  new collider(83, 0, 158, 'green', 7, 20, 13, false, false, false),//dividers
-  new collider(117, 0, 299, 'green', 18, 20, 1, false, false, false),
-  new collider(106, 0, 286, 'green', 1, 20, 28, false, false, false),
-  new collider(117, 0, 261, 'green', 18, 20, 1, false, false, false),
-  new collider(168, 0, 329, 'green', 1, 20, 38, false, false, false),
-  new collider(157, 0, 349, 'green', 28, 20, 1, false, false, false),
-  new collider(129, 0, 349, 'green', 5, 20, 1, false, false, false),
-  new collider(197, 0, 308, 'green', 29.6, 20, 1, false, false, false),
-  new collider(134, 0, 369, 'green', 15, 20, 1, false, false, false),
-  new collider(176, 0, 369, 'green', 47, 20, 1, false, false, false),
-  new collider(203, 0, 349, 'green', 43, 20, 1, false, false, false),
-  new collider(218, 0, 369, 'green', 15, 20, 1, false, false, false),
-  new collider(225, 0, 367, 'green', 1, 20, 5, false, false, false),
-  new collider(225, 0, 351, 'green', 1, 20, 5, false, false, false),
-  new collider(195, 0, 230, 'green', 13, 20, 1, false, false, false),
-  new collider(229, 0, 230, 'green', 34, 20, 1, false, false, false),
-  new collider(246, 0, 237, 'green', 1, 20, 14, false, false, false),
-  new collider(246, 0, 281, 'green', 1, 20, 52, false, false, false),
-  new collider(234, 0, 308, 'green', 24, 20, 1, false, false, false),
-  new collider(226, 0, 328, 'green', 1, 20, 36, false, false, false),
-  new collider(107, 0, 200, 'blue', 10, 20, 10, false, true, true, tempVL),
-  new collider(138, 0, 228, 'blue', 10, 20, 10, false, true, true, tempVL),
-  new collider(187, 0, 283, 'blue', 10, 20, 10, false, true, true, tempVL),
-  new collider(126, 0, 267, 'blue', 10, 20, 10, false, true, true, tempVL),
-  new collider(105, 0, 267, 'blue', 10, 20, 10, false, true, true, tempVL),
-  new collider(137, 0, 308, 'blue', 10, 20, 10, false, true, true, tempVL),
-  new collider(127, 0, 358, 'blue', 10, 20, 10, false, true, true, tempVL),
-  new collider(224, 0, 359, 'blue', 10, 20, 10, false, true, true, tempVL),
-  new collider(-5, 5, 204, 'orange', 2, 10, 23, false, false, false),
-  new collider(8, 5, 215, 'orange', 3, 10, 5, false, false, false),
-  new collider(50, 0, 220, 'green', 1, 20, 20, false, false, false),
-  new collider(11, 0, 220, 'green', 1, 20, 20, false, false, false),
-  new collider(29, 0, 230, 'green', 41, 20, 1, false, false, false),
-  new collider(16, 5, 220, 'orange', 3, 10, 17, false, false, false),
-  new collider(21, 5, 228, 'orange', 8, 10, 3, false, false, false),
-  new collider(77, 5, 154, 'orange', 6, 10, 3, false, false, false),
-  new collider(89, 5, 154, 'orange', 6, 10, 3, false, false, false),
-  new collider(105, 5, 174, 'orange', 3, 10, 6, false, false, false),
-  new collider(105, 5, 186, 'orange', 3, 10, 6, false, false, false),
-  new collider(52, 5, 172, 'orange', 3, 10, 6, false, false, false),
-  new collider(52, 5, 159, 'orange', 3, 10, 6, false, false, false),
-  new collider(116, 5, 297, 'orange', 19, 10, 3, false, false, false),
-  new collider(124, 5, 290, 'orange', 3, 10, 10, false, false, false)
-];
+  //LENGTH HEIGHT WIDTH
+   new collider(86, 0, 210, 'green', 86, 20, 3, false, false, false),//big second on the right
+
+new collider(90, 0, 150, 'green', 80, 20, 3, false, false, false),
+ new collider(0, 0, 190, 'green', 100, 20, 3, false, false, false),
+new collider(3, 0, 217, 'green', 20, 20, 3, false, false, false),//first room right
+
+new collider(10, 0, 211, 'green', 1, 20, 11, false, false, false),//first doorway
+new collider(50, 0, 166, 'green', 1, 20, 44, false, false, false),
+new collider(108, 0, 164, 'green', 1, 20, 60, false, false, false),
+
+new collider(130, 0, 190, 'green', 40, 20, 1, false, false, false),
+new collider(148, 0, 210, 'green', 1, 20, 40, false, false, false),
+
+new collider(164, 0, 229, 'green', 45, 20, 1, false, false, false),
+
+new collider(108, 0, 210, 'green', 1, 20, 10, false, false, false),
+new collider(127, 0, 237, 'green', 1, 20, 50, false, false, false),
+new collider(122, 0, 229, 'green', 20, 20, 1, false, false, false),
+new collider(187, 0, 245, 'green', 1, 20, 66, false, false, false),
+new collider(127, 0, 320, 'green', 1, 20, 98, false, false, false),//big one on the left in the second room
+new collider(187, 0, 298, 'green', 1, 20, 19, false, false, false),
+new collider(127, 0, 308, 'green', 10, 20, 1, false, false, false),
+new collider(157, 0, 308, 'green', 28, 20, 1, false, false, false),
+new collider(148, 0, 312, 'green', 1, 20, 5, false, false, false),
+new collider(148, 0, 336, 'green', 1, 20, 25, false, false, false),
+new collider(73, 0, 186, 'green', 8, 20, 1, false, false, false),//dividers
+new collider(58, 0, 166, 'green', 11, 20, 7, false, false, false),
+new collider(100, 0, 180, 'green', 11, 20, 7, false, false, false),
+new collider(83, 0, 158, 'green', 7, 20, 13, false, false, false),//dividers
+new collider(117, 0, 299, 'green', 18, 20, 1, false, false, false),
+new collider(106, 0, 286, 'green', 1, 20, 28, false, false, false),
+new collider(117, 0, 261, 'green', 18, 20, 1, false, false, false),
+new collider(168, 0, 329, 'green', 1, 20, 38, false, false, false),
+new collider(157, 0, 349, 'green', 28, 20, 1, false, false, false),
+new collider(129, 0, 349, 'green', 5, 20, 1, false, false, false),
+new collider(197, 0, 308, 'green', 29.6, 20, 1, false, false, false),
+new collider(134, 0, 369, 'green', 15, 20, 1, false, false, false),
+new collider(176, 0, 369, 'green', 47, 20, 1, false, false, false),
+new collider(203, 0, 349, 'green', 43, 20, 1, false, false, false),
+new collider(218, 0, 369, 'green', 15, 20, 1, false, false, false),
+new collider(225, 0, 367, 'green', 1, 20, 5, false, false, false),
+new collider(225, 0, 351, 'green', 1, 20, 5, false, false, false),
+new collider(195, 0, 230, 'green', 13, 20, 1, false, false, false),
+new collider(229, 0, 230, 'green', 34, 20, 1, false, false, false),
+new collider(246, 0, 237, 'green', 1, 20, 14, false, false, false),
+new collider(246, 0, 281, 'green', 1, 20, 52, false, false, false),
+new collider(234, 0, 308, 'green', 24, 20, 1, false, false, false),
+new collider(226, 0, 328, 'green', 1, 20, 36, false, false, false),
+new collider(107, 0, 200, 'blue', 10, 20, 10, false, true, true, tempVL),
+new collider(138, 0, 228, 'blue', 10, 20, 10, false, true, true, tempVL),
+new collider(187, 0, 283, 'blue', 10, 20, 10, false, true, true, tempVL),
+new collider(126, 0, 267, 'blue', 10, 20, 10, false, true, true, tempVL),
+new collider(105, 0, 267, 'blue', 10, 20, 10, false, true, true, tempVL),
+new collider(137, 0, 308, 'blue', 10, 20, 10, false, true, true, tempVL),
+new collider(127, 0, 358, 'blue', 10, 20, 10, false, true, true, tempVL),
+new collider(224, 0, 359, 'blue', 10, 20, 10, false, true, true, tempVL),
+new collider(-7, 5, 204, 'orange', 2, 10, 23, false, false, false),
+new collider(8, 5, 215, 'orange', 3, 10, 5, false, false, false),
+new collider(50, 0, 220, 'green', 1, 20, 20, false, false, false),
+new collider(11, 0, 220, 'green', 1, 20, 20, false, false, false),
+new collider(29, 0, 230, 'green', 41, 20, 1, false, false, false),
+new collider(16, 5, 220, 'orange', 3, 10, 17, false, false, false),
+new collider(21, 5, 228, 'orange', 8, 10, 3, false, false, false),
+new collider(77, 5, 154, 'orange', 6, 10, 3, false, false, false),
+new collider(89, 5, 154, 'orange', 6, 10, 3, false, false, false),
+new collider(105, 5, 174, 'orange', 3, 10, 6, false, false, false),
+new collider(105, 5, 186, 'orange', 3, 10, 6, false, false, false),
+new collider(52, 5, 172, 'orange', 3, 10, 6, false, false, false),
+new collider(52, 5, 159, 'orange', 3, 10, 6, false, false, false),
+new collider(116, 5, 297, 'orange', 19, 10, 3, false, false, false),
+new collider(124, 5, 290, 'orange', 3, 10, 10, false, false, false),
+new collider(19, 5, 214, 'orange', 11, 10, 3, false, false, false),
+new collider(153, 5, 266, 'orange', 13, 10, 7, false, false, false),
+new collider(158, 5, 266, 'orange', 3, 10, 20, false, false, false),
+new collider(153, 5, 301, 'orange', 7, 10, 13, false, false, false),
+new collider(153, 5, 306, 'orange', 20, 10, 3, false, false, false),
+new collider(-2, 5, 214, 'orange', 10, 10, 3, false, false, false),
+new collider(-2, 5, 194, 'orange', 10, 10, 3, false, false, false)
+    ];
+
+  //audioUnfinishedTrig = new collider(140, 0, 230, 'blue', 20, 20, 10, false, true, true, aud1Unfinished);
+
+  //200, 100,19
+  bounds1 = new collider(100, 0, 300, 'red', 300, 100, 300, false);
+  
+  //bounds2 = new collider(0, 0, 300, 'red', 10, 100, 19, false);
+  //let collider3 = new collider(0, 0, 400, 'green', 10, 100, 200, false);
+
 
   bounds1 = new collider(100, 0, 300, 'red', 300, 100, 300, false);
   bounds = [bounds1];
@@ -236,7 +258,7 @@ function startSim()
 function draw() {
   frameBuffer.begin();
 
-  if(debug == true) 
+  if(DEBUG == true) 
     {
         print("DebugTest1");
          xIntField = createInput('');
@@ -259,8 +281,15 @@ function draw() {
   background(255);
   //panorama(reflection1);
 
+  // Disable outlines on shapes
+ noStroke(); 
   // Enable smooth rendering
   smooth();
+
+  push();
+  translate(22.5,0,210);
+  box(15,11,1);
+  pop();
 
   // Update and apply player camera
   playerController.handleMouseMovement(mx, my);
@@ -336,8 +365,6 @@ function draw() {
     textureWrap(REPEAT);
     texture(debugTex);
     model(desks);
-
-
     pop();
 
     push();
