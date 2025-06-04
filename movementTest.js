@@ -1,4 +1,4 @@
-let DEBUG = false;
+let DEBUG = true;
 let gameManagerMain;
 
 let frameBuffer;
@@ -189,7 +189,7 @@ new collider(105, 0, 267, 'blue', 10, 20, 10, false, true, true, tempVL),
 new collider(137, 0, 308, 'blue', 10, 20, 10, false, true, true, tempVL),
 new collider(127, 0, 358, 'blue', 10, 20, 10, false, true, true, tempVL),
 new collider(224, 0, 359, 'blue', 10, 20, 10, false, true, true, tempVL),
-new collider(-5, 5, 204, 'orange', 2, 10, 23, false, false, false),
+new collider(-7, 5, 204, 'orange', 2, 10, 23, false, false, false),
 new collider(8, 5, 215, 'orange', 3, 10, 5, false, false, false),
 new collider(50, 0, 220, 'green', 1, 20, 20, false, false, false),
 new collider(11, 0, 220, 'green', 1, 20, 20, false, false, false),
@@ -203,7 +203,14 @@ new collider(105, 5, 186, 'orange', 3, 10, 6, false, false, false),
 new collider(52, 5, 172, 'orange', 3, 10, 6, false, false, false),
 new collider(52, 5, 159, 'orange', 3, 10, 6, false, false, false),
 new collider(116, 5, 297, 'orange', 19, 10, 3, false, false, false),
-new collider(124, 5, 290, 'orange', 3, 10, 10, false, false, false)
+new collider(124, 5, 290, 'orange', 3, 10, 10, false, false, false),
+new collider(19, 5, 214, 'orange', 11, 10, 3, false, false, false),
+new collider(153, 5, 266, 'orange', 13, 10, 7, false, false, false),
+new collider(158, 5, 266, 'orange', 3, 10, 20, false, false, false),
+new collider(153, 5, 301, 'orange', 7, 10, 13, false, false, false),
+new collider(153, 5, 306, 'orange', 20, 10, 3, false, false, false),
+new collider(-2, 5, 214, 'orange', 10, 10, 3, false, false, false),
+new collider(-2, 5, 194, 'orange', 10, 10, 3, false, false, false)
     ];
 
   //audioUnfinishedTrig = new collider(140, 0, 230, 'blue', 20, 20, 10, false, true, true, aud1Unfinished);
@@ -250,7 +257,7 @@ function startSim()
 function draw() {
   frameBuffer.begin();
 
-  if(debug == true) 
+  if(DEBUG == true) 
     {
         print("DebugTest1");
          xIntField = createInput('');
