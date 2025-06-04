@@ -282,9 +282,14 @@ function draw() {
   //panorama(reflection1);
 
   // Disable outlines on shapes
-
+ noStroke(); 
   // Enable smooth rendering
   smooth();
+
+  push();
+  translate(22.5,0,210);
+  box(15,11,1);
+  pop();
 
   // Update and apply player camera
   playerController.handleMouseMovement(mx, my);
@@ -368,8 +373,6 @@ function draw() {
     textureWrap(REPEAT);
     texture(debugTex);
     model(desks);
-
-
     pop();
 
     push();
