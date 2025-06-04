@@ -488,7 +488,7 @@ function glassMaterial()
     d.setAlpha(100);
     imageLight(reflection1);
     specularMaterial(100);
-    shininess(100);
+    shininess(50);
     metalness(100);
     fill(d);
 }
