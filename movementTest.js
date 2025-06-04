@@ -1,4 +1,4 @@
-let DEBUG = true;
+let DEBUG = false;
 let gameManagerMain;
 
 let ending;
@@ -282,11 +282,14 @@ function draw() {
   //panorama(reflection1);
 
   // Disable outlines on shapes
- noStroke(); 
+ //noStroke(); 
   // Enable smooth rendering
   smooth();
 
+  
   push();
+  noStroke();
+  glassMaterial();
   translate(22.5,0,210);
   box(15,11,1);
   pop();
