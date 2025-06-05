@@ -1,4 +1,4 @@
-let DEBUG = true;
+let DEBUG = false;
 let gameManagerMain;
 
 let ending;
@@ -20,7 +20,7 @@ let timer = 172800; // Timer variable, in seconds (172800 sec = 48 hours)
 
 let fontNormal; // Font for text rendering
 
-var aud0Narrator, aud1Unfinished, aud2BGMusic, tempVL, aud1; // Audio object for background sound
+var aud0Narrator, aud1Unfinished, aud2BGMusic, tempVL, aud1, aud3Doors; // Audio object for background sound
 
 // Variables for 3D models (room parts)
 let walls;
@@ -69,6 +69,7 @@ function preload() {
   aud0Narrator = loadSound('Audio/WaitingSimAudio.mp3');
   aud1Unfinished = loadSound('Audio/AudUnfinished.mp3');
   aud2BGMusic = loadSound('Audio/IntroducingStanly.mp3');
+  aud3Doors = loadSound('Audio/Aud3OpenDoors.mp3');
   tempVL = loadSound('Audio/TempVL.mp3');
   aud1 = loadSound('Audio/Aud1.mp3');
 
@@ -189,7 +190,7 @@ new collider(126, 0, 267, 'blue', 10, 20, 10, false, true, true, tempVL),
 new collider(105, 0, 267, 'blue', 10, 20, 10, false, true, true, tempVL),
 new collider(137, 0, 308, 'blue', 10, 20, 10, false, true, true, tempVL),
 new collider(127, 0, 358, 'blue', 10, 20, 10, false, true, true, tempVL),
-new collider(224, 0, 359, 'blue', 10, 20, 10, false, true, true, tempVL),
+new collider(224, 0, 359, 'blue', 10, 20, 10, false, true, true, aud3Doors),
 new collider(-7, 5, 204, 'orange', 2, 10, 23, false, false, false),
 new collider(8, 5, 215, 'orange', 3, 10, 5, false, false, false),
 new collider(50, 0, 220, 'green', 1, 20, 20, false, false, false),
@@ -282,14 +283,6 @@ function draw() {
   // Enable smooth rendering
   smooth();
 
-  
-  push();
-  noStroke();
-  glassMaterial();
-  translate(22.5,0,210);
-  box(15,11,1);
-  pop();
-
   // Update and apply player camera
   playerController.handleMouseMovement(mx, my);
   playerController.updateCamera();
@@ -330,9 +323,9 @@ function draw() {
   //}
   // Rotate the view to match 3D world orientation
     //print("Creating Level");
-    rotateX(ang(90));
 
     push();
+     rotateX(ang(90));
     translate(30, 230, -11);
     scale(8, -8, 8)
     
@@ -366,9 +359,13 @@ function draw() {
     model(desks);
     model(cabnets);
     model(section2);
-    pop();
 
-    push();
+        noStroke();
+        rotateX(ang(-90));
+        translate(22.5,0,210);
+        //glassMaterial();
+        box(15,11,1);
+    pop();
 
     // imageLight(reflection1);
     // translate(-80, -1, 7);
@@ -379,7 +376,6 @@ function draw() {
     // texture(cabTex);
     // model(cabnets);
     // pop();
-  
 
   frameBuffer.end();
   setCamera(fbCam);
@@ -483,10 +479,11 @@ function playIntroVid()
 function glassMaterial() 
 {
     let d = color(255,255,255);
-    d.setAlpha(100);
+    d.setAlpha(0);
     imageLight(reflection1);
-    specularMaterial(100);
-    shininess(50);
-    metalness(100);
+    specularMaterial(255);
+    //shininess(255);
+    //metalness(255);
+    //imageLight(reflection1);
     fill(d);
 }
