@@ -182,6 +182,7 @@ new collider(246, 0, 237, 'green', 1, 20, 14, false, false, false),
 new collider(246, 0, 281, 'green', 1, 20, 52, false, false, false),
 new collider(234, 0, 308, 'green', 24, 20, 1, false, false, false),
 new collider(226, 0, 328, 'green', 1, 20, 36, false, false, false),
+
 new collider(107, 0, 200, 'blue', 10, 20, 10, false, true, true, tempVL),
 new collider(138, 0, 228, 'blue', 10, 20, 10, false, true, true, tempVL),
 new collider(187, 0, 283, 'blue', 10, 20, 10, false, true, true, tempVL),
@@ -190,11 +191,14 @@ new collider(105, 0, 267, 'blue', 10, 20, 10, false, true, true, tempVL),
 new collider(137, 0, 308, 'blue', 10, 20, 10, false, true, true, tempVL),
 new collider(127, 0, 358, 'blue', 10, 20, 10, false, true, true, tempVL),
 new collider(224, 0, 359, 'blue', 10, 20, 10, false, true, true, tempVL),
+
 new collider(-7, 5, 204, 'orange', 2, 10, 23, false, false, false),
 new collider(8, 5, 215, 'orange', 3, 10, 5, false, false, false),
 new collider(50, 0, 220, 'green', 1, 20, 20, false, false, false),
 new collider(11, 0, 220, 'green', 1, 20, 20, false, false, false),
 new collider(29, 0, 230, 'green', 41, 20, 1, false, false, false),
+
+
 new collider(16, 5, 220, 'orange', 3, 10, 17, false, false, false),
 new collider(21, 5, 228, 'orange', 8, 10, 3, false, false, false),
 new collider(77, 5, 154, 'orange', 6, 10, 3, false, false, false),
@@ -211,7 +215,25 @@ new collider(158, 5, 266, 'orange', 3, 10, 20, false, false, false),
 new collider(153, 5, 301, 'orange', 7, 10, 13, false, false, false),
 new collider(153, 5, 306, 'orange', 20, 10, 3, false, false, false),
 new collider(-2, 5, 214, 'orange', 10, 10, 3, false, false, false),
-new collider(-2, 5, 194, 'orange', 10, 10, 3, false, false, false)
+new collider(-2, 5, 194, 'orange', 10, 10, 3, false, false, false),
+new collider(85, 5, 206, 'orange', 11, 10, 3, false, false, false),
+new collider(33, 5, 227, 'orange', 12, 10, 3, false, false, false),
+//Section2
+new collider(235, 0, 382, 'green', 1, 20, 34, false, false, false),
+new collider(235, 0, 336, 'green', 1, 20, 35, false, false, false),
+new collider(265, 0, 398, 'green', 60, 20, 1, false, false, false),
+new collider(265, 0, 320, 'green', 60, 20, 1, false, false, false),
+new collider(293, 0, 389, 'green', 1, 20, 19, false, false, false),
+new collider(293, 0, 359, 'green', 1, 20, 17, false, false, false),
+new collider(293, 0, 329, 'green', 1, 20, 19, false, false, false),
+new collider(313, 0, 335, 'green', 35, 20, 1, false, false, false),
+new collider(332, 0, 312, 'green', 1, 20, 45, false, false, false),
+new collider(323, 0, 354, 'green', 55, 20, 1, false, false, false),
+new collider(352, 0, 332, 'green', 1, 20, 42, false, false, false),
+new collider(362, 0, 291, 'green', 57, 20, 1, false, false, false),
+new collider(391, 0, 262, 'green', 1, 20, 57, false, false, false)
+
+
     ];
 
   //audioUnfinishedTrig = new collider(140, 0, 230, 'blue', 20, 20, 10, false, true, true, aud1Unfinished);
@@ -224,7 +246,7 @@ new collider(-2, 5, 194, 'orange', 10, 10, 3, false, false, false)
   ending = [aud1, tempVL, tempVL];
 
   // Initialize the player controller and assign the camera
-  playerController = new PlayerController(0, 0, 200, 1);
+  playerController = new PlayerController(257, 0, 355, 1);
   playerController.cam = cam;
 
       if (debug) 
