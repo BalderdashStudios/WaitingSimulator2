@@ -1,4 +1,4 @@
-let DEBUG = false;
+let DEBUG = true;
 let gameManagerMain;
 
 let ending;
@@ -33,7 +33,7 @@ let trim;
 let wall2;
 let cubicle;
 let yellowDivider;
-
+let section2;
 //Colliders
 var collider1, collider2;
 
@@ -93,11 +93,12 @@ function preload() {
   floor = loadModel('Models/New/Floor.obj');
   roof = loadModel('Models/New/Ceiling.obj');
   desks = loadModel('Models/New/Desks.obj');
-  cabnets = loadModel('Models/Cabnets.obj', true);
+  cabnets = loadModel('Models/New/Cabinents.obj');
   doors = loadModel('Models/Doors.obj', true);
   wall2 = loadModel('Models/New/Wall2.obj');
   cubicle = loadModel('Models/New/Cubicle.obj');
   yellowDivider = loadModel('Models/New/YellowTrim.obj');
+  section2 = loadModel('Models/New/Section2.obj');
 
   // Load font for text rendering
   fontNormal = loadFont('Fonts/JMH Typewriter-Bold.ttf');
@@ -216,13 +217,8 @@ new collider(-2, 5, 194, 'orange', 10, 10, 3, false, false, false)
   //audioUnfinishedTrig = new collider(140, 0, 230, 'blue', 20, 20, 10, false, true, true, aud1Unfinished);
 
   //200, 100,19
-  bounds1 = new collider(100, 0, 300, 'red', 300, 100, 300, false);
-  
-  //bounds2 = new collider(0, 0, 300, 'red', 10, 100, 19, false);
-  //let collider3 = new collider(0, 0, 400, 'green', 10, 100, 200, false);
-
-
-  bounds1 = new collider(100, 0, 300, 'red', 300, 100, 300, false);
+    //bounds1 = new collider(100, 0, 300, 'red', 300, 100, 300, false);
+  bounds1 = new collider(100, 0, 300, 'red', 3000, 200, 3000, false);
   bounds = [bounds1];
 
   ending = [aud1, tempVL, tempVL];
@@ -362,12 +358,14 @@ function draw() {
     texture(yellowDividerTex);
     model(yellowDivider);
 
-    //let c = color(100, 100, 100);
-    //directionalLight(c, 0, 20, 30);
-    //ambientLight(80);
+    let c = color(100, 100, 100);
+    directionalLight(c, 0, 20, 30);
+    ambientLight(80);
     textureWrap(REPEAT);
     texture(debugTex);
     model(desks);
+    model(cabnets);
+    model(section2);
     pop();
 
     push();
