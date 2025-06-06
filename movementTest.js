@@ -231,7 +231,27 @@ new collider(332, 0, 312, 'green', 1, 20, 45, false, false, false),
 new collider(323, 0, 354, 'green', 55, 20, 1, false, false, false),
 new collider(352, 0, 332, 'green', 1, 20, 42, false, false, false),
 new collider(362, 0, 291, 'green', 57, 20, 1, false, false, false),
-new collider(391, 0, 262, 'green', 1, 20, 57, false, false, false)
+new collider(391, 0, 262, 'green', 1, 20, 57, false, false, false),
+new collider(381, 0, 311, 'green', 58, 20, 1, false, false, false),
+new collider(410, 0, 271, 'green', 1, 20, 78, false, false, false),
+new collider(413, 0, 232, 'green', 15, 20, 1, false, false, false),
+new collider(420, 0, 203, 'green', 1, 20, 60, false, false, false),
+new collider(380, 0, 172, 'green', 84, 20, 1, false, false, false),
+new collider(359, 0, 232, 'green', 72, 20, 1, false, false, false),
+new collider(323, 0, 193, 'green', 1, 20, 80, false, false, false),
+new collider(324, 0, 172, 'green', 6, 20, 1, false, false, false),
+new collider(325, 0, 364, 'green', 58, 20, 1, false, false, false),
+new collider(313, 0, 384, 'green', 38, 20, 1, false, false, false),
+new collider(332, 0, 399, 'green', 1, 20, 30, false, false, false),
+new collider(352, 0, 389, 'green', 1, 20, 48, false, false, false),
+new collider(342, 0, 412, 'green', 20, 20, 1, false, false, false),
+new collider(337, 0, 152, 'green', 30, 20, 1, false, false, false),
+new collider(371, 0, 152, 'green', 18, 20, 1, false, false, false),
+new collider(401, 0, 142, 'green', 1, 20, 60, false, false, false),
+new collider(398, 0, 112, 'green', 4, 20, 1, false, false, false),
+new collider(384, 0, 112, 'green', 4, 20, 1, false, false, false),
+new collider(405, 0, 83, 'green', 1, 20, 60, false, false, false),
+new collider(390, 0, 56, 'green', 28, 20, 1, false, false, false)
 
 
     ];
@@ -246,7 +266,7 @@ new collider(391, 0, 262, 'green', 1, 20, 57, false, false, false)
   ending = [aud1, tempVL, tempVL];
 
   // Initialize the player controller and assign the camera
-  playerController = new PlayerController(257, 0, 355, 1);
+  playerController = new PlayerController(361, 0, 210, 1);
   playerController.cam = cam;
 
       if (debug) 
