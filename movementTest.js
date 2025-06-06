@@ -79,7 +79,8 @@ function preload() {
   roofTex = loadImage('Textures/New/CeilingBake.png');
   deskTex = loadImage('Textures/BakeTabel.png');
   cabTex = loadImage('Textures/FilingCabnets1K.png');
-  reflection1 = loadImage('Textures/Reflections/HDRI1.jpg');
+  //HDRI
+  reflection1 = loadImage('Textures/Reflections/HDRI2.png');
   debugTex = loadImage('Textures/Wall.png');
   trimTex = loadImage('Textures/New/TrimBake.png');
   wall2Tex = loadImage('Textures/New/Wall2Bake.png');
@@ -356,26 +357,22 @@ function draw() {
     ambientLight(80);
     textureWrap(REPEAT);
     texture(debugTex);
-    model(desks);
+    model(desks); 
     model(cabnets);
     model(section2);
-
-        noStroke();
-        rotateX(ang(-90));
-        translate(22.5,0,210);
-        //glassMaterial();
-        box(15,11,1);
     pop();
-
-    // imageLight(reflection1);
-    // translate(-80, -1, 7);
-    // scale(0.16);
-    // specularMaterial(100);
-    // shininess(100);
-    // metalness(100);
-    // texture(cabTex);
-    // model(cabnets);
-    // pop();
+    push();
+      //scale(1, 1, 1);
+      //rotateX(ang(-90));
+      noStroke();
+      //let a = color(100, 100, 100);
+      //directionalLight(a, 0, 20, 30);
+      //imageLight(reflection1);
+      //ambientLight(50);
+      glassMaterial();
+      translate(23,0,210);
+      box(15,11,1);
+    pop();
 
   frameBuffer.end();
   setCamera(fbCam);
@@ -478,12 +475,12 @@ function playIntroVid()
 //Materials
 function glassMaterial() 
 {
-    let d = color(255,255,255);
-    d.setAlpha(0);
+    let d = color(100,100,110);
+    d.setAlpha(20);
     imageLight(reflection1);
     specularMaterial(255);
-    //shininess(255);
-    //metalness(255);
+    shininess(120);
+    metalness(255);
     //imageLight(reflection1);
     fill(d);
 }
