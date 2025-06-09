@@ -57,6 +57,10 @@ var ang = function(a) {
 // Texture variables
 var floorTexture, wallTexture, roofTex, deskTex, cabTex, reflection1, debug, wall2Tex, cubicleTex, yellowDividerTex;
 
+//LightMapBlending
+
+let baseTex, lightMap1, combinedLM;
+
 var mx = 0, my = 0; // Mouse movement deltas
 // Listen for mouse movement to update mx and my (mouse deltas)
 
@@ -87,6 +91,10 @@ function preload() {
   cubicleTex = loadImage('Textures/New/CubicleBake.png');
   yellowDividerTex = loadImage('Textures/New/YellowDividerBake.png');
 
+
+  //Light Map Blend (For props)
+  baseTex = debugTex;
+  lightMap1 = loadImage('Textures/New/Test/png3.png');
   //Load Reflection 360s
 
   // Load 3D models (.obj files)
@@ -129,6 +137,10 @@ function setup() {
   fullscreen();
   
   userStartAudio();
+
+    combinedLM = createGraphics(128, 128);
+    combinedLM.image(baseTex, 0,0, 128, 128);
+    combinedLM.image(lightMap1, 0 ,0, 128,128);
 
 colliders = [
 
@@ -356,8 +368,9 @@ function draw() {
     directionalLight(c, 0, 20, 30);
     ambientLight(80);
     textureWrap(REPEAT);
-    texture(debugTex);
+    texture(combinedLM);
     model(desks); 
+    //pop();
     model(cabnets);
     model(section2);
     pop();

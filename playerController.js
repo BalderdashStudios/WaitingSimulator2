@@ -43,18 +43,21 @@ class PlayerController {
     if (my > 0) { this.my--; }
     if (my < 0) { this.my++; }
 
-    // Limit vertical camera angle and adjust sensitivity
-    if (this.yAng < -30) {
-      if (my > 0) { this.sensitivityY = 0; }
-      if (my < 0) { this.sensitivityY = 0.15; }
-    }
-    if (this.yAng > 30) {
-      if (my < 0) { this.sensitivityY = 0; }
-      if (my > 0) { this.sensitivityY = 0.15; }
-    }
-
     this.cx = mx * this.sensitivityX;
     this.cy = my * this.sensitivityY;
+
+    // Limit vertical camera angle and adjust sensitivity
+    if (this.yAng < -30) {
+        this.yAng = -30;
+      if (my > 0) { this.cy = 0; }
+      
+    }
+    if (this.yAng > 30) {
+      this.yAng = 30;
+      if (my < 0) { this.cy = 0; }
+    }
+
+
   }
 
   // Handle keyboard input for movement
