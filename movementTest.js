@@ -219,6 +219,7 @@ new collider(246, 0, 237, 'green', 1, 20, 14, false, false, false),
 new collider(246, 0, 281, 'green', 1, 20, 52, false, false, false),
 new collider(234, 0, 308, 'green', 24, 20, 1, false, false, false),
 new collider(226, 0, 328, 'green', 1, 20, 36, false, false, false),
+
 new collider(107, 0, 200, 'blue', 10, 20, 10, false, true, true, tempVL),
 new collider(138, 0, 228, 'blue', 10, 20, 10, false, true, true, tempVL),
 new collider(187, 0, 283, 'blue', 10, 20, 10, false, true, true, tempVL),
@@ -232,6 +233,8 @@ new collider(8, 5, 215, 'orange', 3, 10, 5, false, false, false),
 new collider(50, 0, 220, 'green', 1, 20, 20, false, false, false),
 new collider(11, 0, 220, 'green', 1, 20, 20, false, false, false),
 new collider(29, 0, 230, 'green', 41, 20, 1, false, false, false),
+
+
 new collider(16, 5, 220, 'orange', 3, 10, 17, false, false, false),
 new collider(21, 5, 228, 'orange', 8, 10, 3, false, false, false),
 new collider(77, 5, 154, 'orange', 6, 10, 3, false, false, false),
@@ -248,7 +251,89 @@ new collider(158, 5, 266, 'orange', 3, 10, 20, false, false, false),
 new collider(153, 5, 301, 'orange', 7, 10, 13, false, false, false),
 new collider(153, 5, 306, 'orange', 20, 10, 3, false, false, false),
 new collider(-2, 5, 214, 'orange', 10, 10, 3, false, false, false),
-new collider(-2, 5, 194, 'orange', 10, 10, 3, false, false, false)
+new collider(-2, 5, 194, 'orange', 10, 10, 3, false, false, false),
+new collider(85, 5, 206, 'orange', 11, 10, 3, false, false, false),
+new collider(33, 5, 227, 'orange', 12, 10, 3, false, false, false),
+//Section2
+new collider(235, 0, 382, 'green', 1, 20, 34, false, false, false),
+new collider(235, 0, 336, 'green', 1, 20, 35, false, false, false),
+new collider(265, 0, 398, 'green', 60, 20, 1, false, false, false),
+new collider(265, 0, 320, 'green', 60, 20, 1, false, false, false),
+new collider(293, 0, 389, 'green', 1, 20, 19, false, false, false),
+new collider(293, 0, 359, 'green', 1, 20, 17, false, false, false),
+new collider(293, 0, 329, 'green', 1, 20, 19, false, false, false),
+new collider(313, 0, 335, 'green', 35, 20, 1, false, false, false),
+new collider(332, 0, 312, 'green', 1, 20, 45, false, false, false),
+new collider(323, 0, 354, 'green', 55, 20, 1, false, false, false),
+new collider(352, 0, 332, 'green', 1, 20, 42, false, false, false),
+new collider(362, 0, 291, 'green', 57, 20, 1, false, false, false),
+new collider(391, 0, 262, 'green', 1, 20, 57, false, false, false),
+new collider(381, 0, 311, 'green', 58, 20, 1, false, false, false),
+new collider(410, 0, 271, 'green', 1, 20, 78, false, false, false),
+new collider(413, 0, 232, 'green', 15, 20, 1, false, false, false),
+new collider(420, 0, 203, 'green', 1, 20, 60, false, false, false),
+new collider(380, 0, 172, 'green', 84, 20, 1, false, false, false),
+new collider(359, 0, 232, 'green', 72, 20, 1, false, false, false),
+new collider(323, 0, 193, 'green', 1, 20, 80, false, false, false),
+new collider(324, 0, 172, 'green', 6, 20, 1, false, false, false),
+new collider(325, 0, 364, 'green', 58, 20, 1, false, false, false),
+new collider(313, 0, 384, 'green', 38, 20, 1, false, false, false),
+new collider(332, 0, 399, 'green', 1, 20, 30, false, false, false),
+new collider(352, 0, 389, 'green', 1, 20, 48, false, false, false),
+new collider(342, 0, 412, 'green', 20, 20, 1, false, false, false),
+new collider(337, 0, 152, 'green', 30, 20, 1, false, false, false),
+new collider(371, 0, 152, 'green', 18, 20, 1, false, false, false),
+new collider(401, 0, 142, 'green', 1, 20, 60, false, false, false),
+new collider(398, 0, 112, 'green', 4, 20, 1, false, false, false),
+new collider(384, 0, 112, 'green', 4, 20, 1, false, false, false),
+new collider(405, 0, 83, 'green', 1, 20, 60, false, false, false),
+new collider(390, 0, 56, 'green', 28, 20, 1, false, false, false),
+new collider(376, 0, 49, 'green', 1, 20, 22, false, false, false),
+new collider(376, 0, 92, 'green', 1, 20, 47, false, false, false),
+new collider(385, 0, 22, 'green', 1, 20, 23, false, false, false),
+new collider(406, 0, 22, 'green', 37, 20, 1, false, false, false),
+new collider(425, 0, 28, 'green', 1, 20, 10, false, false, false),
+new collider(439, 0, 32, 'green', 40, 20, 1, false, false, false),
+new collider(455, 0, 5, 'green', 1, 20, 60, false, false, false),
+new collider(451, 0, -27, 'green', 10, 20, 1, false, false, false),
+new collider(450, 0, -39, 'green', 1, 20, 20, false, false, false),
+new collider(440, 0, -49, 'green', 20, 20, 1, false, false, false),
+new collider(431, 0, -39, 'green', 1, 20, 20, false, false, false),
+new collider(428, 0, -27, 'green', 10, 20, 1, false, false, false),
+new collider(424, 0, -22, 'green', 1, 20, 10, false, false, false),
+new collider(405, 0, -16, 'green', 40, 20, 1, false, false, false),
+new collider(385, 0, -16, 'green', 1, 20, 21, false, false, false),
+new collider(342, 0, -27, 'green', 90, 20, 1, false, false, false),
+new collider(336, 0, -16, 'green', 1, 20, 21, false, false, false),
+new collider(336, 0, 24, 'green', 1, 20, 25, false, false, false),
+new collider(346, 0, 38, 'green', 20, 20, 1, false, false, false),
+new collider(356, 0, 53, 'green', 1, 20, 27, false, false, false),
+new collider(348, 0, 67, 'green', 15, 20, 1, false, false, false),
+new collider(345, 0, 77, 'green', 1, 20, 20, false, false, false),
+new collider(348, 0, 87, 'green', 15, 20, 1, false, false, false),
+new collider(246, 0, -27, 'green', 60, 20, 1, false, false, false),
+new collider(274, 0, 31, 'green', 120, 20, 1, false, false, false),
+new collider(215, 0, -1, 'green', 1, 20, 62, false, false, false),
+new collider(316, 0, -48, 'green', 1, 20, 40, false, false, false),
+new collider(307, 0, -69, 'green', 20, 20, 1, false, false, false),
+new collider(257, 0, -60, 'green', 1, 20, 57, false, false, false),
+new collider(260, 0, -98, 'green', 3, 20, 18, false, false, false),
+new collider(292, 0, -98, 'green', 3, 20, 19, false, false, false),
+new collider(296, 0, -79, 'green', 1, 20, 18, false, false, false),
+new collider(311, 0, -108, 'green', 40, 20, 1, false, false, false),
+new collider(240, 0, -108, 'green', 40, 20, 1, false, false, false),
+
+
+new collider(294, 0, 345, 'blue', 10, 20, 10, false, true, true, tempVL),//left hallway
+new collider(294, 0, 374, 'blue', 10, 20, 10, false, true, true, tempVL),//right hallway
+new collider(400, 0, 234, 'blue', 10, 20, 10, false, true, true, tempVL),//meeting room
+new collider(358, 0, 146, 'blue', 10, 20, 10, false, true, true, tempVL),//closet
+new collider(390, 0, 112, 'blue', 10, 20, 10, false, true, true, tempVL),//boss' room
+new collider(335, 0, 3, 'blue', 8, 20, 15, false, true, true, tempVL),//meeting room
+new collider(286, 0, -27, 'blue', 17, 20, 8, false, true, true, tempVL)//secret room
+
+
+
     ];
 
   //audioUnfinishedTrig = new collider(140, 0, 230, 'blue', 20, 20, 10, false, true, true, aud1Unfinished);
@@ -261,7 +346,7 @@ new collider(-2, 5, 194, 'orange', 10, 10, 3, false, false, false)
   ending = [aud1, tempVL, tempVL];
 
   // Initialize the player controller and assign the camera
-  playerController = new PlayerController(0, 0, 200, 1);
+  playerController = new PlayerController(361, 0, 210, 1);
   playerController.cam = cam;
 
       if (debug) 
