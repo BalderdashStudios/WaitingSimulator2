@@ -1,4 +1,4 @@
-let DEBUG = false;
+let DEBUG = true;
 let gameManagerMain;
 
 let ending;
@@ -322,6 +322,17 @@ new collider(292, 0, -98, 'green', 3, 20, 19, false, false, false),
 new collider(296, 0, -79, 'green', 1, 20, 18, false, false, false),
 new collider(311, 0, -108, 'green', 40, 20, 1, false, false, false),
 new collider(240, 0, -108, 'green', 40, 20, 1, false, false, false),
+new collider(331, 0, -133, 'green', 1, 20, 50, false, false, false),
+new collider(315, 0, -153, 'green', 40, 20, 1, false, false, false),
+new collider(296, 0, -146, 'green', 1, 20, 15, false, false, false),
+new collider(253, 0, -139, 'green', 85, 20, 1, false, false, false),
+new collider(217, 0, -126, 'green', 1, 20, 35, false, false, false),
+new collider(356, 0, 101, 'green', 1, 20, 28, false, false, false),
+new collider(240, 0, -136, 'green', 1, 20, 4, false, false, false),
+new collider(240, 0, -109, 'green', 1, 20, 4, false, false, false),
+new collider(366, 0, 116, 'green', 18, 20, 1, false, false, false),
+
+new collider(383, 0, 40, 'purple', 8, 20, 8, false, false, false),
 
 
 new collider(294, 0, 345, 'blue', 10, 20, 10, false, true, true, tempVL),//left hallway
@@ -510,7 +521,7 @@ function draw() {
       model(cabnets);
     pop();
 
-    //model(section2);
+    model(section2);//commite this out later
     pop();
     push();
       //scale(1, 1, 1);
