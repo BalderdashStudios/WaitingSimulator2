@@ -34,6 +34,14 @@ let wall2;
 let cubicle;
 let yellowDivider;
 let section2;
+//Boss Office Models
+let bossWall;
+//
+let s2Floor;
+let s2Walls;
+let s2Trim;
+let s2Roof;
+
 //Colliders
 var collider1, collider2;
 
@@ -55,7 +63,11 @@ var ang = function(a) {
 };
 
 // Texture variables
-var floorTexture, wallTexture, roofTex, deskTex, cabTex, reflection1, debug, wall2Tex, cubicleTex, yellowDividerTex;
+var floorTexture, wallTexture, roofTex, deskTex, cabTex, reflection1, debug, wall2Tex, cubicleTex, yellowDividerTex,
+s2FloorTex, s2WallsTex, s2TrimTex, s2RoofTex,
+//Boss Office
+bossWallTex;
+;
 
 //LightMapBlending
 
@@ -81,8 +93,8 @@ function preload() {
   floorTexture = loadImage('Textures/New/FloorBake.png');
   wallTexture = loadImage('Textures/New/WallBake2.png');
   roofTex = loadImage('Textures/New/CeilingBake.png');
-  deskTex = loadImage('Textures/BakeTabel.png');
-  cabTex = loadImage('Textures/FilingCabnets1K.png');
+  deskTex = loadImage('Textures/New/office_desk_1980.png');
+  cabTex = loadImage('Textures/New/filecabinet_lobby.png');
   //HDRI
   reflection1 = loadImage('Textures/Reflections/HDRI2.png');
   debugTex = loadImage('Textures/Wall.png');
@@ -90,7 +102,11 @@ function preload() {
   wall2Tex = loadImage('Textures/New/Wall2Bake.png');
   cubicleTex = loadImage('Textures/New/CubicleBake.png');
   yellowDividerTex = loadImage('Textures/New/YellowDividerBake.png');
-
+  bossWallTex = loadImage('Textures/New/BossWall.png');
+  s2FloorTex = loadImage('Textures/New/FloorBake2.png');
+  s2WallsTex = loadImage('Textures/New/S2WallBake.png');
+  s2TrimTex = loadImage('Textures/New/TrimBake.png');
+  s2RoofTex = loadImage('Textures/New/CeilingBake.png');
 
   //Light Map Blend (For props)
   baseTex = debugTex;
@@ -109,6 +125,13 @@ function preload() {
   cubicle = loadModel('Models/New/Cubicle.obj');
   yellowDivider = loadModel('Models/New/YellowTrim.obj');
   section2 = loadModel('Models/New/Section2.obj');
+  bossWall = loadModel('Models/New/BossOffice/BossOfficeWallPaper.obj');
+
+  s2Floor = loadModel('Models/New/Section2Floor.obj');
+  s2Walls = loadModel('Models/New/Section2Walls.obj');
+  s2Trim = loadModel('Models/New/Section2Trim.obj');
+  s2Roof = loadModel('Models/New/Section2Roof.obj');
+
 
   // Load font for text rendering
   fontNormal = loadFont('Fonts/JMH Typewriter-Bold.ttf');
@@ -364,15 +387,45 @@ function draw() {
     texture(yellowDividerTex);
     model(yellowDivider);
 
+    texture(bossWallTex);
+    model(bossWall);
+
+    texture(s2FloorTex);
+    model(s2Floor);
+
+    texture(s2WallsTex);
+    model(s2Walls);
+
+    texture(s2TrimTex);
+    model(s2Trim);
+
+    texture(s2RoofTex);
+    model(s2Roof);
+
+
+
+
     let c = color(100, 100, 100);
     directionalLight(c, 0, 20, 30);
     ambientLight(80);
-    textureWrap(REPEAT);
-    texture(combinedLM);
-    model(desks); 
-    //pop();
-    model(cabnets);
-    model(section2);
+
+    //texture(combinedLM);
+    push();
+      imageLight(reflection1);
+      specularMaterial(255);
+      shininess(255);
+      metalness(0);
+      texture(deskTex);
+      model(desks); 
+
+      shininess(60);
+      metalness(0);
+      textureWrap(REPEAT);
+      texture(cabTex);
+      model(cabnets);
+    pop();
+
+    //model(section2);
     pop();
     push();
       //scale(1, 1, 1);
@@ -497,3 +550,54 @@ function glassMaterial()
     //imageLight(reflection1);
     fill(d);
 }
+
+// function bakedLightingModel(model, baseTex, lightMapTex)
+// {
+//   shader(customShader);
+//   customShader.setUniform('baseTexture', baseTex);
+//   customShader.setUniform('lightMap', lightMapTex);
+//   model.draw();
+// }
+
+// let vertSrc = ` 
+// // Vertex shader
+// attribute vec2 uv1;
+// attribute vec2 uv2;
+
+// varying vec2 vUv1;
+// varying vec2 vUv2;
+
+// void main() {
+//   vUv1 = uv1;
+//   vUv2 = uv2;
+//   gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+// }
+
+// // Fragment shader
+// uniform sampler2D baseTexture;
+// uniform sampler2D lightMap;
+
+// varying vec2 vUv1;
+// varying vec2 vUv2;
+
+// void main() {
+//   vec4 base = texture2D(baseTexture, vUv1);
+//   vec4 lighting = texture2D(lightMap, vUv2);
+//   gl_FragColor = base * lighting;
+// }
+// `;
+
+// let fragSrc = `
+// // Fragment shader
+// uniform sampler2D baseTexture;
+// uniform sampler2D lightMap;
+
+// varying vec2 vUv1;
+// varying vec2 vUv2;
+
+// void main() {
+//   vec4 base = texture2D(baseTexture, vUv1);
+//   vec4 lighting = texture2D(lightMap, vUv2);
+//   gl_FragColor = base * lighting;
+// }
+// `;
