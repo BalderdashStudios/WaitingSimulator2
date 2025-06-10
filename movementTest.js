@@ -285,6 +285,7 @@ new collider(260, 0, -98, 'green', 3, 20, 18, false, false, false),
 new collider(292, 0, -98, 'green', 3, 20, 19, false, false, false),
 new collider(296, 0, -79, 'green', 1, 20, 18, false, false, false),
 new collider(311, 0, -108, 'green', 40, 20, 1, false, false, false),
+new collider(240, 0, -108, 'green', 40, 20, 1, false, false, false),
 
 
 new collider(294, 0, 345, 'blue', 10, 20, 10, false, true, true, tempVL),//left hallway
