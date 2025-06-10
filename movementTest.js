@@ -84,7 +84,7 @@ function preload() {
   soundFormats('mp3', 'ogg');
   aud0Narrator = loadSound('Audio/WaitingSimAudio.mp3');
   aud1Unfinished = loadSound('Audio/AudUnfinished.mp3');
-  aud2BGMusic = loadSound('Audio/IntroducingStanly.mp3');
+  aud2BGMusic = loadSound('Audio/ExploringStanley.mp3');
   aud3Doors = loadSound('Audio/Aud3OpenDoors.mp3');
   tempVL = loadSound('Audio/TempVL.mp3');
   aud1 = loadSound('Audio/Aud1.mp3');
@@ -222,13 +222,13 @@ new collider(246, 0, 281, 'green', 1, 20, 52, false, false, false),
 new collider(234, 0, 308, 'green', 24, 20, 1, false, false, false),
 new collider(226, 0, 328, 'green', 1, 20, 36, false, false, false),
 
-new collider(107, 0, 200, 'blue', 10, 20, 10, false, true, true, tempVL),
-new collider(138, 0, 228, 'blue', 10, 20, 10, false, true, true, tempVL),
-new collider(187, 0, 283, 'blue', 10, 20, 10, false, true, true, tempVL),
-new collider(126, 0, 267, 'blue', 10, 20, 10, false, true, true, tempVL),
-new collider(105, 0, 267, 'blue', 10, 20, 10, false, true, true, tempVL),
-new collider(137, 0, 308, 'blue', 10, 20, 10, false, true, true, tempVL),
-new collider(127, 0, 358, 'blue', 10, 20, 10, false, true, true, tempVL),
+new collider(107, 0, 200, 'blue', 10, 20, 10, false, true, false, tempVL),
+new collider(138, 0, 228, 'blue', 10, 20, 10, false, true, false, tempVL),
+new collider(187, 0, 283, 'blue', 10, 20, 10, false, true, false, tempVL),
+new collider(126, 0, 267, 'blue', 10, 20, 10, false, true, false, tempVL),
+new collider(105, 0, 267, 'blue', 10, 20, 10, false, true, false, tempVL),
+new collider(137, 0, 308, 'blue', 10, 20, 10, false, true, false, tempVL),
+new collider(127, 0, 358, 'blue', 10, 20, 10, false, true, false, tempVL),
 new collider(224, 0, 359, 'blue', 10, 20, 10, false, true, true, aud3Doors),
 new collider(-7, 5, 204, 'orange', 2, 10, 23, false, false, false),
 new collider(8, 5, 215, 'orange', 3, 10, 5, false, false, false),
