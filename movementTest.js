@@ -20,7 +20,7 @@ let timer = 172800; // Timer variable, in seconds (172800 sec = 48 hours)
 
 let fontNormal; // Font for text rendering
 
-var aud0Narrator, aud1Unfinished, aud2BGMusic, tempVL, aud1, aud3Doors; // Audio object for background sound
+var aud0Narrator, aud1Unfinished, aud2BGMusic, tempVL, aud1, aud3Doors, leftHallwayVL, aud4MeetingRoom; // Audio object for background sound
 
 // Variables for 3D models (room parts)
 let walls;
@@ -88,6 +88,8 @@ function preload() {
   aud3Doors = loadSound('Audio/Aud3OpenDoors.mp3');
   tempVL = loadSound('Audio/TempVL.mp3');
   aud1 = loadSound('Audio/Aud1.mp3');
+  leftHallwayVL = tempVL;
+  aud4MeetingRoom = loadSound('Audio/MeetingRoomVO.mp3');
 
   // Load image textures for 3D models
   floorTexture = loadImage('Textures/New/FloorBake.png');
@@ -324,9 +326,9 @@ new collider(311, 0, -108, 'green', 40, 20, 1, false, false, false),
 new collider(240, 0, -108, 'green', 40, 20, 1, false, false, false),
 
 
-new collider(294, 0, 345, 'blue', 10, 20, 10, false, true, true, tempVL),//left hallway
+new collider(294, 0, 345, 'blue', 10, 20, 10, false, true, true, leftHallwayVL),//left hallway
 new collider(294, 0, 374, 'blue', 10, 20, 10, false, true, true, tempVL),//right hallway
-new collider(400, 0, 234, 'blue', 10, 20, 10, false, true, true, tempVL),//meeting room
+new collider(400, 0, 234, 'blue', 10, 20, 10, false, true, true, aud4MeetingRoom),//meeting room
 new collider(358, 0, 146, 'blue', 10, 20, 10, false, true, true, tempVL),//closet
 new collider(390, 0, 112, 'blue', 10, 20, 10, false, true, true, tempVL),//boss' room
 new collider(335, 0, 3, 'blue', 8, 20, 15, false, true, true, tempVL),//meeting room
@@ -346,7 +348,7 @@ new collider(286, 0, -27, 'blue', 17, 20, 8, false, true, true, tempVL)//secret 
   ending = [aud1, tempVL, tempVL];
 
   // Initialize the player controller and assign the camera
-  playerController = new PlayerController(361, 0, 210, 1);
+  playerController = new PlayerController(0, 0, 200, 1);
   playerController.cam = cam;
 
       if (debug) 
