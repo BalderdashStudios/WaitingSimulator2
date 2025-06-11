@@ -1,7 +1,8 @@
-let DEBUG = false;
+let DEBUG = true;
 let gameManagerMain;
 
 let ending;
+let doorClose = 20;
 
 let frameBuffer;
 let fbCam;
@@ -43,7 +44,7 @@ let s2Trim;
 let s2Roof;
 
 //Colliders
-var collider1, collider2;
+var collider1, collider2, elevatorDoor;
 
 //Bounds
 var bound1;
@@ -166,6 +167,8 @@ function setup() {
     combinedLM = createGraphics(128, 128);
     combinedLM.image(baseTex, 0,0, 128, 128);
     combinedLM.image(lightMap1, 0 ,0, 128,128);
+
+elevatorDoor = new collider(241, 0, -125, 'green', 1, 20, 30, false, false, false);//elevator
 
 colliders = [
 
@@ -324,6 +327,19 @@ new collider(292, 0, -98, 'green', 3, 20, 19, false, false, false),
 new collider(296, 0, -79, 'green', 1, 20, 18, false, false, false),
 new collider(311, 0, -108, 'green', 40, 20, 1, false, false, false),
 new collider(240, 0, -108, 'green', 40, 20, 1, false, false, false),
+new collider(331, 0, -133, 'green', 1, 20, 50, false, false, false),
+new collider(315, 0, -153, 'green', 40, 20, 1, false, false, false),
+new collider(296, 0, -146, 'green', 1, 20, 15, false, false, false),
+new collider(253, 0, -139, 'green', 85, 20, 1, false, false, false),
+new collider(217, 0, -126, 'green', 1, 20, 35, false, false, false),
+new collider(356, 0, 101, 'green', 1, 20, 28, false, false, false),
+new collider(240, 0, -136, 'green', 1, 20, 4, false, false, false),
+new collider(240, 0, -109, 'green', 1, 20, 4, false, false, false),
+new collider(366, 0, 116, 'green', 18, 20, 1, false, false, false),
+
+new collider(383, 0, 40, 'purple', 8, 20, 8, false, false, false),
+
+elevatorDoor,
 
 
 new collider(294, 0, 345, 'blue', 10, 20, 10, false, true, true, leftHallwayVL),//left hallway
@@ -332,11 +348,12 @@ new collider(400, 0, 234, 'blue', 10, 20, 10, false, true, true, aud4MeetingRoom
 new collider(358, 0, 146, 'blue', 10, 20, 10, false, true, true, tempVL),//closet
 new collider(390, 0, 112, 'blue', 10, 20, 10, false, true, true, tempVL),//boss' room
 new collider(335, 0, 3, 'blue', 8, 20, 15, false, true, true, tempVL),//meeting room
-new collider(286, 0, -27, 'blue', 17, 20, 8, false, true, true, tempVL)//secret room
+new collider(286, 0, -27, 'blue', 17, 20, 8, false, true, true, tempVL),//secret room
 
-
+endingVL = new collider(221, 0, -123, 'blue', 25, 20, 30, false, true, true, tempVL)//ending
 
     ];
+
 
   //audioUnfinishedTrig = new collider(140, 0, 230, 'blue', 20, 20, 10, false, true, true, aud1Unfinished);
 
@@ -438,9 +455,9 @@ function draw() {
     playerLoc = playerController.printLoc();
   }
   //DEBUG COLLIDERS
-  //push();
-  //collider1.translate(xInt, yInt, zInt);
-  //pop();
+  push();
+  elevatorDoor.translate(241, doorClose, -125);
+  pop();
   //for (let i = 0; i < colliders.length; i++) {
   //colliders[i].display();
   //}
@@ -512,7 +529,7 @@ function draw() {
       model(cabnets);
     pop();
 
-    //model(section2);
+    model(section2);//commite this out later
     pop();
     push();
       //scale(1, 1, 1);
@@ -575,6 +592,12 @@ function checkCollision() {
         gameManagerMain.printList();
         print(ending);
         gameManagerMain.checkEnding(ending); 
+
+        if(colliders[lastCollided] = endingVL) 
+          {
+            doorClose = 0;
+            print("Closed door");
+          }
         
         return true;
       }
