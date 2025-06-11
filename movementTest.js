@@ -222,13 +222,13 @@ new collider(246, 0, 281, 'green', 1, 20, 52, false, false, false),
 new collider(234, 0, 308, 'green', 24, 20, 1, false, false, false),
 new collider(226, 0, 328, 'green', 1, 20, 36, false, false, false),
 
-new collider(107, 0, 200, 'blue', 10, 20, 10, false, true, false, tempVL),
-new collider(138, 0, 228, 'blue', 10, 20, 10, false, true, false, tempVL),
-new collider(187, 0, 283, 'blue', 10, 20, 10, false, true, false, tempVL),
-new collider(126, 0, 267, 'blue', 10, 20, 10, false, true, false, tempVL),
-new collider(105, 0, 267, 'blue', 10, 20, 10, false, true, false, tempVL),
-new collider(137, 0, 308, 'blue', 10, 20, 10, false, true, false, tempVL),
-new collider(127, 0, 358, 'blue', 10, 20, 10, false, true, false, tempVL),
+// new collider(107, 0, 200, 'blue', 10, 20, 10, false, true, false, tempVL),
+// new collider(138, 0, 228, 'blue', 10, 20, 10, false, true, false, tempVL),
+// new collider(187, 0, 283, 'blue', 10, 20, 10, false, true, false, tempVL),
+// new collider(126, 0, 267, 'blue', 10, 20, 10, false, true, false, tempVL),
+// new collider(105, 0, 267, 'blue', 10, 20, 10, false, true, false, tempVL),
+// new collider(137, 0, 308, 'blue', 10, 20, 10, false, true, false, tempVL),
+// new collider(127, 0, 358, 'blue', 10, 20, 10, false, true, false, tempVL),
 new collider(224, 0, 359, 'blue', 10, 20, 10, false, true, true, aud3Doors),
 new collider(-7, 5, 204, 'orange', 2, 10, 23, false, false, false),
 new collider(8, 5, 215, 'orange', 3, 10, 5, false, false, false),
@@ -326,7 +326,7 @@ new collider(311, 0, -108, 'green', 40, 20, 1, false, false, false),
 new collider(240, 0, -108, 'green', 40, 20, 1, false, false, false),
 
 
-new collider(294, 0, 345, 'blue', 10, 20, 10, false, true, true, leftHallwayVL),//left hallway
+//new collider(294, 0, 345, 'blue', 10, 20, 10, false, true, true, leftHallwayVL),//left hallway
 new collider(294, 0, 374, 'blue', 10, 20, 10, false, true, true, tempVL),//right hallway
 new collider(400, 0, 234, 'blue', 10, 20, 10, false, true, true, aud4MeetingRoom),//meeting room
 new collider(358, 0, 146, 'blue', 10, 20, 10, false, true, true, tempVL),//closet
@@ -345,7 +345,7 @@ new collider(286, 0, -27, 'blue', 17, 20, 8, false, true, true, tempVL)//secret 
   bounds1 = new collider(100, 0, 300, 'red', 3000, 200, 3000, false);
   bounds = [bounds1];
 
-  ending = [aud1, tempVL, tempVL];
+  ending = [aud1, aud3Doors, aud4MeetingRoom];
 
   // Initialize the player controller and assign the camera
   playerController = new PlayerController(0, 0, 200, 1);
@@ -372,6 +372,8 @@ let playerLoc;
 function startSim() 
 {
   aud2BGMusic.play();
+  aud2BGMusic.loop();
+  aud2BGMusic.setVolume(0.5);
 }
 
 // Draw function: Main animation loop, runs every frame
@@ -506,13 +508,13 @@ function draw() {
       model(desks); 
 
       shininess(60);
-      metalness(0);
+      metalness(0); 
       textureWrap(REPEAT);
       texture(cabTex);
       model(cabnets);
     pop();
 
-    //model(section2);
+    model(section2);
     pop();
     push();
       //scale(1, 1, 1);
