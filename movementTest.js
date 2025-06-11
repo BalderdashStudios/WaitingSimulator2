@@ -1,4 +1,4 @@
-let DEBUG = true;
+let DEBUG = false;
 let gameManagerMain;
 
 let ending;
@@ -341,15 +341,15 @@ new collider(383, 0, 40, 'purple', 8, 20, 8, false, false, false),
 
 elevatorDoor,
 
-new collider(294, 0, 345, 'blue', 10, 20, 10, false, true, true, leftHallwayVL),//left hallway
+// new collider(294, 0, 345, 'blue', 10, 20, 10, false, true, true, leftHallwayVL),//left hallway
 new collider(294, 0, 374, 'blue', 10, 20, 10, false, true, true, tempVL),//right hallway
 new collider(400, 0, 234, 'blue', 10, 20, 10, false, true, true, aud4MeetingRoom),//meeting room
-new collider(358, 0, 146, 'blue', 10, 20, 10, false, true, true, tempVL),//closet
-new collider(390, 0, 112, 'blue', 10, 20, 10, false, true, true, tempVL),//boss' room
-new collider(335, 0, 3, 'blue', 8, 20, 15, false, true, true, tempVL),//meeting room
-new collider(286, 0, -27, 'blue', 17, 20, 8, false, true, true, tempVL),//secret room
+// new collider(358, 0, 146, 'blue', 10, 20, 10, false, true, true, tempVL),//closet
+// new collider(390, 0, 112, 'blue', 10, 20, 10, false, true, true, tempVL),//boss' room
+// new collider(335, 0, 3, 'blue', 8, 20, 15, false, true, true, tempVL),//meeting room
+// new collider(286, 0, -27, 'blue', 17, 20, 8, false, true, true, tempVL),//secret room
 
-endingVL = new collider(221, 0, -123, 'blue', 25, 20, 30, false, true, true, tempVL)//ending
+endingVL = new collider(221, 0, -123, 'blue', 25, 20, 30, false, true, true, aud1Unfinished)//ending
 
     ];
 
@@ -361,7 +361,7 @@ endingVL = new collider(221, 0, -123, 'blue', 25, 20, 30, false, true, true, tem
   bounds1 = new collider(100, 0, 300, 'red', 3000, 200, 3000, false);
   bounds = [bounds1];
 
-  ending = [aud1, aud3Doors, aud4MeetingRoom];
+  ending = [aud1, aud3Doors, aud4MeetingRoom, aud1Unfinished];
 
   // Initialize the player controller and assign the camera
   playerController = new PlayerController(0, 0, 200, 1);
@@ -594,11 +594,11 @@ function checkCollision() {
         print(ending);
         gameManagerMain.checkEnding(ending); 
 
-        if(colliders[lastCollided] = endingVL) 
-          {
+        if(gameManagerMain.checkEnding(ending)) 
+        {
             doorClose = 0;
             print("Closed door");
-          }
+        }
         
         return true;
       }
