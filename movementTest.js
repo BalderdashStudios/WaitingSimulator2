@@ -3,6 +3,7 @@ let gameManagerMain;
 
 let ending;
 let doorClose = 20;
+let elevatorTranslate = 0;
 
 let frameBuffer;
 let fbCam;
@@ -465,6 +466,8 @@ function draw() {
   // Rotate the view to match 3D world orientation
     //print("Creating Level");
 
+translate(0,elevatorTranslate,0);
+
     push();
      rotateX(ang(90));
     translate(30, 230, -11);
@@ -544,6 +547,11 @@ function draw() {
       translate(23,0,210);
       box(15,11,1);
     pop();
+
+    if(gameManagerMain.checkEnding(ending)) 
+      {
+        elevatorTranslate -= 0.1;
+      }
 
   frameBuffer.end();
   setCamera(fbCam);
