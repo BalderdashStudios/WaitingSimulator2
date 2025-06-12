@@ -4,6 +4,7 @@ let gameManagerMain;
 let ending;
 let doorClose = 20;
 let elevatorTranslate = 0;
+let bgColor = 255;
 
 let frameBuffer;
 let fbCam;
@@ -22,7 +23,7 @@ let timer = 172800; // Timer variable, in seconds (172800 sec = 48 hours)
 
 let fontNormal; // Font for text rendering
 
-var aud0Narrator, aud1Unfinished, aud2BGMusic, tempVL, aud1, aud3Doors, leftHallwayVL, aud4MeetingRoom; // Audio object for background sound
+var aud0Narrator, aud1Unfinished, aud2BGMusic, tempVL, aud1, aud3Doors, leftHallwayVL, aud4MeetingRoom, audEnding; // Audio object for background sound
 
 // Variables for 3D models (room parts)
 let walls;
@@ -104,6 +105,9 @@ function preload() {
   aud1 = loadSound('Audio/Aud1.mp3');
   leftHallwayVL = tempVL;
   aud4MeetingRoom = loadSound('Audio/MeetingRoomVO.mp3');
+  audEnding = loadSound('Audio/Freedom.mp3');
+  endingVO = loadSound('Audio/EndingVO.mp3');
+  bossRoomVO = loadSound('Audio/BossVO.mp3');
 
   // Load image textures for 3D models
   floorTexture = loadImage('Textures/New/FloorBake.png');
@@ -394,11 +398,11 @@ elevatorDoor,
 new collider(294, 0, 374, 'blue', 10, 20, 10, false, true, true, tempVL),//right hallway
 new collider(400, 0, 234, 'blue', 10, 20, 10, false, true, true, aud4MeetingRoom),//meeting room
 // new collider(358, 0, 146, 'blue', 10, 20, 10, false, true, true, tempVL),//closet
-// new collider(390, 0, 112, 'blue', 10, 20, 10, false, true, true, tempVL),//boss' room
+new collider(390, 0, 112, 'blue', 10, 20, 10, false, true, true, bossRoomVO),//boss' room
 // new collider(335, 0, 3, 'blue', 8, 20, 15, false, true, true, tempVL),//meeting room
 // new collider(286, 0, -27, 'blue', 17, 20, 8, false, true, true, tempVL),//secret room
 
-endingVL = new collider(221, 0, -123, 'blue', 25, 20, 30, false, true, true, aud1Unfinished)//ending
+endingVL = new collider(221, 0, -123, 'blue', 25, 20, 30, false, true, true, endingVO)//ending
 
     ];
 
@@ -410,7 +414,7 @@ endingVL = new collider(221, 0, -123, 'blue', 25, 20, 30, false, true, true, aud
   bounds1 = new collider(100, 0, 300, 'red', 3000, 200, 3000, false);
   bounds = [bounds1];
 
-  ending = [aud1, aud3Doors, aud4MeetingRoom, aud1Unfinished];
+  ending = [aud1, aud3Doors, aud4MeetingRoom, bossRoomVO, endingVO];
 
   // Initialize the player controller and assign the camera
   playerController = new PlayerController(0, 0, 200, 1);
@@ -465,7 +469,7 @@ function draw() {
   frameRate(250);
 
   // Clear the canvas with a white background
-  background(255);
+  background(bgColor);
   //panorama(reflection1);
 
   // Disable outlines on shapes
@@ -642,6 +646,13 @@ translate(0,elevatorTranslate,0);
     if(gameManagerMain.checkEnding(ending)) 
       {
         elevatorTranslate -= 0.01 * deltaTime;
+        if(!audEnding.isPlaying()) 
+          {
+            audEnding.play();
+          }
+        aud2BGMusic.stop();
+        audEnding.setVolume(0.3);
+        bgColor = 0;
       }
 
   frameBuffer.end();
