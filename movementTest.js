@@ -1,4 +1,4 @@
-let DEBUG = false;
+let DEBUG = true;
 let gameManagerMain;
 
 let ending;
@@ -337,6 +337,7 @@ new collider(356, 0, 101, 'green', 1, 20, 28, false, false, false),
 new collider(240, 0, -136, 'green', 1, 20, 4, false, false, false),
 new collider(240, 0, -109, 'green', 1, 20, 4, false, false, false),
 new collider(366, 0, 116, 'green', 18, 20, 1, false, false, false),
+//new collider(218, 0, -119, 'purple', 1, 20, 18, false, false, false),
 
 new collider(383, 0, 40, 'purple', 8, 20, 8, false, false, false),
 
@@ -350,7 +351,7 @@ new collider(400, 0, 234, 'blue', 10, 20, 10, false, true, true, aud4MeetingRoom
 // new collider(335, 0, 3, 'blue', 8, 20, 15, false, true, true, tempVL),//meeting room
 // new collider(286, 0, -27, 'blue', 17, 20, 8, false, true, true, tempVL),//secret room
 
-endingVL = new collider(221, 0, -123, 'blue', 25, 20, 30, false, true, true, aud1Unfinished)//ending
+endingVL = new collider(231, 0, -123, 'blue', 15, 18, 23, false, true, true, aud1Unfinished)//ending
 
     ];
 
