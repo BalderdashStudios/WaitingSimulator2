@@ -44,6 +44,18 @@ let s2Walls;
 let s2Trim;
 let s2Roof;
 
+let meetingRoomFloor;
+
+var
+meetingRoomWalls,
+meetingRoomTrim,
+meetingRoomTrim2,
+section2Padding,
+chairs,
+section1Padding,
+computers1,
+deskCabinents;
+
 //Colliders
 var collider1, collider2, elevatorDoor;
 
@@ -66,7 +78,7 @@ var ang = function(a) {
 
 // Texture variables
 var floorTexture, wallTexture, roofTex, deskTex, cabTex, reflection1, debug, wall2Tex, cubicleTex, yellowDividerTex,
-s2FloorTex, s2WallsTex, s2TrimTex, s2RoofTex,
+s2FloorTex, s2WallsTex, s2TrimTex, s2RoofTex, chairSwivel, cubicleDrawers, computers1Tex,
 //Boss Office
 bossWallTex;
 ;
@@ -111,6 +123,20 @@ function preload() {
   s2WallsTex = loadImage('Textures/New/S2WallBake.png');
   s2TrimTex = loadImage('Textures/New/TrimBake.png');
   s2RoofTex = loadImage('Textures/New/CeilingBake.png');
+  chairSwivel = loadImage('Textures/New/chair_swivel.png');
+  cubicleDrawers = loadImage('Textures/New/cubicle_desk_drawers.png');
+  computers1Tex = loadImage('Textures/New/computer_monitor01.png');
+  phonesTex = loadImage('Textures/New/keyboard_and_phone.png');
+  plasticWallTex = loadImage('Textures/New/plasticwall001b.png');
+  meetingRoomFloorTex = loadImage('Textures/New/MeetingRoomFloorBake.png');
+  meetingRoomWallTex = loadImage('Textures/New/MeetingRoomWallBake.png');
+
+  bossFloorTex = loadImage('Textures/New/BossFloor.png');
+  bossRoofTex = loadImage('Textures/New/BossRoof.png');
+  vertigoDrywallTex = loadImage('Textures/New/VertigoDryWall.png');
+
+   concreateFloorTex = loadImage('Textures/New/ConcreateFloorTex.png');
+  stairWellWallsTex = loadImage('Textures/New/StairWellWalls.png');
 
   //Light Map Blend (For props)
   baseTex = debugTex;
@@ -130,11 +156,33 @@ function preload() {
   yellowDivider = loadModel('Models/New/YellowTrim.obj');
   section2 = loadModel('Models/New/Section2.obj');
   bossWall = loadModel('Models/New/BossOffice/BossOfficeWallPaper.obj');
+  bossFloor = loadModel('Models/New/BossOfficeFloor.obj');
+  bossRoof = loadModel('Models/New/BossOfficeRoof.obj')
+  bossTempWalls = loadModel('Models/New/BossOfficeTempWalls.obj');
+  vertigoDrywall = loadModel('Models/New/VertigoDryWall.obj');
+
+  stairWellWalls = loadModel('Models/New/StairWellWalls.obj');
+
+  concreateFloor = loadModel('Models/New/ConcreateFloor.obj');
 
   s2Floor = loadModel('Models/New/Section2Floor.obj');
   s2Walls = loadModel('Models/New/Section2Walls.obj');
   s2Trim = loadModel('Models/New/Section2Trim.obj');
   s2Roof = loadModel('Models/New/Section2Roof.obj');
+
+  meetingRoomFloor = loadModel('Models/New/meetingRoomFloor.obj');
+  meetingRoomWalls = loadModel('Models/New/MeetingRoomWall.obj');
+  meetingRoomTrim = loadModel('Models/New/MeetingRoomTrim.obj');
+  meetingRoomTrim2 = loadModel('Models/New/MeetingRoomTrim2.obj');
+  section2Padding = loadModel('Models/New/Section2Padding.obj');
+  cubicleTrim = loadModel('Models/New/CubicleTrim.obj');
+
+
+  chairs = loadModel('Models/New/Chairs.obj');
+  section1Padding = loadModel('Models/New/Section1Padding.obj');
+  deskCabinents = loadModel('Models/New/DeskCabinents.obj');
+  computers1 = loadModel('Models/New/Computers1.obj');
+  phones = loadModel('Models/New/Phones.obj');
 
 
   // Load font for text rendering
@@ -390,7 +438,7 @@ function startSim()
 {
   aud2BGMusic.play();
   aud2BGMusic.loop();
-  aud2BGMusic.setVolume(0.5);
+  aud2BGMusic.setVolume(0.1);
 }
 
 // Draw function: Main animation loop, runs every frame
@@ -510,6 +558,31 @@ translate(0,elevatorTranslate,0);
     texture(s2RoofTex);
     model(s2Roof);
 
+    texture(meetingRoomFloorTex);
+    model(meetingRoomFloor);
+
+    texture(meetingRoomWallTex);
+    model(meetingRoomWalls);
+
+    model(meetingRoomTrim);
+    model(meetingRoomTrim2);
+    model(section2Padding);
+    model(section1Padding);
+
+    texture(bossFloorTex);
+    model(bossFloor);
+
+    texture(bossRoofTex);
+    model(bossRoof);
+
+      texture(concreateFloorTex);
+      model(concreateFloor);
+
+      texture(stairWellWallsTex);
+      model(stairWellWalls);
+
+      texture(vertigoDrywallTex);
+      model(vertigoDrywall);
 
 
 
@@ -531,9 +604,27 @@ translate(0,elevatorTranslate,0);
       textureWrap(REPEAT);
       texture(cabTex);
       model(cabnets);
+
+      texture(debugTex);
+      model(bossTempWalls);
+
+      texture(cubicleDrawers);
+      model(deskCabinents);
+
+      texture(chairSwivel);
+      model(chairs);
+
+      texture(computers1Tex);
+      model(computers1);
+
+      texture(phonesTex);
+      model(phones);
+
+      texture(plasticWallTex);
+      model(cubicleTrim);
     pop();
 
-    model(section2);//commite this out later
+    //model(section2);//commite this out later
     pop();
     push();
       //scale(1, 1, 1);
@@ -550,7 +641,7 @@ translate(0,elevatorTranslate,0);
 
     if(gameManagerMain.checkEnding(ending)) 
       {
-        elevatorTranslate -= 0.1;
+        elevatorTranslate -= 0.01 * deltaTime;
       }
 
   frameBuffer.end();
@@ -669,54 +760,3 @@ function glassMaterial()
     //imageLight(reflection1);
     fill(d);
 }
-
-// function bakedLightingModel(model, baseTex, lightMapTex)
-// {
-//   shader(customShader);
-//   customShader.setUniform('baseTexture', baseTex);
-//   customShader.setUniform('lightMap', lightMapTex);
-//   model.draw();
-// }
-
-// let vertSrc = ` 
-// // Vertex shader
-// attribute vec2 uv1;
-// attribute vec2 uv2;
-
-// varying vec2 vUv1;
-// varying vec2 vUv2;
-
-// void main() {
-//   vUv1 = uv1;
-//   vUv2 = uv2;
-//   gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-// }
-
-// // Fragment shader
-// uniform sampler2D baseTexture;
-// uniform sampler2D lightMap;
-
-// varying vec2 vUv1;
-// varying vec2 vUv2;
-
-// void main() {
-//   vec4 base = texture2D(baseTexture, vUv1);
-//   vec4 lighting = texture2D(lightMap, vUv2);
-//   gl_FragColor = base * lighting;
-// }
-// `;
-
-// let fragSrc = `
-// // Fragment shader
-// uniform sampler2D baseTexture;
-// uniform sampler2D lightMap;
-
-// varying vec2 vUv1;
-// varying vec2 vUv2;
-
-// void main() {
-//   vec4 base = texture2D(baseTexture, vUv1);
-//   vec4 lighting = texture2D(lightMap, vUv2);
-//   gl_FragColor = base * lighting;
-// }
-// `;
