@@ -1,5 +1,6 @@
 let DEBUG = false;
 let gameManagerMain;
+let renderScale = 1; //Set to 0.6 for retina macs
 
 let ending;
 let doorClose = 20;
@@ -55,7 +56,8 @@ section2Padding,
 chairs,
 section1Padding,
 computers1,
-deskCabinents;
+deskCabinents,
+credits;
 
 //Colliders
 var collider1, collider2, elevatorDoor;
@@ -191,6 +193,8 @@ function preload() {
 
   // Load font for text rendering
   fontNormal = loadFont('Fonts/JMH Typewriter-Bold.ttf');
+
+  credits = loadModel('Models/New/Credits.obj');
 }
 
 // Setup function: Runs once at the start
@@ -626,6 +630,9 @@ translate(0,elevatorTranslate,0);
 
       texture(plasticWallTex);
       model(cubicleTrim);
+
+      fill(255);
+      model(credits);
     pop();
 
     //model(section2);//commite this out later
@@ -660,7 +667,7 @@ translate(0,elevatorTranslate,0);
   // Reset all transformations.
   resetMatrix();
       image(frameBuffer, -width / 2, -height / 2);
-      frameBuffer.pixelDensity(0.6);
+      frameBuffer.pixelDensity(renderScale);
 }
 // Track key presses (set key state to true)
 function keyPressed() {
