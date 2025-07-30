@@ -83,7 +83,7 @@ var ang = function(a) {
 var floorTexture, wallTexture, roofTex, deskTex, cabTex, reflection1, debug, wall2Tex, cubicleTex, yellowDividerTex,
 s2FloorTex, s2WallsTex, s2TrimTex, s2RoofTex, chairSwivel, cubicleDrawers, computers1Tex,
 //Boss Office
-bossWallTex;
+bossWallTex, bossDetail2Tex, bossDetail1Tex, lightPanelTex, lightPanelGlassTex
 ;
 
 //LightMapBlending
@@ -140,10 +140,14 @@ function preload() {
   bossFloorTex = loadImage('Textures/New/BossFloor.png');
   bossRoofTex = loadImage('Textures/New/BossRoof.png');
   vertigoDrywallTex = loadImage('Textures/New/VertigoDryWall.png');
+  bossDetail2Tex =  loadImage('Textures/New/BossDetailBake2.png');
+  bossDetail1Tex =  loadImage('Textures/New/BossDetail1Bake.png');
 
    concreateFloorTex = loadImage('Textures/New/ConcreateFloorTex.png');
   stairWellWallsTex = loadImage('Textures/New/StairWellWalls.png');
 
+  lightPanelGlassTex = loadImage('Textures/New/light_panel_glass_neutral1.png');
+  lightPanelTex = loadImage('Textures/New/light_panel.png');
   //Light Map Blend (For props)
   baseTex = debugTex;
   lightMap1 = loadImage('Textures/New/Test/png3.png');
@@ -165,7 +169,12 @@ function preload() {
   bossFloor = loadModel('Models/New/BossOfficeFloor.obj');
   bossRoof = loadModel('Models/New/BossOfficeRoof.obj')
   bossTempWalls = loadModel('Models/New/BossOfficeTempWalls.obj');
+  bossDetail2 = loadModel('Models/New/BossOffice/BossDetail2.obj');
+  bossDetail1 = loadModel('Models/New/BossOffice/BossDetail1.obj');
   vertigoDrywall = loadModel('Models/New/VertigoDryWall.obj');
+
+  lightPanel = loadModel('Models/New/CeilingLight.obj');
+  lightPanelGlass = loadModel('Models/New/CeilingLightGlass.obj');
 
   stairWellWalls = loadModel('Models/New/StairWellWalls.obj');
 
@@ -592,6 +601,12 @@ translate(0,elevatorTranslate,0);
       texture(vertigoDrywallTex);
       model(vertigoDrywall);
 
+      texture(bossDetail2Tex);
+      model(bossDetail2);
+
+      texture(bossDetail1Tex);
+      model(bossDetail1);
+
 
 
     let c = color(100, 100, 100);
@@ -633,6 +648,13 @@ translate(0,elevatorTranslate,0);
 
       fill(255);
       model(credits);
+
+        emissiveMaterial(50, 50, 50);
+      texture(lightPanelGlassTex);
+      model(lightPanelGlass);
+
+      texture(lightPanelTex);
+      model(lightPanel);
     pop();
 
     //model(section2);//commite this out later
