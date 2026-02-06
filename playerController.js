@@ -100,6 +100,14 @@ class PlayerController {
     return output;
   }
 
+  getLocX() {
+    return this.x
+  }
+
+  getLocY() {
+    return this.y
+  }
+
   resetLocation() {
     this.x = this.lastx;
     this.y = this.lasty;

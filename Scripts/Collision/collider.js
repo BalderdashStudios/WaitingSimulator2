@@ -1,6 +1,6 @@
 class collider 
 {
-  constructor(x, y, z, clr, sizeX, sizeY, sizeZ, isItem, isAudioTrigger, isActive, audio) {
+  constructor(x, y, z, clr, sizeX, sizeY, sizeZ, isItem, isAudioTrigger, isActive, audio, fogCol1, fogCol2, fogCol3) {
     this.x = x;
     this.y = y;
     this.z = z;
@@ -12,6 +12,9 @@ class collider
     this.active = isActive;
     this.isAudioTrigger = isAudioTrigger;
     this.audio = audio;
+    this.fogCol1 = fogCol1;
+    this.fogCol2 = fogCol2;
+    this.fogCol3 = fogCol3;
   }
 
   //Audio System
@@ -122,6 +125,18 @@ class collider
   getSizeZ()
   {
     return this.sizeZ;
+  }
+
+  getFogCol1() {
+    return this.fogCol1;
+  }
+
+   getFogCol2() {
+    return this.fogCol2;
+  }
+
+   getFogCol3() {
+    return this.fogCol3;
   }
 
   translate(x, y, z) 

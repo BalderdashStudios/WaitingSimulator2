@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', e => {
 
   introVid.addEventListener('loadedmetadata', function() { 
    this.currentTime = 79;
+   //set to 79 for skip
  }, false);
 
 
