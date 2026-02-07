@@ -218,6 +218,9 @@ function preload() {
   lightMap1 = loadImage('Textures/New/Test/png3.png');
   //Load Reflection 360s
 
+  //Test Normal Maps
+  normalMap1 = loadImage('Textures/New/Ground_Brick___Floor_thpjbidg_2K_Normal.jpg');
+
   // Load 3D models (.obj files)
   walls = loadModel('Models/New/Wall1.obj');
   trim = loadModel('Models/New/Trim.obj')
@@ -513,26 +516,27 @@ function setup() {
     zIntField.size(100);
   }
 
-    myShader = baseMaterialShader().modify({
+ myShader = baseMaterialShader().modify({
     'Inputs getPixelInputs': `(Inputs inputs) {
       vec3 newNormal = inputs.normal;
       // Simple bump mapping: adjust the normal based on position
       newNormal.x += 0.2 * sin(
           sin(
-            inputs.texCoord.y * ${TWO_PI} * 10.0 +
-            inputs.texCoord.x * ${TWO_PI} * 25.0
+            inputs.texCoord.y * ${TWO_PI} * 100.0 +
+            inputs.texCoord.x * ${TWO_PI} * 250.0
           )
         );
       newNormal.y += 0.2 * sin(
         sin(
-            inputs.texCoord.x * ${TWO_PI} * 10.0 +
-            inputs.texCoord.y * ${TWO_PI} * 25.0
+            inputs.texCoord.x * ${TWO_PI} * 100.0 +
+            inputs.texCoord.y * ${TWO_PI} * 250.0
           )
       );
       inputs.normal = normalize(newNormal);
       return inputs;
     }`
   });
+
 }
 
 let playerLoc;
@@ -626,24 +630,24 @@ function draw() {
 
      //Props No LightBake
       push();
-        //imageLight(reflection1);
+        imageLight(reflection1);
        // imageLight(reflection1);
-      //  ambientLight(10);  
+      ambientLight(10);  
         
        // let c = color(100, 100, 100);
          //directionalLight(c, 0, 20, 180);
 
-           pointLight(
-    255, 255, 255,
-    100*cos(frameCount*0.04), 50, 100*sin(frameCount*0.04)
-  );
 
+          push();
           shader(myShader);
+           texture(deskTex);
+           model(desks);
+           pop();
+
         specularMaterial(255);
         shininess(100);
         metalness(0);
-        texture(deskTex);
-        model(desks);
+     
 
         shininess(40);
         metalness(10);
@@ -688,8 +692,17 @@ function draw() {
     shininess(10);
     metalness(0);
     noStroke();
+
+    push();
+      pointLight(
+    255, 255, 255,
+    100*cos(frameCount*0.04), 50, 100*sin(frameCount*0.04)
+  );
+
+    shader(myShader);
     texture(floorTexture);
     model(floor);
+    pop();
 
     texture(wallTexture);
     model(walls);
