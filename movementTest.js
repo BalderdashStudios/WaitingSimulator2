@@ -6,6 +6,14 @@ let fogCol1 = 178.0;
 let fogCol2 = 189.0;
 let fogCol3 = 207.0;
 
+//BumpMappingTest
+let myShader;
+
+
+// let fogCol1 = 178.0;
+// let fogCol2 = 189.0;
+// let fogCol3 = 207.0;
+
 let vert = `
 precision highp float;
 
@@ -504,6 +512,27 @@ function setup() {
     zIntField.position(100, 300);
     zIntField.size(100);
   }
+
+    myShader = baseMaterialShader().modify({
+    'Inputs getPixelInputs': `(Inputs inputs) {
+      vec3 newNormal = inputs.normal;
+      // Simple bump mapping: adjust the normal based on position
+      newNormal.x += 0.2 * sin(
+          sin(
+            inputs.texCoord.y * ${TWO_PI} * 10.0 +
+            inputs.texCoord.x * ${TWO_PI} * 25.0
+          )
+        );
+      newNormal.y += 0.2 * sin(
+        sin(
+            inputs.texCoord.x * ${TWO_PI} * 10.0 +
+            inputs.texCoord.y * ${TWO_PI} * 25.0
+          )
+      );
+      inputs.normal = normalize(newNormal);
+      return inputs;
+    }`
+  });
 }
 
 let playerLoc;
@@ -588,9 +617,6 @@ function draw() {
 
   translate(0, elevatorTranslate, 0);
 
-  let c = color(255, 255, 255);
-  directionalLight(c, 0, 20, 180);
-
 
   push();
     //Orient World To Correct Scaling, Loc, and Rot.
@@ -601,20 +627,31 @@ function draw() {
      //Props No LightBake
       push();
         //imageLight(reflection1);
-        //imageLight(reflection1);
-        //ambientLight(80);
+       // imageLight(reflection1);
+      //  ambientLight(10);  
+        
+       // let c = color(100, 100, 100);
+         //directionalLight(c, 0, 20, 180);
+
+           pointLight(
+    255, 255, 255,
+    100*cos(frameCount*0.04), 50, 100*sin(frameCount*0.04)
+  );
+
+          shader(myShader);
         specularMaterial(255);
         shininess(100);
         metalness(0);
         texture(deskTex);
         model(desks);
 
-        shininess(60);
-        metalness(0);
+        shininess(40);
+        metalness(10);
         textureWrap(REPEAT);
         texture(cabTex);
         model(cabnets);
 
+        metalness(0);
         texture(debugTex);
         model(bossTempWalls);
 
@@ -644,8 +681,9 @@ function draw() {
         model(lightPanel);
       pop();
 
-    //ambientLight(150);
+    ambientLight(150);
     //emissiveMaterial(50, 50, 50);
+    imageLight(reflection1);
     specularMaterial(255);
     shininess(10);
     metalness(0);
@@ -661,8 +699,8 @@ function draw() {
 
     texture(trimTex);
     model(trim);
-    shininess(50);
-    metalness(0);
+    //shininess(50);
+    //metalness(0);
 
     texture(cubicleTex);
     model(cubicle);
@@ -700,7 +738,7 @@ function draw() {
     model(section1Padding);
 
       push()
-        shininess(255);
+        shininess(50);
         metalness(0);
         texture(bossFloorTex);
         model(bossFloor);
