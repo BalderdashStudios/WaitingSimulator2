@@ -516,7 +516,7 @@ function setup() {
     zIntField.size(100);
   }
 
- myShader = baseMaterialShader().modify({
+myShader = baseMaterialShader().modify({
     'Inputs getPixelInputs': `(Inputs inputs) {
       vec3 newNormal = inputs.normal;
       // Simple bump mapping: adjust the normal based on position
