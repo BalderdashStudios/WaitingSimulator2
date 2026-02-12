@@ -207,6 +207,8 @@ function preload() {
   vertigoDrywallTex = loadImage('Textures/New/VertigoDryWall.png');
   bossDetail2Tex = loadImage('Textures/New/BossDetailBake2.png');
   bossDetail1Tex = loadImage('Textures/New/BossDetail1Bake.png');
+  officepanelTex = loadImage('Textures/New/officepanel.png');
+  officePanal48Tex = loadImage('Textures/New/officepanel_48.png');
 
   concreateFloorTex = loadImage('Textures/New/ConcreateFloorTex.png');
   stairWellWallsTex = loadImage('Textures/New/StairWellWalls.png');
@@ -233,12 +235,17 @@ function preload() {
   cubicle = loadModel('Models/New/Cubicle.obj');
   yellowDivider = loadModel('Models/New/YellowTrim.obj');
   section2 = loadModel('Models/New/Section2.obj');
+  //Boss Office
   bossWall = loadModel('Models/New/BossOffice/BossOfficeWallPaper.obj');
   bossFloor = loadModel('Models/New/BossOfficeFloor.obj');
   bossRoof = loadModel('Models/New/BossOfficeRoof.obj')
   bossTempWalls = loadModel('Models/New/BossOfficeTempWalls.obj');
   bossDetail2 = loadModel('Models/New/BossOffice/BossDetail2.obj');
   bossDetail1 = loadModel('Models/New/BossOffice/BossDetail1.obj');
+  bossPanels1 = loadModel('Models/New/BossOffice/officePanels1.obj');
+  officePillar1 = loadModel('Models/New/BossOffice/officePillars1.obj');
+  officePanals48 = loadModel('Models/New/BossOffice/officePanals48.obj');
+
   vertigoDrywall = loadModel('Models/New/VertigoDryWall.obj');
 
   lightPanel = loadModel('Models/New/CeilingLight.obj');
@@ -520,16 +527,16 @@ myShader = baseMaterialShader().modify({
     'Inputs getPixelInputs': `(Inputs inputs) {
       vec3 newNormal = inputs.normal;
       // Simple bump mapping: adjust the normal based on position
-      newNormal.x += 0.2 * sin(
+      newNormal.x += 0.1 * sin(
           sin(
-            inputs.texCoord.y * ${TWO_PI} * 100.0 +
-            inputs.texCoord.x * ${TWO_PI} * 250.0
+            inputs.texCoord.y * ${TWO_PI} * 20.0 +
+            inputs.texCoord.x * ${TWO_PI} * 50.0
           )
         );
-      newNormal.y += 0.2 * sin(
+      newNormal.y += 0.1 * sin(
         sin(
-            inputs.texCoord.x * ${TWO_PI} * 100.0 +
-            inputs.texCoord.y * ${TWO_PI} * 250.0
+            inputs.texCoord.x * ${TWO_PI} * 20.0 +
+            inputs.texCoord.y * ${TWO_PI} * 50.0
           )
       );
       inputs.normal = normalize(newNormal);
@@ -638,11 +645,8 @@ function draw() {
          //directionalLight(c, 0, 20, 180);
 
 
-          push();
-          shader(myShader);
            texture(deskTex);
            model(desks);
-           pop();
 
         specularMaterial(255);
         shininess(100);
@@ -662,8 +666,11 @@ function draw() {
         texture(cubicleDrawers);
         model(deskCabinents);
 
+                  push();
+          shader(myShader);
         texture(chairSwivel);
         model(chairs);
+        pop();
 
         texture(computers1Tex);
         model(computers1);
@@ -673,6 +680,16 @@ function draw() {
 
         texture(plasticWallTex);
         model(cubicleTrim);
+
+        push();
+            let c = color(100, 100, 100);
+        directionalLight(c, 0, 20, 180);
+        texture(officepanelTex);
+        model(bossPanels1);
+        model(officePillar1);
+        texture(officePanal48Tex);
+        model(officePanals48);
+        pop();
 
         fill(255);
         model(credits);
@@ -694,12 +711,12 @@ function draw() {
     noStroke();
 
     push();
-      pointLight(
-    255, 255, 255,
-    100*cos(frameCount*0.04), 50, 100*sin(frameCount*0.04)
-  );
+  //     pointLight(
+  //   255, 255, 255,
+  //   100*cos(frameCount*0.04), 50, 100*sin(frameCount*0.04)
+  // );
 
-    shader(myShader);
+  //   shader(myShader);
     texture(floorTexture);
     model(floor);
     pop();
@@ -751,7 +768,8 @@ function draw() {
     model(section1Padding);
 
       push()
-        shininess(50);
+
+        shininess(20);
         metalness(0);
         texture(bossFloorTex);
         model(bossFloor);

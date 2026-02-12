@@ -1,5 +1,7 @@
 precision mediump float;
 
+uniform vec2 resolution;
+
 uniform sampler2D normalMap;
 
 uniform vec3 lightPos;
