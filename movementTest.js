@@ -209,6 +209,9 @@ function preload() {
   bossDetail1Tex = loadImage('Textures/New/BossDetail1Bake.png');
   officepanelTex = loadImage('Textures/New/officepanel.png');
   officePanal48Tex = loadImage('Textures/New/officepanel_48.png');
+  sofaTex = loadImage('Textures/New/sofa.png');
+  deskExecTex = loadImage('Textures/New/desk_executive.png');
+  
 
   concreateFloorTex = loadImage('Textures/New/ConcreateFloorTex.png');
   stairWellWallsTex = loadImage('Textures/New/StairWellWalls.png');
@@ -245,6 +248,8 @@ function preload() {
   bossPanels1 = loadModel('Models/New/BossOffice/officePanels1.obj');
   officePillar1 = loadModel('Models/New/BossOffice/officePillars1.obj');
   officePanals48 = loadModel('Models/New/BossOffice/officePanals48.obj');
+  sofas = loadModel('Models/New/BossOffice/sofas.obj');
+  deskExec = loadModel('Models/New/BossOffice/deskExec.obj');
 
   vertigoDrywall = loadModel('Models/New/VertigoDryWall.obj');
 
@@ -689,6 +694,12 @@ function draw() {
         model(officePillar1);
         texture(officePanal48Tex);
         model(officePanals48);
+        texture(deskExecTex);
+        model(deskExec);
+
+        shininess(20);
+        texture(sofaTex);
+        model(sofas);
         pop();
 
         fill(255);
