@@ -211,6 +211,7 @@ function preload() {
   officePanal48Tex = loadImage('Textures/New/officepanel_48.png');
   sofaTex = loadImage('Textures/New/sofa.png');
   deskExecTex = loadImage('Textures/New/desk_executive.png');
+  chairLobbyTex = loadImage('Textures/New/ChairLobby01.png');
   
 
   concreateFloorTex = loadImage('Textures/New/ConcreateFloorTex.png');
@@ -250,6 +251,7 @@ function preload() {
   officePanals48 = loadModel('Models/New/BossOffice/officePanals48.obj');
   sofas = loadModel('Models/New/BossOffice/sofas.obj');
   deskExec = loadModel('Models/New/BossOffice/deskExec.obj');
+  chairLobby = loadModel('Models/New/BossOffice/ChairLobby.obj');
 
   vertigoDrywall = loadModel('Models/New/VertigoDryWall.obj');
 
@@ -278,6 +280,8 @@ function preload() {
   deskCabinents = loadModel('Models/New/DeskCabinents.obj');
   computers1 = loadModel('Models/New/Computers1.obj');
   phones = loadModel('Models/New/Phones.obj');
+
+  mapHiders = loadModel('Models/New/MapHiders.obj');
 
 
   // Load font for text rendering
@@ -696,15 +700,22 @@ function draw() {
         model(officePanals48);
         texture(deskExecTex);
         model(deskExec);
+        texture(chairLobbyTex);
+        model(chairLobby);
 
         shininess(20);
         texture(sofaTex);
         model(sofas);
         pop();
 
+        //fill(255);
+        //shininess(0);
+        emissiveMaterial(255, 255, 255);
         fill(255);
         model(credits);
+        model(mapHiders);
 
+        shininess(20);
         emissiveMaterial(50, 50, 50);
         texture(lightPanelGlassTex);
         model(lightPanelGlass);
