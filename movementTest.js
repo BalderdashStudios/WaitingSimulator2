@@ -6,9 +6,12 @@ let fogCol1 = 178.0;
 let fogCol2 = 189.0;
 let fogCol3 = 207.0;
 
+let AMBLightStrength = 150;
+
 //BumpMappingTest
 let myShader;
 
+let gameOver = false;
 
 // let fogCol1 = 178.0;
 // let fogCol2 = 189.0;
@@ -45,23 +48,60 @@ varying vec2 vTexCoord;
 
 uniform sampler2D img;
 uniform sampler2D depth;
-uniform vec3 fog;
+uniform sampler2D bloom;
 
 void main() {
-gl_FragColor = mix(
-  // Original color
-  texture2D(img, vTexCoord),
-  // Fog color
-  //OG
-  vec4(178.0/255.0, 189.0/255.0, 207.0/255.0, 1.0),
+  vec4 original = texture2D(img, vTexCoord);
+  vec4 bloomColor = texture2D(bloom, vTexCoord);
+  vec4 lit = original + bloomColor * 1.5;
+  gl_FragColor = mix(
+    lit,
+    vec4(178.0/255.0, 189.0/255.0, 207.0/255.0, 1.0),
+    pow(texture2D(depth, vTexCoord).r, 10000.0)
+  );
+}
+`;
 
-  //White
-  //Set all to 0 for darkness
-  //vec4(fogCol1/255.0, fogCol2/255.0, fogCol3/255.0, 1.0),
-  // Mix between them based on the depth.
-  // The pow() makes the light falloff a bit steeper.
-  pow(texture2D(depth, vTexCoord).r, 10000.0)
-);
+// Bright-pass: extracts pixels above a luminance threshold for bloom
+let brightPassFrag = `
+precision highp float;
+
+varying vec2 vTexCoord;
+
+uniform sampler2D img;
+
+void main() {
+  vec4 color = texture2D(img, vTexCoord);
+  float brightness = dot(color.rgb, vec3(0.2126, 0.7152, 0.0722));
+  float threshold = 0.7;
+  float extracted = max(brightness - threshold, 0.0) / max(brightness, 0.0001);
+  gl_FragColor = vec4(color.rgb * extracted, 1.0);
+}
+`;
+
+// Separable Gaussian blur — set 'direction' to (1,0) for H-pass, (0,1) for V-pass
+let blurFrag = `
+precision highp float;
+
+varying vec2 vTexCoord;
+
+uniform sampler2D img;
+uniform vec2 direction;
+uniform vec2 resolution;
+
+void main() {
+  vec2 step = direction / resolution;
+  vec4 color = vec4(0.0);
+  color += texture2D(img, vTexCoord - 4.0 * step) * 0.0162;
+  color += texture2D(img, vTexCoord - 3.0 * step) * 0.0540;
+  color += texture2D(img, vTexCoord - 2.0 * step) * 0.1216;
+  color += texture2D(img, vTexCoord - 1.0 * step) * 0.1945;
+  color += texture2D(img, vTexCoord             ) * 0.2270;
+  color += texture2D(img, vTexCoord + 1.0 * step) * 0.1945;
+  color += texture2D(img, vTexCoord + 2.0 * step) * 0.1216;
+  color += texture2D(img, vTexCoord + 3.0 * step) * 0.0540;
+  color += texture2D(img, vTexCoord + 4.0 * step) * 0.0162;
+  gl_FragColor = color;
 }
 `;
 
@@ -71,6 +111,7 @@ let elevatorTranslate = 0;
 let bgColor = 255;
 
 let frameBuffer, fogShader;
+let bloomBuffer, blurBuffer, brightPassShader, blurShader;
 
 
 let fbCam;
@@ -198,7 +239,7 @@ function preload() {
   cubicleDrawers = loadImage('Textures/New/cubicle_desk_drawers.png');
   computers1Tex = loadImage('Textures/New/computer_monitor01.png');
   phonesTex = loadImage('Textures/New/keyboard_and_phone.png');
-  plasticWallTex = loadImage('Textures/New/plasticwall001b.png');
+  officeDoorsTex = loadImage('Textures/New/plasticwall001b.png');
   meetingRoomFloorTex = loadImage('Textures/New/MeetingRoomFloorBake.png');
   meetingRoomWallTex = loadImage('Textures/New/MeetingRoomWallBake.png');
 
@@ -212,6 +253,9 @@ function preload() {
   sofaTex = loadImage('Textures/New/sofa.png');
   deskExecTex = loadImage('Textures/New/desk_executive.png');
   chairLobbyTex = loadImage('Textures/New/ChairLobby01.png');
+
+  elevatorCageTex = loadImage('Textures/New/elevator_cage.png');
+  elevatorFrameworkTex = loadImage('Textures/New/elevator_framework.png');
   
 
   concreateFloorTex = loadImage('Textures/New/ConcreateFloorTex.png');
@@ -227,12 +271,15 @@ function preload() {
   //Test Normal Maps
   normalMap1 = loadImage('Textures/New/Ground_Brick___Floor_thpjbidg_2K_Normal.jpg');
 
+  officeDoorsTex = loadImage('Textures/New/metal_door.png');
+
   // Load 3D models (.obj files)
   walls = loadModel('Models/New/Wall1.obj');
   trim = loadModel('Models/New/Trim.obj')
   floor = loadModel('Models/New/Floor.obj');
   roof = loadModel('Models/New/Ceiling.obj');
   desks = loadModel('Models/New/Desks.obj');
+  officeDoors = loadModel('Models/New/doors.obj');
   cabnets = loadModel('Models/New/Cabinents.obj');
   doors = loadModel('Models/Doors.obj', true);
   wall2 = loadModel('Models/New/Wall2.obj');
@@ -281,6 +328,9 @@ function preload() {
   computers1 = loadModel('Models/New/Computers1.obj');
   phones = loadModel('Models/New/Phones.obj');
 
+  elevatorCage = loadModel('Models/New/elevator_cage.obj');
+  elevatorFramework = loadModel('Models/New/elevator_framework.obj');
+
   mapHiders = loadModel('Models/New/MapHiders.obj');
 
 
@@ -304,7 +354,11 @@ function setup() {
   theCanvas.hide();
 
   fogShader = createShader(vert, frag);
+  brightPassShader = createShader(vert, brightPassFrag);
+  blurShader = createShader(vert, blurFrag);
   frameBuffer = createFramebuffer();
+  bloomBuffer = createFramebuffer();
+  blurBuffer = createFramebuffer();
 
   cam = frameBuffer.createCamera();
   fbCam = createCamera();
@@ -319,7 +373,7 @@ function setup() {
   combinedLM.image(baseTex, 0, 0, 128, 128);
   combinedLM.image(lightMap1, 0, 0, 128, 128);
 
-  elevatorDoor = new collider(241, 0, -125, 'green', 1, 20, 30, false, false, false);//elevator
+  //elevatorDoor = new collider(241, 0, -125, 'green', 1, 20, 30, false, false, false);//elevator
 
   colliders = [
 
@@ -490,7 +544,7 @@ function setup() {
 
     new collider(383, 0, 40, 'purple', 8, 20, 8, false, false, false),
 
-    elevatorDoor,
+    //elevatorDoor,
 
     // new collider(294, 0, 345, 'blue', 10, 20, 10, false, true, true, leftHallwayVL),//left hallway
     new collider(294, 0, 374, 'blue', 10, 20, 10, false, true, true, tempVL),//right hallway
@@ -627,7 +681,24 @@ function draw() {
   }
   //DEBUG COLLIDERS
   push();
-  elevatorDoor.translate(241, doorClose, -125);
+    rotateX(ang(90));
+    translate(30, 230, -11);
+    scale(8, -8, 8);
+    if (!gameOver) {
+      imageLight(reflection1);
+      let c1 = color(100, 100, 100);
+      directionalLight(c1, 0, 20, 180);
+    }
+    
+      ambientLight(AMBLightStrength);  
+        specularMaterial(255);
+        shininess(100);
+        metalness(0);
+       
+
+
+    texture(elevatorCageTex);
+    model(elevatorCage);
   pop();
   //for (let i = 0; i < colliders.length; i++) {
   //colliders[i].display();
@@ -687,8 +758,11 @@ function draw() {
         texture(phonesTex);
         model(phones);
 
-        texture(plasticWallTex);
+        texture(officeDoorsTex);
         model(cubicleTrim);
+
+        texture(officeDoorsTex);
+        model(officeDoors);
 
         push();
             let c = color(100, 100, 100);
@@ -716,17 +790,21 @@ function draw() {
         model(mapHiders);
 
         shininess(20);
-        emissiveMaterial(50, 50, 50);
+        //emissiveMaterial(255, 255, 255);
         texture(lightPanelGlassTex);
         model(lightPanelGlass);
 
+        emissiveMaterial(40, 30, 30);
         texture(lightPanelTex);
         model(lightPanel);
       pop();
 
-    ambientLight(150);
+    ambientLight(AMBLightStrength);
     //emissiveMaterial(50, 50, 50);
-    imageLight(reflection1);
+    if (!gameOver) { 
+      imageLight(reflection1);
+    }
+    
     specularMaterial(255);
     shininess(10);
     metalness(0);
@@ -816,6 +894,11 @@ function draw() {
     texture(bossDetail1Tex);
     model(bossDetail1);
 
+    //metalness(50);
+    shininess(20);
+    texture(elevatorFrameworkTex);
+    model(elevatorFramework);
+
 
     //OG spot for Directional Light
     // let c = color(100, 100, 100);
@@ -834,6 +917,8 @@ function draw() {
 
   if (gameManagerMain.checkEnding(ending)) {
     elevatorTranslate -= 0.01 * deltaTime;
+    AMBLightStrength -= 0.008 * deltaTime;
+    gameOver = true;
     if (!audEnding.isPlaying()) {
       audEnding.play();
     }
@@ -843,10 +928,48 @@ function draw() {
   }
 
   frameBuffer.end();
-  // Apply fog to the scene
+
+  // --- Bloom post-process ---
+
+  // 1. Bright-pass: extract pixels above luminance threshold
+  bloomBuffer.begin();
+    resetMatrix();
+    clear();
+    noStroke();
+    shader(brightPassShader);
+    brightPassShader.setUniform('img', frameBuffer.color);
+    plane(width, height);
+  bloomBuffer.end();
+
+  // 2. Horizontal Gaussian blur
+  blurBuffer.begin();
+    resetMatrix();
+    clear();
+    noStroke();
+    shader(blurShader);
+    blurShader.setUniform('img', bloomBuffer.color);
+    blurShader.setUniform('direction', [1.0, 0.0]);
+    blurShader.setUniform('resolution', [width, height]);
+    plane(width, height);
+  blurBuffer.end();
+
+  // 3. Vertical Gaussian blur (ping-pong back into bloomBuffer)
+  bloomBuffer.begin();
+    resetMatrix();
+    clear();
+    noStroke();
+    shader(blurShader);
+    blurShader.setUniform('img', blurBuffer.color);
+    blurShader.setUniform('direction', [0.0, 1.0]);
+    blurShader.setUniform('resolution', [width, height]);
+    plane(width, height);
+  bloomBuffer.end();
+
+  // --- Final composite: fog + bloom ---
   shader(fogShader);
   fogShader.setUniform('img', frameBuffer.color);
   fogShader.setUniform('depth', frameBuffer.depth);
+  fogShader.setUniform('bloom', bloomBuffer.color);
   plane(width, height);
 
   noStroke();
@@ -854,7 +977,6 @@ function draw() {
   setCamera(fbCam);
   // Reset all transformations.
   resetMatrix();
-  image(frameBuffer, -width / 2, -height / 2);
   frameBuffer.pixelDensity(renderScale);
 }
 // Track key presses (set key state to true)
