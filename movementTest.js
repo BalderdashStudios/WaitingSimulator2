@@ -263,6 +263,8 @@ function preload() {
 
   lightPanelGlassTex = loadImage('Textures/New/light_panel_glass_neutral1.png');
   lightPanelTex = loadImage('Textures/New/light_panel.png');
+
+  fogTex = loadImage('Textures/New/Fog Card.png');
   //Light Map Blend (For props)
   baseTex = debugTex;
   lightMap1 = loadImage('Textures/New/Test/png3.png');
@@ -338,6 +340,8 @@ function preload() {
   fontNormal = loadFont('Fonts/JMH Typewriter-Bold.ttf');
 
   credits = loadModel('Models/New/Credits.obj');
+
+  fogCards = loadModel('Models/New/FogCards.obj');
 }
 
 // Setup function: Runs once at the start
@@ -717,6 +721,7 @@ function draw() {
 
      //Props No LightBake
       push();
+
         imageLight(reflection1);
        // imageLight(reflection1);
       ambientLight(10);  
@@ -894,16 +899,34 @@ function draw() {
     texture(bossDetail1Tex);
     model(bossDetail1);
 
+
+
     //metalness(50);
     shininess(20);
     texture(elevatorFrameworkTex);
     model(elevatorFramework);
 
+    //emissiveMaterial(20, 20, 20);
+    //shininess(0);
+    //specularMaterial(0)
+   // ambientLight(255);
+   // texture(fogTex);
+   // model(fogCards);
 
     //OG spot for Directional Light
     // let c = color(100, 100, 100);
     // directionalLight(c, 0, 20, 30);
     // ambientLight(80);
+
+      //emissiveMaterial(20, 20, 20);
+      // 
+      ambientLight(255);
+      specularMaterial(0);
+      //emissiveMaterial(20, 20, 20);
+      shininess(0);
+      
+      texture(fogTex);
+      model(fogCards);
 
     pop();
 
@@ -966,11 +989,11 @@ function draw() {
   bloomBuffer.end();
 
   // --- Final composite: fog + bloom ---
-  shader(fogShader);
-  fogShader.setUniform('img', frameBuffer.color);
-  fogShader.setUniform('depth', frameBuffer.depth);
-  fogShader.setUniform('bloom', bloomBuffer.color);
-  plane(width, height);
+  //shader(fogShader);
+  //fogShader.setUniform('img', frameBuffer.color);
+  //fogShader.setUniform('depth', frameBuffer.depth);
+  //fogShader.setUniform('bloom', bloomBuffer.color);
+ // plane(width, height);
 
   noStroke();
 
