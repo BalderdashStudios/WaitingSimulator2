@@ -989,11 +989,11 @@ function draw() {
   bloomBuffer.end();
 
   // --- Final composite: fog + bloom ---
-  //shader(fogShader);
-  //fogShader.setUniform('img', frameBuffer.color);
-  //fogShader.setUniform('depth', frameBuffer.depth);
-  //fogShader.setUniform('bloom', bloomBuffer.color);
- // plane(width, height);
+  shader(fogShader);
+  fogShader.setUniform('img', frameBuffer.color);
+  fogShader.setUniform('depth', frameBuffer.depth);
+  fogShader.setUniform('bloom', bloomBuffer.color);
+  plane(width, height);
 
   noStroke();
 
