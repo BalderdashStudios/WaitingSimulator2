@@ -220,7 +220,7 @@ function preload() {
   // Load image textures for 3D models
   floorTexture = loadImage('Textures/New/FloorBake.png');
   wallTexture = loadImage('Textures/New/WallBake2.png');
-  roofTex = loadImage('Textures/New/CeilingBake.png');
+  roofTex = loadImage('Textures/New/CeilingBake1.png');
   deskTex = loadImage('Textures/New/office_desk_1980.png');
   cabTex = loadImage('Textures/New/filecabinet_lobby.png');
   //HDRI
@@ -996,7 +996,6 @@ function draw() {
   plane(width, height);
 
   noStroke();
-
   setCamera(fbCam);
   // Reset all transformations.
   resetMatrix();
