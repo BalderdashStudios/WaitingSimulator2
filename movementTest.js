@@ -241,6 +241,9 @@ function preload() {
   chairSwivel = loadImage('Textures/New/chair_swivel.png');
   cubicleDrawers = loadImage('Textures/New/cubicle_desk_drawers.png');
   computers1Tex = loadImage('Textures/New/computer_monitor01.png');
+  computer1980Tex = loadImage('Textures/New/computer_1980.png');
+  clocksTex = loadImage('Textures/New/clock_wall_1980.png');
+  fileRacksTex = loadImage('Textures/New/file_rack_1970.png');
   phonesTex = loadImage('Textures/New/keyboard_and_phone.png');
   officeDoorsTex = loadImage('Textures/New/plasticwall001b.png');
   meetingRoomFloorTex = loadImage('Textures/New/MeetingRoomFloorBake.png');
@@ -331,6 +334,10 @@ function preload() {
   section1Padding = loadModel('Models/New/Section1Padding.obj');
   deskCabinents = loadModel('Models/New/DeskCabinents.obj');
   computers1 = loadModel('Models/New/Computers1.obj');
+  computer1980 = loadModel('Models/New/OfficeComputers.obj');
+  clocks = loadModel('Models/New/Clocks.obj');
+  fileRacks = loadModel('Models/New/FileRacks.obj');
+
   phones = loadModel('Models/New/Phones.obj');
 
   elevatorCage = loadModel('Models/New/elevator_cage.obj');
@@ -758,6 +765,16 @@ function draw() {
 
         texture(computers1Tex);
         model(computers1);
+
+
+        texture(computer1980Tex);
+        model(computer1980);
+
+        texture(clocksTex);
+        model(clocks);
+
+        texture(fileRacksTex);
+        model(fileRacks);
 
         texture(phonesTex);
         model(phones);
