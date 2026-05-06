@@ -13,6 +13,9 @@ let myShader;
 
 let gameOver = false;
 
+//level triggers
+let section2Trigger = false;
+
 // let fogCol1 = 178.0;
 // let fogCol2 = 189.0;
 // let fogCol3 = 207.0;
@@ -728,7 +731,7 @@ function draw() {
         
        // let c = color(100, 100, 100);
          //directionalLight(c, 0, 20, 180);
-
+          if(!section2Trigger) {
 
            texture(deskTex);
            model(desks);
@@ -743,10 +746,6 @@ function draw() {
         textureWrap(REPEAT);
         texture(cabTex);
         model(cabnets);
-
-        metalness(0);
-        texture(debugTex);
-        model(bossTempWalls);
 
         texture(cubicleDrawers);
         model(deskCabinents);
@@ -765,18 +764,26 @@ function draw() {
 
         texture(officeDoorsTex);
         model(cubicleTrim);
+          }
+
+
 
         texture(officeDoorsTex);
         model(officeDoors);
+
+        metalness(0);
+        texture(debugTex);
+        model(bossTempWalls);
 
         push();
             let c = color(100, 100, 100);
         directionalLight(c, 0, 20, 180);
         texture(officepanelTex);
-        model(bossPanels1);
-        model(officePillar1);
+        if(section2Trigger) {
+           model(bossPanels1);
+               model(officePillar1);
         texture(officePanal48Tex);
-        model(officePanals48);
+                model(officePanals48);
         texture(deskExecTex);
         model(deskExec);
         texture(chairLobbyTex);
@@ -785,6 +792,8 @@ function draw() {
         shininess(20);
         texture(sofaTex);
         model(sofas);
+      }
+
         pop();
 
         //fill(255);
@@ -814,7 +823,7 @@ function draw() {
     shininess(10);
     metalness(0);
     noStroke();
-
+  if(!section2Trigger) {
     push();
   //     pointLight(
   //   255, 255, 255,
@@ -822,6 +831,7 @@ function draw() {
   // );
 
   //   shader(myShader);
+
     texture(floorTexture);
     model(floor);
     pop();
@@ -844,7 +854,11 @@ function draw() {
     model(roof);
 
     texture(yellowDividerTex);
-    model(yellowDivider);
+    model(yellowDivider);    
+    
+    model(section1Padding);
+  } else {
+
 
     texture(bossWallTex);
     model(bossWall);
@@ -870,7 +884,7 @@ function draw() {
     model(meetingRoomTrim);
     model(meetingRoomTrim2);
     model(section2Padding);
-    model(section1Padding);
+
 
       push()
 
@@ -927,6 +941,9 @@ function draw() {
       
       texture(fogTex);
       model(fogCards);
+  }
+
+
 
     pop();
 
@@ -1050,6 +1067,10 @@ function checkCollision() {
 
         gameManagerMain.update(colliders[lastCollided].returnAudio());
         gameManagerMain.printList();
+         levelChecker = gameManagerMain.getList();
+        if (levelChecker.length > 1) {
+          section2Trigger = true;
+        }
         print(ending);
         gameManagerMain.checkEnding(ending);
 
