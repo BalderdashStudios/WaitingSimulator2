@@ -56,7 +56,7 @@ uniform sampler2D bloom;
 void main() {
   vec4 original = texture2D(img, vTexCoord);
   vec4 bloomColor = texture2D(bloom, vTexCoord);
-  vec4 lit = original + bloomColor * 1.5;
+  vec4 lit = original + bloomColor * 3.0;
   gl_FragColor = mix(
     lit,
     vec4(178.0/255.0, 189.0/255.0, 207.0/255.0, 1.0),
@@ -76,8 +76,8 @@ uniform sampler2D img;
 void main() {
   vec4 color = texture2D(img, vTexCoord);
   float brightness = dot(color.rgb, vec3(0.2126, 0.7152, 0.0722));
-  float threshold = 0.1;
-  float extracted = max(brightness - threshold, 0.0) / max(brightness, 0.0001);
+  float threshold = 0.001;
+  float extracted = smoothstep(0.1, 0.5, brightness);
   gl_FragColor = vec4(color.rgb * extracted, 1.0);
 }
 `;
@@ -93,7 +93,7 @@ uniform vec2 direction;
 uniform vec2 resolution;
 
 void main() {
-  vec2 step = direction / resolution;
+  vec2 step = direction * 3.0 / resolution;
   vec4 color = vec4(0.0);
   color += texture2D(img, vTexCoord - 4.0 * step) * 0.0162;
   color += texture2D(img, vTexCoord - 3.0 * step) * 0.0540;
@@ -372,6 +372,10 @@ function setup() {
   blurShader = createShader(vert, blurFrag);
   frameBuffer = createFramebuffer();
   bloomBuffer = createFramebuffer();
+//     {
+//   width: width / 2,
+//   height: height / 2
+// });
   blurBuffer = createFramebuffer();
 
   cam = frameBuffer.createCamera();
@@ -990,6 +994,7 @@ function draw() {
 
   // 1. Bright-pass: extract pixels above luminance threshold
   bloomBuffer.begin();
+  
     resetMatrix();
     clear();
     noStroke();
@@ -1030,9 +1035,10 @@ function draw() {
   plane(width, height);
 
   noStroke();
+    resetMatrix();
   setCamera(fbCam);
   // Reset all transformations.
-  resetMatrix();
+  //resetMatrix();
   frameBuffer.pixelDensity(renderScale);
 }
 // Track key presses (set key state to true)
