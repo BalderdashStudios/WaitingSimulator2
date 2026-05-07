@@ -76,7 +76,7 @@ uniform sampler2D img;
 void main() {
   vec4 color = texture2D(img, vTexCoord);
   float brightness = dot(color.rgb, vec3(0.2126, 0.7152, 0.0722));
-  float threshold = 0.7;
+  float threshold = 0.1;
   float extracted = max(brightness - threshold, 0.0) / max(brightness, 0.0001);
   gl_FragColor = vec4(color.rgb * extracted, 1.0);
 }
