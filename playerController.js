@@ -26,39 +26,32 @@ class PlayerController {
   }
 
   // Update camera with player position and rotation
-  updateCamera() {
-    this.cam.pan(ang(-this.cx));
-    this.cam.tilt(ang(this.cy));
-    this.cam.setPosition(this.x, -this.y, this.z);
-  }
+updateCamera() {
+
+  this.cam.setPosition(this.x, -this.y, this.z);
+
+  let yaw = ang(this.r);
+  let pitch = ang(this.yAng);
+
+  let forwardX = -sin(yaw) * cos(pitch);
+  let forwardY = sin(pitch);
+  let forwardZ = -cos(yaw) * cos(pitch);
+
+  this.cam.lookAt(
+    this.x + forwardX,
+    -this.y + forwardY,
+    this.z + forwardZ
+  );
+}
 
   // Handle mouse movement to update rotation
-  handleMouseMovement(mx, my) {
-    this.r -= (mx * this.sensitivityX);
-    this.yAng -= (my * this.sensitivityY);
+handleMouseMovement(mx, my) {
 
-    // Dampen mouse movement
-    if (mx > 0) { this.mx--; }
-    if (mx < 0) { this.mx++; }
-    if (my > 0) { this.my--; }
-    if (my < 0) { this.my++; }
+  this.r -= mx * this.sensitivityX;
+  this.yAng += my * this.sensitivityY;
 
-    this.cx = mx * this.sensitivityX;
-    this.cy = my * this.sensitivityY;
-
-    // Limit vertical camera angle and adjust sensitivity
-    if (this.yAng < -30) {
-        this.yAng = -30;
-      if (my > 0) { this.cy = 0; }
-      
-    }
-    if (this.yAng > 30) {
-      this.yAng = 30;
-      if (my < 0) { this.cy = 0; }
-    }
-
-
-  }
+  this.yAng = constrain(this.yAng, -89, 89);
+}
 
   // Handle keyboard input for movement
   handleMovement(deltaFTime) {
@@ -84,7 +77,7 @@ class PlayerController {
     }
     if (this.keys[16]) { // Shift (crouch/sprint)
       this.y = -3;
-      this.deltaSpeed * .5;
+      this.deltaSpeed *= 0.5;
     } else {
       this.y = 0;
       this.deltaSpeed = this.playerSpeed * deltaFTime;
