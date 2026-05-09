@@ -6,6 +6,9 @@ let fogCol1 = 178.0;
 let fogCol2 = 189.0;
 let fogCol3 = 207.0;
 
+let bloomWidth;
+let bloomHeight;
+
 let AMBLightStrength = 150;
 
 //BumpMappingTest
@@ -367,16 +370,21 @@ function setup() {
   theCanvas = createCanvas(window.innerWidth, window.innerHeight, WEBGL);
   theCanvas.hide();
 
+bloomWidth = Math.floor(width / 2);
+bloomHeight = Math.floor(height / 2);
+
   fogShader = createShader(vert, frag);
   brightPassShader = createShader(vert, brightPassFrag);
   blurShader = createShader(vert, blurFrag);
   frameBuffer = createFramebuffer();
-  bloomBuffer = createFramebuffer();
-//     {
-//   width: width / 2,
-//   height: height / 2
-// });
-  blurBuffer = createFramebuffer();
+  bloomBuffer = createFramebuffer({
+  width: bloomWidth,
+  height: bloomHeight
+});
+  blurBuffer = createFramebuffer({
+  width: bloomWidth,
+  height: bloomHeight
+});
 
   cam = frameBuffer.createCamera();
   fbCam = createCamera();
@@ -993,41 +1001,62 @@ function draw() {
   // --- Bloom post-process ---
 
   // 1. Bright-pass: extract pixels above luminance threshold
-  bloomBuffer.begin();
-  
-    resetMatrix();
-    clear();
-    noStroke();
-    shader(brightPassShader);
-    brightPassShader.setUniform('img', frameBuffer.color);
-    plane(width, height);
-  bloomBuffer.end();
+  drawingContext.disable(drawingContext.DEPTH_TEST);
+drawingContext.disable(drawingContext.CULL_FACE);
+ // 1. Bright-pass
+bloomBuffer.begin();
 
-  // 2. Horizontal Gaussian blur
-  blurBuffer.begin();
-    resetMatrix();
-    clear();
-    noStroke();
-    shader(blurShader);
-    blurShader.setUniform('img', bloomBuffer.color);
-    blurShader.setUniform('direction', [1.0, 0.0]);
-    blurShader.setUniform('resolution', [width, height]);
-    plane(width, height);
-  blurBuffer.end();
+resetMatrix();
+clear();
+noStroke();
 
-  // 3. Vertical Gaussian blur (ping-pong back into bloomBuffer)
-  bloomBuffer.begin();
-    resetMatrix();
-    clear();
-    noStroke();
-    shader(blurShader);
-    blurShader.setUniform('img', blurBuffer.color);
-    blurShader.setUniform('direction', [0.0, 1.0]);
-    blurShader.setUniform('resolution', [width, height]);
-    plane(width, height);
-  bloomBuffer.end();
+shader(brightPassShader);
+
+brightPassShader.setUniform('img', frameBuffer.color);
+
+plane(bloomWidth, bloomHeight);
+
+bloomBuffer.end();
+
+
+// 2. Horizontal blur
+blurBuffer.begin();
+
+resetMatrix();
+clear();
+noStroke();
+
+shader(blurShader);
+
+blurShader.setUniform('img', bloomBuffer.color);
+blurShader.setUniform('direction', [1.0, 0.0]);
+blurShader.setUniform('resolution', [bloomWidth, bloomHeight]);
+
+plane(bloomWidth, bloomHeight);
+
+blurBuffer.end();
+
+
+// 3. Vertical blur
+bloomBuffer.begin();
+
+resetMatrix();
+clear();
+noStroke();
+
+shader(blurShader);
+
+blurShader.setUniform('img', blurBuffer.color);
+blurShader.setUniform('direction', [0.0, 1.0]);
+blurShader.setUniform('resolution', [bloomWidth, bloomHeight]);
+
+plane(bloomWidth, bloomHeight);
+
+bloomBuffer.end();
 
   // --- Final composite: fog + bloom ---
+  drawingContext.disable(drawingContext.DEPTH_TEST);
+
   shader(fogShader);
   fogShader.setUniform('img', frameBuffer.color);
   fogShader.setUniform('depth', frameBuffer.depth);
@@ -1040,6 +1069,8 @@ function draw() {
   // Reset all transformations.
   //resetMatrix();
   frameBuffer.pixelDensity(renderScale);
+  drawingContext.enable(drawingContext.DEPTH_TEST);
+//drawingContext.enable(drawingContext.CULL_FACE);
 }
 // Track key presses (set key state to true)
 function keyPressed() {
