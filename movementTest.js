@@ -9,6 +9,9 @@ let fogCol3 = 207.0;
 let bloomWidth;
 let bloomHeight;
 
+let exposure = 1.0;
+let targetExposure = 1.0;
+
 let AMBLightStrength = 150;
 
 //BumpMappingTest
@@ -55,6 +58,7 @@ varying vec2 vTexCoord;
 uniform sampler2D img;
 uniform sampler2D depth;
 uniform sampler2D bloom;
+uniform float exposure;
 
 vec3 ACESFilm(vec3 x) {
   float a = 2.51;
@@ -69,15 +73,12 @@ void main() {
   vec3 original = texture2D(img, vTexCoord).rgb;
   vec3 bloomColor = texture2D(bloom, vTexCoord).rgb;
 
-  //Combine in HDR space
-  vec3 hdr = original + bloomColor * 1.0;
+  vec3 hdr = (original + bloomColor * 1.0) * exposure;
 
-  //Apply ACES tonemapping (this fixes bloom clipping)
   hdr = ACESFilm(hdr);
 
-  // 🌫 Depth-based fog AFTER tonemap (more natural falloff)
+  // 🌫 Fog AFTER tonemap
   float depthFactor = pow(texture2D(depth, vTexCoord).r, 10000.0);
-
   vec3 fogColor = vec3(178.0/255.0, 189.0/255.0, 207.0/255.0);
 
   vec3 finalColor = mix(hdr, fogColor, depthFactor);
@@ -763,8 +764,10 @@ function draw() {
       push();
 
         imageLight(reflection1);
-       // imageLight(reflection1);
+
       ambientLight(10);  
+      let c1 = color(100, 100, 100);
+      directionalLight(c1, 0, 90, 0);
         
        // let c = color(100, 100, 100);
          //directionalLight(c, 0, 20, 180);
@@ -1013,6 +1016,9 @@ function draw() {
   }
 
   frameBuffer.end();
+  let lum = estimateSceneLuminance();
+  targetExposure = 0.2 / max(lum, 0.0001);
+  exposure = lerp(exposure, targetExposure, 0.05);
 
   // --- Bloom post-process ---
 
@@ -1076,6 +1082,7 @@ bloomBuffer.end();
   shader(fogShader);
   fogShader.setUniform('img', frameBuffer.color);
   fogShader.setUniform('depth', frameBuffer.depth);
+  fogShader.setUniform('exposure', exposure);
   fogShader.setUniform('bloom', bloomBuffer.color);
   plane(width, height);
 
@@ -1239,4 +1246,27 @@ function glassMaterial() {
   metalness(255);
   //imageLight(reflection1);
   fill(d);
+}
+
+//Auto Adaptation
+function estimateSceneLuminance() {
+  frameBuffer.loadPixels();
+
+  let step = 16; // sample every N pixels (performance knob)
+  let total = 0;
+  let count = 0;
+
+  for (let i = 0; i < frameBuffer.pixels.length; i += step * 4) {
+    let r = frameBuffer.pixels[i] / 255;
+    let g = frameBuffer.pixels[i + 1] / 255;
+    let b = frameBuffer.pixels[i + 2] / 255;
+
+    // perceptual luminance
+    let lum = r * 0.2126 + g * 0.7152 + b * 0.0722;
+
+    total += lum;
+    count++;
+  }
+
+  return total / max(count, 1);
 }
