@@ -114,7 +114,7 @@ uniform vec2 direction;
 uniform vec2 resolution;
 
 void main() {
-  vec2 step = direction * 6.0 / resolution;
+  vec2 step = direction * 3.0 / resolution;
   vec4 color = vec4(0.0);
   color += texture2D(img, vTexCoord - 4.0 * step) * 0.0162;
   color += texture2D(img, vTexCoord - 3.0 * step) * 0.0540;
@@ -388,8 +388,8 @@ function setup() {
   theCanvas = createCanvas(window.innerWidth, window.innerHeight, WEBGL);
   theCanvas.hide();
 
-bloomWidth = Math.floor(width / 2);
-bloomHeight = Math.floor(height / 2);
+bloomWidth = Math.floor(width);
+bloomHeight = Math.floor(height);
 
   fogShader = createShader(vert, frag);
   brightPassShader = createShader(vert, brightPassFrag);
@@ -774,8 +774,6 @@ function draw() {
            model(desks);
 
         specularMaterial(255);
-        shininess(100);
-        metalness(0);
      
 
         shininess(40);
