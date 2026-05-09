@@ -56,7 +56,7 @@ uniform sampler2D bloom;
 void main() {
   vec4 original = texture2D(img, vTexCoord);
   vec4 bloomColor = texture2D(bloom, vTexCoord);
-  vec4 lit = original + bloomColor * 3.0;
+  vec4 lit = original + bloomColor * 1.0;
   gl_FragColor = mix(
     lit,
     vec4(178.0/255.0, 189.0/255.0, 207.0/255.0, 1.0),
@@ -76,8 +76,8 @@ uniform sampler2D img;
 void main() {
   vec4 color = texture2D(img, vTexCoord);
   float brightness = dot(color.rgb, vec3(0.2126, 0.7152, 0.0722));
-  float threshold = 0.001;
-  float extracted = smoothstep(0.1, 0.5, brightness);
+  float threshold = 0.0001;
+  float extracted = smoothstep(0.1, 0.9, brightness);
   gl_FragColor = vec4(color.rgb * extracted, 1.0);
 }
 `;
@@ -93,7 +93,7 @@ uniform vec2 direction;
 uniform vec2 resolution;
 
 void main() {
-  vec2 step = direction * 3.0 / resolution;
+  vec2 step = direction * 6.0 / resolution;
   vec4 color = vec4(0.0);
   color += texture2D(img, vTexCoord - 4.0 * step) * 0.0162;
   color += texture2D(img, vTexCoord - 3.0 * step) * 0.0540;
