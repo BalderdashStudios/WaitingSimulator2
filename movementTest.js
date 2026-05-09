@@ -56,15 +56,33 @@ uniform sampler2D img;
 uniform sampler2D depth;
 uniform sampler2D bloom;
 
+vec3 ACESFilm(vec3 x) {
+  float a = 2.51;
+  float b = 0.03;
+  float c = 2.43;
+  float d = 0.59;
+  float e = 0.14;
+  return clamp((x*(a*x + b)) / (x*(c*x + d) + e), 0.0, 1.0);
+}
+
 void main() {
-  vec4 original = texture2D(img, vTexCoord);
-  vec4 bloomColor = texture2D(bloom, vTexCoord);
-  vec4 lit = original + bloomColor * 1.0;
-  gl_FragColor = mix(
-    lit,
-    vec4(178.0/255.0, 189.0/255.0, 207.0/255.0, 1.0),
-    pow(texture2D(depth, vTexCoord).r, 10000.0)
-  );
+  vec3 original = texture2D(img, vTexCoord).rgb;
+  vec3 bloomColor = texture2D(bloom, vTexCoord).rgb;
+
+  //Combine in HDR space
+  vec3 hdr = original + bloomColor * 1.0;
+
+  //Apply ACES tonemapping (this fixes bloom clipping)
+  hdr = ACESFilm(hdr);
+
+  // 🌫 Depth-based fog AFTER tonemap (more natural falloff)
+  float depthFactor = pow(texture2D(depth, vTexCoord).r, 10000.0);
+
+  vec3 fogColor = vec3(178.0/255.0, 189.0/255.0, 207.0/255.0);
+
+  vec3 finalColor = mix(hdr, fogColor, depthFactor);
+
+  gl_FragColor = vec4(finalColor, 1.0);
 }
 `;
 
