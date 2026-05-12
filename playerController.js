@@ -79,7 +79,7 @@ handleMouseMovement(mx, my) {
       this.y = -3;
       this.deltaSpeed *= 0.5;
     } else {
-      this.y = 0;
+      this.y = this.y;
       this.deltaSpeed = this.playerSpeed * deltaFTime;
     }
     //print(deltaFTime);

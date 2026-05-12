@@ -77,7 +77,7 @@ void main() {
 
   hdr = ACESFilm(hdr);
 
-  // 🌫 Fog AFTER tonemap
+  // Fog AFTER tonemap
   float depthFactor = pow(texture2D(depth, vTexCoord).r, 10000.0);
   vec3 fogColor = vec3(178.0/255.0, 189.0/255.0, 207.0/255.0);
 
@@ -281,6 +281,8 @@ function preload() {
   sofaTex = loadImage('Textures/New/sofa.png');
   deskExecTex = loadImage('Textures/New/desk_executive.png');
   chairLobbyTex = loadImage('Textures/New/ChairLobby01.png');
+    fileBoxTex = loadImage('Textures/New/filebox_1980.png');
+  wallColumnTex = loadImage('Textures/New/office_wallframe.png');
 
   elevatorCageTex = loadImage('Textures/New/elevator_cage.png');
   elevatorFrameworkTex = loadImage('Textures/New/elevator_framework.png');
@@ -316,6 +318,7 @@ function preload() {
   cubicle = loadModel('Models/New/Cubicle.obj');
   yellowDivider = loadModel('Models/New/YellowTrim.obj');
   section2 = loadModel('Models/New/Section2.obj');
+  fileBox = loadModel('Models/New/fileBox.obj');
   //Boss Office
   bossWall = loadModel('Models/New/BossOffice/BossOfficeWallPaper.obj');
   bossFloor = loadModel('Models/New/BossOfficeFloor.obj');
@@ -329,6 +332,7 @@ function preload() {
   sofas = loadModel('Models/New/BossOffice/sofas.obj');
   deskExec = loadModel('Models/New/BossOffice/deskExec.obj');
   chairLobby = loadModel('Models/New/BossOffice/ChairLobby.obj');
+  
 
   vertigoDrywall = loadModel('Models/New/VertigoDryWall.obj');
 
@@ -350,6 +354,7 @@ function preload() {
   meetingRoomTrim2 = loadModel('Models/New/MeetingRoomTrim2.obj');
   section2Padding = loadModel('Models/New/Section2Padding.obj');
   cubicleTrim = loadModel('Models/New/CubicleTrim.obj');
+  wallColumn = loadModel('Models/New/wallColumn.obj');
 
 
   chairs = loadModel('Models/New/Chairs.obj');
@@ -614,7 +619,7 @@ bloomHeight = Math.floor(height);
   ending = [aud1, aud3Doors, aud4MeetingRoom, bossRoomVO, endingVO];
 
   // Initialize the player controller and assign the camera
-  playerController = new PlayerController(0, 0, 200, 1);
+  playerController = new PlayerController(0, -1.5, 200, 1);
   playerController.cam = cam;
 
   if (debug) {
@@ -757,6 +762,7 @@ function draw() {
   push();
     //Orient World To Correct Scaling, Loc, and Rot.
     rotateX(ang(90));
+     //translate(30, 230, -11);
     translate(30, 230, -11);
     scale(8, -8, 8)
 
@@ -812,6 +818,12 @@ function draw() {
 
         texture(officeDoorsTex);
         model(cubicleTrim);
+
+        texture(fileBoxTex);
+        model(fileBox);
+
+        texture(wallColumnTex);
+        model(wallColumn);
           }
 
 
@@ -903,6 +915,7 @@ function draw() {
 
     texture(yellowDividerTex);
     model(yellowDivider);    
+
     
     model(section1Padding);
   } else {
