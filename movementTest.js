@@ -283,6 +283,7 @@ function preload() {
   chairLobbyTex = loadImage('Textures/New/ChairLobby01.png');
     fileBoxTex = loadImage('Textures/New/filebox_1980.png');
   wallColumnTex = loadImage('Textures/New/office_wallframe.png');
+  copyMachineTex = loadImage('Textures/New/lab_copy_machine_broken.png');
 
   elevatorCageTex = loadImage('Textures/New/elevator_cage.png');
   elevatorFrameworkTex = loadImage('Textures/New/elevator_framework.png');
@@ -319,6 +320,7 @@ function preload() {
   yellowDivider = loadModel('Models/New/YellowTrim.obj');
   section2 = loadModel('Models/New/Section2.obj');
   fileBox = loadModel('Models/New/fileBox.obj');
+  copyMachine = loadModel('Models/New/CopyMachine.obj');
   //Boss Office
   bossWall = loadModel('Models/New/BossOffice/BossOfficeWallPaper.obj');
   bossFloor = loadModel('Models/New/BossOfficeFloor.obj');
@@ -379,6 +381,14 @@ function preload() {
   credits = loadModel('Models/New/Credits.obj');
 
   fogCards = loadModel('Models/New/FogCards.obj');
+
+  //White Boards
+  whiteBoard1 = loadModel('Models/New/whiteBoard1.obj');
+  whiteBoard1Tex = loadImage('Textures/New/CS_Whiteboard_01.png');
+   whiteBoard2 = loadModel('Models/New/whiteBoard2.obj');
+  whiteBoard2Tex = loadImage('Textures/New/CS_Whiteboard_02.png');
+   whiteBoard4 = loadModel('Models/New/whiteBoard4.obj');
+  whiteBoard4Tex = loadImage('Textures/New/CS_Whiteboard_04.png');
 }
 
 // Setup function: Runs once at the start
@@ -785,11 +795,7 @@ function draw() {
         specularMaterial(255);
      
 
-        shininess(40);
-        metalness(10);
-        textureWrap(REPEAT);
-        texture(cabTex);
-        model(cabnets);
+     
 
         texture(cubicleDrawers);
         model(deskCabinents);
@@ -824,6 +830,9 @@ function draw() {
 
         texture(wallColumnTex);
         model(wallColumn);
+
+        texture(copyMachineTex);
+        model(copyMachine);
           }
 
 
@@ -854,7 +863,22 @@ function draw() {
         model(sofas);
       }
 
-        pop();
+        pop();   
+        
+        shininess(40);
+        metalness(10);
+        textureWrap(REPEAT);
+        texture(cabTex);
+        model(cabnets);
+
+              texture(whiteBoard1Tex);
+        model(whiteBoard1);
+
+        texture(whiteBoard2Tex);
+        model(whiteBoard2);
+
+        texture(whiteBoard4Tex);
+        model(whiteBoard4);
 
         //fill(255);
         //shininess(0);
