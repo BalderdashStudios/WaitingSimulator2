@@ -389,6 +389,10 @@ function preload() {
   whiteBoard2Tex = loadImage('Textures/New/CS_Whiteboard_02.png');
    whiteBoard4 = loadModel('Models/New/whiteBoard4.obj');
   whiteBoard4Tex = loadImage('Textures/New/CS_Whiteboard_04.png');
+
+  //Conference Table
+  conferenceTable = loadModel('Models/New/conferenceTable.obj');
+  conferenceTableTex = loadImage('Textures/New/conference_table_glass.png');
 }
 
 // Setup function: Runs once at the start
@@ -800,12 +804,7 @@ function draw() {
         texture(cubicleDrawers);
         model(deskCabinents);
 
-                  push();
-          shader(myShader);
-        texture(chairSwivel);
-        model(chairs);
-        pop();
-
+   
         texture(computers1Tex);
         model(computers1);
 
@@ -879,6 +878,15 @@ function draw() {
 
         texture(whiteBoard4Tex);
         model(whiteBoard4);
+
+        texture(conferenceTableTex);
+        model(conferenceTable);
+               
+        push();
+          shader(myShader);
+        texture(chairSwivel);
+        model(chairs);
+        pop();
 
         //fill(255);
         //shininess(0);
