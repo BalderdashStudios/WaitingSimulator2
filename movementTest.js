@@ -338,7 +338,8 @@ function preload() {
 
   vertigoDrywall = loadModel('Models/New/VertigoDryWall.obj');
 
-  lightPanel = loadModel('Models/New/CeilingLight.obj');
+  lightPanelOn = loadModel('Models/New/LightPanelON.obj');
+  lightPanelOff = loadModel('Models/New/LightPanelOFF.obj');
   lightPanelGlass = loadModel('Models/New/CeilingLightGlass.obj');
 
   stairWellWalls = loadModel('Models/New/StairWellWalls.obj');
@@ -671,7 +672,29 @@ myShader = baseMaterialShader().modify({
     }`
   });
 
+  emissiveTexShader = baseMaterialShader().modify({
+
+'Inputs getPixelInputs': `(Inputs inputs) {
+
+    vec4 tex = texture2D(uSampler, inputs.texCoord);
+
+    // perceptual brightness
+    float lum = dot(tex.rgb, vec3(0.2126, 0.7152, 0.0722));
+
+    // make only bright areas emit
+    float emissiveMask = smoothstep(0.7, 1.0, lum);
+
+    // boost HDR intensity
+    vec3 emission = tex.rgb * emissiveMask * 8.0;
+
+    inputs.emissiveColor += emission;
+
+    return inputs;
+}`
+});
+
 }
+
 
 let playerLoc;
 
@@ -888,21 +911,18 @@ function draw() {
         model(chairs);
         pop();
 
-        //fill(255);
-        //shininess(0);
+        //fill(255); 
+        // 
+          
+    
+
         emissiveMaterial(255, 255, 255);
         fill(255);
         model(credits);
         model(mapHiders);
 
-        shininess(20);
-        //emissiveMaterial(255, 255, 255);
-        texture(lightPanelGlassTex);
-        model(lightPanelGlass);
 
-        emissiveMaterial(40, 30, 30);
-        texture(lightPanelTex);
-        model(lightPanel);
+      
       pop();
 
     ambientLight(AMBLightStrength);
@@ -915,6 +935,23 @@ function draw() {
     shininess(10);
     metalness(0);
     noStroke();
+
+          push();
+         shader(emissiveTexShader);
+          texture(lightPanelTex);
+          model(lightPanelOn);
+          resetShader();
+          pop();
+
+                  texture(lightPanelTex);    
+         model(lightPanelOff);
+
+                 push();
+        specularMaterial(255);
+         glassMaterial();
+         //fill(50);
+         model(lightPanelGlass);
+        pop();
   if(!section2Trigger) {
     push();
   //     pointLight(
@@ -951,7 +988,6 @@ function draw() {
     
     model(section1Padding);
   } else {
-
 
     texture(bossWallTex);
     model(bossWall);
