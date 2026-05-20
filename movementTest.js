@@ -394,6 +394,25 @@ function preload() {
   //Conference Table
   conferenceTable = loadModel('Models/New/conferenceTable.obj');
   conferenceTableTex = loadImage('Textures/New/conference_table_glass.png');
+
+  //Glass Mesh
+  glassMesh = loadModel('Models/New/Glass.obj');
+
+  //ProjectorScreen
+  projectorScreen = loadModel('Models/New/ProjectorScreen.obj');
+  projectorScreenTex = loadImage('Textures/New/projector_screen.png');
+
+  //ProjectorImage
+  projectorImage = loadModel('Models/New/ProjectorImage.obj');
+  projectorImageTex = loadImage('Textures/New/ProjectorImage.png');
+
+    //MeetingRoomDocs
+  meetingRoomDocs = loadModel('Models/New/MeetingRoomDocs.obj');
+  meetingRoomDocsTex = loadImage('Textures/New/meetingRoomDocs.png');
+
+      //MeetingRoomEasel
+  meetingRoomEasel = loadModel('Models/New/MeetingRoomEasel.obj');
+  meetingRoomEaselTex = loadImage('Textures/New/meetingRoomEasel.png');
 }
 
 // Setup function: Runs once at the start
@@ -852,9 +871,6 @@ function draw() {
 
         texture(wallColumnTex);
         model(wallColumn);
-
-        texture(copyMachineTex);
-        model(copyMachine);
           }
 
 
@@ -862,9 +878,12 @@ function draw() {
         texture(officeDoorsTex);
         model(officeDoors);
 
+
+
         metalness(0);
         texture(debugTex);
-        model(bossTempWalls);
+        model(bossTempWalls);             
+      
 
         push();
             let c = color(100, 100, 100);
@@ -904,12 +923,39 @@ function draw() {
 
         texture(conferenceTableTex);
         model(conferenceTable);
-               
+
+        texture(copyMachineTex);
+        model(copyMachine);
+
+        texture(meetingRoomDocsTex);
+        model(meetingRoomDocs);
+
+        texture(meetingRoomEaselTex);
+        model(meetingRoomEasel);
+
+     
         push();
           shader(myShader);
         texture(chairSwivel);
         model(chairs);
         pop();
+
+        push();
+          //normalMaterial();
+          //shader(emissiveTexShader);
+          
+           noLights();
+           texture(projectorScreenTex);
+           ambientLight(50);
+           //emissiveMaterial(255, 255, 255);
+           //fill(255);
+        model(projectorScreen);
+        ambientLight(150);
+        texture(projectorImageTex);
+           model(projectorImage);
+        pop();
+               
+
 
         //fill(255); 
         // 
@@ -987,6 +1033,13 @@ function draw() {
 
     
     model(section1Padding);
+
+            push();
+                specularMaterial(255);
+         glassMaterial();
+         //fill(50);
+         model(glassMesh);
+         pop();
   } else {
 
     texture(bossWallTex);
@@ -1049,6 +1102,13 @@ function draw() {
     texture(elevatorFrameworkTex);
     model(elevatorFramework);
 
+            push();
+                specularMaterial(255);
+         glassMaterial();
+         //fill(50);
+         model(glassMesh);
+         pop();
+
     //emissiveMaterial(20, 20, 20);
     //shininess(0);
     //specularMaterial(0)
@@ -1070,6 +1130,8 @@ function draw() {
       
       texture(fogTex);
       model(fogCards);
+
+
   }
 
 
@@ -1077,11 +1139,12 @@ function draw() {
     pop();
 
     //For Glass
-    push();
-    noStroke();
-    glassMaterial();
-    translate(23, 0, 210);
-    box(15, 11, 1);
+    // push();
+    // noStroke();
+    // glassMaterial();
+    // model(glassMesh);
+    //translate(23, 0, 210);
+    //box(15, 11, 1);
   pop();
 
   if (gameManagerMain.checkEnding(ending)) {
