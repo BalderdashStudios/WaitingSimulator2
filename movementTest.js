@@ -259,7 +259,7 @@ function preload() {
   s2FloorTex = loadImage('Textures/New/FloorBake2.png');
   s2WallsTex = loadImage('Textures/New/S2WallBake.png');
   s2TrimTex = loadImage('Textures/New/TrimBake.png');
-  s2RoofTex = loadImage('Textures/New/CeilingBake.png');
+  s2RoofTex = loadImage('Textures/New/CeilingBakeS2.png');
   chairSwivel = loadImage('Textures/New/chair_swivel.png');
   cubicleDrawers = loadImage('Textures/New/cubicle_desk_drawers.png');
   computers1Tex = loadImage('Textures/New/computer_monitor01.png');
