@@ -413,6 +413,9 @@ function preload() {
       //MeetingRoomEasel
   meetingRoomEasel = loadModel('Models/New/MeetingRoomEasel.obj');
   meetingRoomEaselTex = loadImage('Textures/New/meetingRoomEasel.png');
+
+  //Map Spacers
+  mapSpacers = loadModel('Models/New/MapSpacers.obj');
 }
 
 // Setup function: Runs once at the start
@@ -1031,8 +1034,8 @@ function draw() {
     texture(yellowDividerTex);
     model(yellowDivider);    
 
-    
-    model(section1Padding);
+   model(section1Padding);
+    //model(mapSpacers);
 
             push();
                 specularMaterial(255);
@@ -1041,6 +1044,7 @@ function draw() {
          model(glassMesh);
          pop();
   } else {
+     model(mapSpacers);
 
     texture(bossWallTex);
     model(bossWall);
