@@ -416,6 +416,10 @@ function preload() {
 
   //Map Spacers
   mapSpacers = loadModel('Models/New/MapSpacers.obj');
+
+  //PaddedChairs (Seen in 2 doors)
+  paddedChairs = loadModel('Models/New/PaddedChairs.obj');
+  paddedChairsTex = loadImage('Textures/New/chair_office_padded_1980.png');
 }
 
 // Setup function: Runs once at the start
@@ -1034,6 +1038,7 @@ function draw() {
     texture(yellowDividerTex);
     model(yellowDivider);    
 
+    fill(70);
    model(section1Padding);
     //model(mapSpacers);
 
