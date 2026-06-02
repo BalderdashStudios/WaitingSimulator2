@@ -417,8 +417,11 @@ function preload() {
   //Map Spacers
   mapSpacers = loadModel('Models/New/MapSpacers.obj');
 
+  //SquareBeamsTex
+  squareBeamsTex = loadImage('Textures/New/squarebeams_main.png');
+
   //PaddedChairs (Seen in 2 doors)
-  paddedChairs = loadModel('Models/New/PaddedChairs.obj');
+  paddedChairs = loadModel('Models/New/paddedChair.obj');
   paddedChairsTex = loadImage('Textures/New/chair_office_padded_1980.png');
 }
 
@@ -940,6 +943,14 @@ function draw() {
         texture(meetingRoomEaselTex);
         model(meetingRoomEasel);
 
+
+              texture(paddedChairsTex);
+        model(paddedChairs);
+
+        texture(squareBeamsTex);
+            model(meetingRoomTrim2);
+                model(meetingRoomTrim);
+
      
         push();
           shader(myShader);
@@ -1071,10 +1082,9 @@ function draw() {
 
     texture(meetingRoomWallTex);
     model(meetingRoomWalls);
-
-    model(meetingRoomTrim);
-    model(meetingRoomTrim2);
     model(section2Padding);
+
+    
 
 
       push()
