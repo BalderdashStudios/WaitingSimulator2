@@ -423,6 +423,14 @@ function preload() {
   //PaddedChairs (Seen in 2 doors)
   paddedChairs = loadModel('Models/New/paddedChair.obj');
   paddedChairsTex = loadImage('Textures/New/chair_office_padded_1980.png');
+
+  //Boss Office Large BookShelf
+  bookShelfLarge = loadModel('Models/New/BossOffice/officeBookShelvesLarge.obj');
+  bookShelfLargeTex = loadImage('Textures/New/bookcase_large.png');
+
+    //Boss Office Small BookShelf
+  bookShelfSmall = loadModel('Models/New/BossOffice/officeBookShelvesSmall.obj');
+  bookShelfSmallTex = loadImage('Textures/New/bookcase_small.png');
 }
 
 // Setup function: Runs once at the start
@@ -908,6 +916,12 @@ function draw() {
         model(deskExec);
         texture(chairLobbyTex);
         model(chairLobby);
+
+        texture(bookShelfLargeTex);
+        model(bookShelfLarge);
+
+        texture(bookShelfSmallTex);
+        model(bookShelfSmall);
 
         shininess(20);
         texture(sofaTex);
