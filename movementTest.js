@@ -431,6 +431,14 @@ function preload() {
     //Boss Office Small BookShelf
   bookShelfSmall = loadModel('Models/New/BossOffice/officeBookShelvesSmall.obj');
   bookShelfSmallTex = loadImage('Textures/New/bookcase_small.png');
+
+  // Vertigo Drywall Base
+  vertigoDrywallBase = loadModel('Models/New/vertigo_drywall_base.obj');
+  vertigoDrywallBaseTex = loadImage('Textures/New/vertigo_drywall_base.png');
+
+    // Vertigo Drywall Base
+  vertigoCeiling = loadModel('Models/New/vertigo_ceiling.obj');
+  vertigoCeilingTex = loadImage('Textures/New/vertigo_ceilingb.png');
 }
 
 // Setup function: Runs once at the start
@@ -898,9 +906,9 @@ function draw() {
 
 
 
-        metalness(0);
-        texture(debugTex);
-        model(bossTempWalls);             
+       // metalness(0);
+        //texture(debugTex);
+        //model(bossTempWalls);             
       
 
         push();
@@ -1121,6 +1129,12 @@ function draw() {
 
     texture(vertigoDrywallTex);
     model(vertigoDrywall);
+
+    texture(vertigoDrywallBaseTex);
+    model(vertigoDrywallBase);
+
+    texture(vertigoCeilingTex);
+    model(vertigoCeiling);
 
     texture(bossDetail2Tex);
     model(bossDetail2);
