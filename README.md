@@ -1,9 +1,5 @@
-# p5.js
+# Waiting Simulator 2
+Hey! My name's Harvey, I initally built this in 8th grade for a summer camp at the CS Academy, what started as a joke project about trying to push p5.js to its limits quickly evolved over the years to a sudo-playable recreation of "The Stanley Parable." 
 
-This is the Template Repl for p5.js.
-
-p5.js is a JavaScript library for creative coding, with a focus on making coding accessible and inclusive for artists, designers, educators, beginners, and anyone else! p5.js is free and open-source because we believe software, and the tools to learn it, should be accessible to everyone.
-
-[Check out the official docs here](https://p5js.org/reference/).
-
+"Good things come to those who wait."
 
